@@ -1,4 +1,4 @@
-/* ======= ESTILOS GENERALES ======= */
+/* ======= ESTILOS Header ======= */
 :root {
     --primary-color: #007bff;
     --dark-text: #333;
@@ -81,7 +81,9 @@
     }
 }
 
-/* ======= ESTILOS DE TARJETAS DE PRODUCTOS ======= */
+/* ======= FIN DE ESTILOS HEADER ======= */
+
+/* ======= ESTILOS DE productos ======= */
 .card {
     border: none;
     border-radius: 10px;
@@ -170,3 +172,359 @@
 .card:nth-child(4) { animation-delay: 0.4s; }
 .card:nth-child(5) { animation-delay: 0.5s; }
 .card:nth-child(6) { animation-delay: 0.6s; }
+
+/* fin de ESTILOS DE productos */
+
+/* ======= ESTILOS CART ======= */
+
+/* Estilos para la página de detalles */
+.container {
+    padding: 2rem;
+}
+
+.img-fluid {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.img-fluid:hover {
+    transform: scale(1.05);
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.lead {
+    font-size: 1.25rem;
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+.detalles-tecnicos {
+    background: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-top: 2rem;
+}
+
+.detalles-tecnicos h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+.detalles-tecnicos ul {
+    list-style: none;
+    padding: 0;
+}
+
+.detalles-tecnicos ul li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.detalles-tecnicos ul li:last-child {
+    border-bottom: none;
+}
+
+.btn-primary, .btn-warning {
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+    margin-right: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary:hover, .btn-warning:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.reseñas {
+    margin-top: 3rem;
+}
+
+.reseñas h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+.reseña {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+}
+
+.reseña h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.reseña p {
+    color: #555;
+}
+
+/* fin de ESTILOS CART */
+
+/* estilos para el footer */
+
+/* ======= SECCIÓN DE CONTACTO ======= */
+.contact {
+    padding: 60px 0;
+    background: #f8f9fa;
+}
+
+.section-title h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.info-box {
+    background: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+}
+
+.info-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.info-box i {
+    font-size: 2rem;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.info-box h3 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.info-box p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* ======= RESPONSIVE ======= */
+@media (max-width: 768px) {
+    .info-box {
+        margin-bottom: 20px;
+    }
+
+    .section-title h2 {
+        font-size: 1.8rem;
+    }
+}
+
+/* Estilos para la página de detalles */
+.container {
+    padding: 2rem;
+}
+
+.img-fluid {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.img-fluid:hover {
+    transform: scale(1.05);
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.lead {
+    font-size: 1.25rem;
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+.detalles-tecnicos {
+    background: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-top: 2rem;
+}
+
+.detalles-tecnicos h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+.detalles-tecnicos ul {
+    list-style: none;
+    padding: 0;
+}
+
+.detalles-tecnicos ul li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.detalles-tecnicos ul li:last-child {
+    border-bottom: none;
+}
+
+.btn-primary, .btn-warning {
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+    margin-right: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary:hover, .btn-warning:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.reseñas {
+    margin-top: 3rem;
+}
+
+.reseñas h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+.reseña {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+}
+
+.reseña h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.reseña p {
+    color: #555;
+}
+
+.footer-container {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 40px 20px;
+    font-family: 'Poppins', sans-serif; /* Cambiamos la fuente principal */
+}
+
+/* Contenido del footer */
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    text-align: left;
+}
+
+/* Secciones dentro del footer */
+.footer-section {
+    max-width: 300px;
+}
+
+.footer-section h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: #f39926;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 5px;
+}
+
+.footer-section ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+    color: #f39926;
+}
+
+/* Redes Sociales */
+.footer-social {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.social-icon {
+    font-size: 1.5rem;
+    color: white;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+    color: #f39926;
+}
+
+/* Botón de Libro de Reclamaciones */
+.btn-reclamaciones {
+    display: inline-block;
+    background-color: #f39926;
+    color: white;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    margin-left: 15px;
+}
+
+.btn-reclamaciones:hover {
+    background-color: #d87e1f;
+}
+
+/* Copyright (Ocupa todo el ancho y está abajo) */
+.footer-bottom {
+    width: 100%;
+    background-color: #0d0d0d;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 20px;
+}
+
+/* 📌 RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-section {
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .footer-social {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+}
