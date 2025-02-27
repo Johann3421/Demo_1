@@ -11,6 +11,7 @@
     <meta name="description" content="Explora nuestra selección de productos de alta calidad y encuentra lo que necesitas al mejor precio.">
     <meta name="keywords" content="productos, tienda online, ecommerce, ofertas">
     <meta name="robots" content="index, follow">
+    <link rel="icon" href="{{ asset('images/logo2.ico') }}" type="image/x-icon">
 
 </head>
 <body>

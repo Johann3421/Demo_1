@@ -24,3 +24,7 @@ Route::get('/favoritos', [FavoriteController::class, 'viewFavorites'])->name('fa
 Route::get('/producto/{id}/detalle', 'ProductoController@detalle')->name('producto.detalle');
 
 Route::get('/producto/{id}', [ProductController::class, 'show'])->name('producto.detalles');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');

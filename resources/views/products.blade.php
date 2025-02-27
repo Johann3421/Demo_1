@@ -25,8 +25,8 @@
 
     <div class="col-md-4">
         <div class="card">
-        <a href="{{ route('producto.detalles', ['id' => 2]) }}">
-            <img src="{{ asset('images/laptop.webp') }}" class="card-img-top" alt="Laptop Genérica">
+            <a href="{{ route('producto.detalles', ['id' => 2]) }}">
+                <img src="{{ asset('images/laptop.webp') }}" class="card-img-top" alt="Laptop Genérica">
             </a>
             <div class="card-body">
                 <h5 class="card-title">Laptop Intel Core I5 16gb 512gb Ssd Ideapad Slim 3i 12° Gen Fhd</h5>
@@ -40,8 +40,8 @@
 
     <div class="col-md-4">
         <div class="card">
-        <a href="{{ route('producto.detalles', ['id' => 3]) }}">
-            <img src="{{ asset('images/monitor.jfif') }}" class="card-img-top" alt="Pantalla Genérica">
+            <a href="{{ route('producto.detalles', ['id' => 3]) }}">
+                <img src="{{ asset('images/monitor.jfif') }}" class="card-img-top" alt="Pantalla Genérica">
             </a>
             <div class="card-body">
                 <h5 class="card-title">Monitor plano 21.5" Teros TE-2127S Panel IPS, FHD (1920 x 1080), 100Hz, 1ms, entradas HDMI/VGA</h5>
@@ -56,8 +56,8 @@
     <!-- Productos Específicos -->
     <div class="col-md-4">
         <div class="card">
-        <a href="{{ route('producto.detalles', ['id' => 2]) }}">
-            <img src="{{ asset('images/laptop.webp') }}" class="card-img-top" alt="Producto Exclusivo 1">
+            <a href="{{ route('producto.detalles', ['id' => 2]) }}">
+                <img src="{{ asset('images/laptop.webp') }}" class="card-img-top" alt="Producto Exclusivo 1">
             </a>
             <div class="card-body">
                 <h5 class="card-title">Laptop Exclusiva KenyaPro X1</h5>
@@ -71,8 +71,8 @@
 
     <div class="col-md-4">
         <div class="card">
-        <a href="{{ route('producto.detalles', ['id' => 1]) }}">
-            <img src="{{ asset('images/rtx.webp') }}" class="card-img-top" alt="Producto Exclusivo 2">
+            <a href="{{ route('producto.detalles', ['id' => 1]) }}">
+                <img src="{{ asset('images/rtx.webp') }}" class="card-img-top" alt="Producto Exclusivo 2">
             </a>
             <div class="card-body">
                 <h5 class="card-title">Tarjeta de Video KenyaUltra RTX</h5>
@@ -86,8 +86,8 @@
 
     <div class="col-md-4">
         <div class="card">
-        <a href="{{ route('producto.detalles', ['id' => 3]) }}">
-            <img src="{{ asset('images/monitor.jfif') }}" class="card-img-top" alt="Producto Exclusivo 3">
+            <a href="{{ route('producto.detalles', ['id' => 3]) }}">
+                <img src="{{ asset('images/monitor.jfif') }}" class="card-img-top" alt="Producto Exclusivo 3">
             </a>
             <div class="card-body">
                 <h5 class="card-title">Pantalla KenyaView 4K</h5>
@@ -101,35 +101,41 @@
 </div>
 
 <script>
+    // Simular tiempo de carga
+    document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(function() {
+            document.querySelectorAll('.card').forEach(card => {
+                card.style.opacity = '1';
+            });
+        }, 500); // 500ms de retraso
+    });
+
+    // Funcionalidad de añadir al carrito y favoritos
     document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', function() {
             fetch("{{ route('cart.add') }}", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                    },
-                    body: JSON.stringify({
-                        id: this.dataset.id
-                    })
-                }).then(response => response.json())
-                .then(data => alert('Producto añadido al carrito'));
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                },
+                body: JSON.stringify({ id: this.dataset.id })
+            }).then(response => response.json())
+              .then(data => alert('Producto añadido al carrito'));
         });
     });
 
     document.querySelectorAll('.add-to-favorites').forEach(button => {
         button.addEventListener('click', function() {
             fetch("{{ route('favorites.add') }}", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                    },
-                    body: JSON.stringify({
-                        id: this.dataset.id
-                    })
-                }).then(response => response.json())
-                .then(data => alert('Producto añadido a favoritos'));
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                },
+                body: JSON.stringify({ id: this.dataset.id })
+            }).then(response => response.json())
+              .then(data => alert('Producto añadido a favoritos'));
         });
     });
 </script>
