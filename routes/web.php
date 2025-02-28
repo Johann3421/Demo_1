@@ -28,3 +28,5 @@ Route::get('/producto/{id}', [ProductController::class, 'show'])->name('producto
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
+
+Route::get('/search', [ProductController::class, 'search'])->name('search');

@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -43,5 +44,12 @@ class ProductController extends Controller
         'producto' => $productos[$id],
         'id' => $id // Pasamos el ID del producto
     ]);
+}
+
+public function search(Request $request)
+{
+    $query = $request->input('query');
+    $products = Producto::where('name', 'like', "%$query%")->get();
+    return view('search-results', compact('products', 'query'));
 }
 }

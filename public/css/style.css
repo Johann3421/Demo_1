@@ -1,15 +1,25 @@
-/* ======= ESTILOS Header ======= */
-:root {
-    --primary-color: #007bff;
-    --dark-text: #333;
-    --light-text: #555;
-    --transition: 0.3s ease-in-out;
+/* ======= ESTILOS GENERALES ======= */
+html, body {
+    width: 100%;
+    overflow-x: hidden; /* Evita el desplazamiento horizontal */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* ======= HEADER RESPONSIVO ======= */
 .header {
     border-bottom: 3px solid var(--primary-color);
     padding: 1rem 0;
+    width: 100%;
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
 }
 
 .logo {
@@ -34,33 +44,70 @@
     font-size: 1.1rem;
     letter-spacing: 0.5px;
     transition: color var(--transition);
+    display: flex;
+    align-items: center; /* Alinea el icono y el texto verticalmente */
 }
 
 .nav-link:hover {
     color: var(--primary-color);
 }
 
-/* Botón de contacto */
-.btn-primary {
-    background-color: var(--primary-color);
-    border: none;
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    transition: background var(--transition);
+/* Icono del carrito */
+.nav-link .fas.fa-shopping-cart {
+    margin-right: 0.5rem; /* Espacio entre el icono y el texto */
 }
 
+/* Botón de contacto mejorado */
+.btn-primary {
+    background-color: var(--primary-color); /* Color de fondo inicial */
+    border: none;
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem; /* Más padding para un mejor aspecto */
+    transition: all 0.3s ease; /* Transición suave para todos los efectos */
+    color: rgb(0, 0, 0); /* Color del texto */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    font-weight: 600; /* Texto en negrita */
+    letter-spacing: 0.5px; /* Espaciado entre letras */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; /* Espacio entre icono y texto */
+}
+
+/* Efecto hover */
 .btn-primary:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Cambio de color al pasar el mouse */
+    transform: translateY(-2px); /* Efecto de elevación */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+}
+
+/* Efecto active (al hacer clic) */
+.btn-primary:active {
+    transform: translateY(0); /* Vuelve a la posición original */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Icono dentro del botón (opcional) */
+.btn-primary .fas {
+    font-size: 1.2rem; /* Tamaño del icono */
 }
 
 /* ======= MENÚ RESPONSIVO ======= */
 .navbar-toggler {
     border: none;
     outline: none;
+    padding: 0.5rem;
 }
 
 .navbar-toggler:focus {
     box-shadow: none;
+}
+
+.navbar-toggler-icon {
+    font-size: 1.5rem;
+    color: var(--primary-color);
 }
 
 .collapse.navbar-collapse {
@@ -79,11 +126,42 @@
     .btn-primary {
         width: 100%;
     }
-}
 
+    .search-form {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    .search-button {
+        width: 100%;
+    }
+
+    /* Asegura que el menú no cause desplazamiento horizontal */
+    .navbar-collapse {
+        max-width: 100%;
+        overflow: hidden;
+    }
+}
 /* ======= FIN DE ESTILOS HEADER ======= */
 
-/* ======= ESTILOS DE productos ======= */
+/* ======= ESTILOS DE PRODUCTOS ======= */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem; /* Espacio entre tarjetas */
+    margin-top: 1rem;
+}
+
+.col-md-4 {
+    flex: 1 1 calc(33.333% - 1rem); /* 3 columnas en desktop */
+    max-width: calc(33.333% - 1rem);
+    display: flex;
+}
+
 .card {
     border: none;
     border-radius: 10px;
@@ -93,6 +171,10 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     opacity: 0;
     animation: fadeIn 0.5s ease forwards;
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Asegura que la tarjeta ocupe todo el ancho de la columna */
+    height: 100%; /* Asegura que todas las tarjetas tengan la misma altura */
 }
 
 .card:hover {
@@ -102,7 +184,7 @@
 
 .card-img-top {
     width: 100%;
-    height: 200px;
+    height: 200px; /* Altura fija para las imágenes */
     object-fit: cover;
     transition: transform var(--transition);
 }
@@ -113,18 +195,34 @@
 
 .card-body {
     padding: 1.5rem;
+    flex: 1; /* Hace que el cuerpo de la tarjeta ocupe el espacio restante */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribuye el espacio entre los elementos */
 }
 
 .card-title {
     font-size: 1.25rem;
     font-weight: bold;
     margin-bottom: 0.75rem;
+    height: 3rem; /* Altura fija para los títulos */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limita el título a 2 líneas */
+    -webkit-box-orient: vertical;
 }
 
 .card-text {
     font-size: 0.9rem;
     color: var(--light-text);
     margin-bottom: 1rem;
+    flex: 1; /* Hace que la descripción ocupe el espacio restante */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limita la descripción a 3 líneas */
+    -webkit-box-orient: vertical;
 }
 
 /* Botones de productos */
@@ -133,6 +231,8 @@
     padding: 0.5rem 1rem;
     margin-right: 0.5rem;
     transition: background var(--transition), transform var(--transition);
+    width: 100%; /* Botones de ancho completo */
+    margin-top: 0.5rem; /* Espacio entre botones */
 }
 
 .btn-primary:hover, .btn-warning:hover {
@@ -140,16 +240,10 @@
 }
 
 /* ======= DISEÑO RESPONSIVO DE TARJETAS ======= */
-.product-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
 @media (max-width: 768px) {
-    .product-container {
-        grid-template-columns: 1fr; /* Una columna en móviles */
+    .col-md-4 {
+        flex: 1 1 100%; /* Una columna en móviles */
+        max-width: 100%;
     }
 }
 
@@ -173,7 +267,7 @@
 .card:nth-child(5) { animation-delay: 0.5s; }
 .card:nth-child(6) { animation-delay: 0.6s; }
 
-/* fin de ESTILOS DE productos */
+/* Fin de ESTILOS DE PRODUCTOS */
 
 /* ======= ESTILOS CART ======= */
 
@@ -527,4 +621,59 @@ h1 {
         align-items: center;
         gap: 10px;
     }
+}
+
+/* fin de estilos para el footer */
+
+/* estilos para el Buscador */
+
+/* public/css/style.css */
+.search-form {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.search-input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    width: 300px;
+}
+
+.search-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    background-color: #007bff;
+    color: white;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.product-item {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    width: calc(33.333% - 20px);
+    box-sizing: border-box;
+}
+
+.product-item h2 {
+    margin: 0 0 10px;
+}
+
+.product-item p {
+    margin: 0;
 }

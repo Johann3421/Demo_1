@@ -29,7 +29,7 @@
                 <img src="{{ asset('images/laptop.webp') }}" class="card-img-top" alt="Laptop Genérica">
             </a>
             <div class="card-body">
-                <h5 class="card-title">Laptop Intel Core I5 16gb 512gb Ssd Ideapad Slim 3i 12° Gen Fhd</h5>
+                <h5 class="card-title">Laptop Lenovo Intel Core I5 16gb 512gb Ssd Ideapad Slim 3i 12° Gen Fhd</h5>
                 <p class="card-text">Laptop potente y ligera para trabajo y entretenimiento.</p>
                 <p class="card-text"><strong>Precio: $799.99</strong></p>
                 <button class="btn btn-primary add-to-cart" data-id="2">Añadir al Carrito</button>
