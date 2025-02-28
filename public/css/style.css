@@ -677,3 +677,132 @@ h1 {
 .product-item p {
     margin: 0;
 }
+
+/* fin de estilos para el Buscador */
+
+/* ======= ESTILOS DEL SLIDER ======= */
+.slider-section {
+    background-color: #f8f9fa;
+    padding: 2rem 0;
+}
+
+.carousel-item {
+    padding: 2rem 0;
+}
+
+.carousel-item .row {
+    display: flex;
+    flex-wrap: nowrap; /* Evita que las columnas se apilen */
+    justify-content: space-between; /* Distribuye los elementos sin encimar */
+    align-items: center; /* Centra verticalmente */
+    width: 100%; /* Asegura que ocupe todo el espacio disponible */
+    margin: 0 auto; /* Centra el contenido horizontalmente */
+}
+
+
+.carousel-item h1 .text-sekai {
+    color: #007bff; /* Azul para SEKAI */
+}
+
+.carousel-item h1 .text-tech {
+    color: #343a40; /* Gris oscuro para TECH */
+}
+
+.carousel-item .col-md-6 {
+    flex: 0 0 50%; /* Cada columna ocupa el 50% del ancho */
+    max-width: 50%;
+    padding: 0 15px; /* Espaciado interno */
+    text-align: center;
+}
+
+/* Asegurar que la imagen no cambie de tamaño */
+.carousel-item img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Botón */
+.carousel-item .btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.carousel-item .btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Controles del slider */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #007bff;
+    border-radius: 50%;
+    padding: 1rem;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+}
+
+/* Indicadores */
+.carousel-indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 60%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.carousel-indicators li {
+    width: 12px;
+    height: 12px;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-indicators .active i {
+    color: #007bff;
+}
+
+.carousel-indicators i {
+    font-size: 10px;
+    color: #ccc;
+    transition: color 0.3s ease;
+}
+
+.btn-whatsapp {
+    background-color: #25D366; /* Verde oficial de WhatsApp */
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-whatsapp:hover {
+    background-color: #1ebe57;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-whatsapp i {
+    font-size: 1.2rem;
+}
