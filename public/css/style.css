@@ -268,95 +268,117 @@ html, body {
 /* ======= ESTILOS CART ======= */
 
 /* Estilos para la página de detalles */
-.container {
-    padding: 2rem;
+/* 🛍 Contenedor principal */
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: flex-start;
 }
 
-.img-fluid {
+/* 📷 Galería de imágenes */
+.product-gallery {
+    flex: 1 1 45%;
+    text-align: center;
+}
+
+.product-main-image img {
+    width: 100%;
+    max-width: 500px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
 
-.img-fluid:hover {
+.product-main-image img:hover {
     transform: scale(1.05);
 }
 
-h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
+.product-thumbnails {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
 }
 
-.lead {
-    font-size: 1.25rem;
-    color: #555;
-    margin-bottom: 1.5rem;
-}
-
-.detalles-tecnicos {
-    background: #f9f9f9;
-    padding: 1.5rem;
-    border-radius: 10px;
-    margin-top: 2rem;
-}
-
-.detalles-tecnicos h2 {
-    font-size: 1.75rem;
-    margin-bottom: 1rem;
-}
-
-.detalles-tecnicos ul {
-    list-style: none;
-    padding: 0;
-}
-
-.detalles-tecnicos ul li {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #eee;
-}
-
-.detalles-tecnicos ul li:last-child {
-    border-bottom: none;
-}
-
-.btn-primary, .btn-warning {
-    font-size: 1rem;
-    padding: 0.75rem 1.5rem;
-    margin-right: 1rem;
+.product-thumbnails img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 8px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.btn-primary:hover, .btn-warning:hover {
+.product-thumbnails img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* 📄 Información del producto */
+.product-info {
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.product-title {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.product-description {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.product-price {
+    font-size: 1.8rem;
+    color: #28a745;
+    font-weight: bold;
+}
+
+/* 🛒 Botones */
+.product-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 1rem;
+}
+
+.product-buttons .btn {
+    font-size: 1.1rem;
+    padding: 0.75rem 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-buttons .btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.reseñas {
-    margin-top: 3rem;
+/* 📱 Responsive */
+@media (max-width: 768px) {
+    .product-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .product-gallery {
+        width: 100%;
+    }
+
+    .product-info {
+        width: 100%;
+    }
+
+    .product-buttons {
+        justify-content: center;
+    }
 }
 
-.reseñas h2 {
-    font-size: 1.75rem;
-    margin-bottom: 1rem;
-}
-
-.reseña {
-    background: #fff;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 1rem;
-}
-
-.reseña h3 {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-}
-
-.reseña p {
-    color: #555;
-}
 
 /* fin de ESTILOS CART */
 
@@ -896,3 +918,6 @@ main {
         width: 100%;
     }
 }
+
+/* fin de estilos del aside */
+

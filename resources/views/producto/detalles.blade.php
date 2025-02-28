@@ -5,92 +5,92 @@
 @section('meta-description', $producto['descripcion'])
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <!-- Galería de Imágenes -->
-            <div class="col-md-6">
-                <div class="mb-4">
-                    <img src="{{ asset('images/' . $producto['imagen']) }}" class="img-fluid" alt="{{ $producto['nombre'] }}">
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <img src="{{ asset('images/' . $producto['imagen']) }}" class="img-fluid mb-2" alt="Miniatura 1">
-                    </div>
-                    <div class="col-4">
-                        <img src="{{ asset('images/' . $producto['imagen']) }}" class="img-fluid mb-2" alt="Miniatura 2">
-                    </div>
-                    <div class="col-4">
-                        <img src="{{ asset('images/' . $producto['imagen']) }}" class="img-fluid mb-2" alt="Miniatura 3">
-                    </div>
-                </div>
+<div class="container product-page">
+    <div class="row">
+        <!-- 📷 Galería de imágenes -->
+        <div class="product-gallery">
+            <div class="product-main-image">
+                <img src="{{ asset('images/' . $producto['imagen']) }}" alt="{{ $producto['nombre'] }}">
             </div>
+            <div class="product-thumbnails">
+                <img src="{{ asset('images/' . $producto['imagen']) }}" class="thumb" alt="Miniatura 1">
+                <img src="{{ asset('images/' . $producto['imagen']) }}" class="thumb" alt="Miniatura 2">
+                <img src="{{ asset('images/' . $producto['imagen']) }}" class="thumb" alt="Miniatura 3">
+            </div>
+        </div>
 
-            <!-- Detalles del Producto -->
-            <div class="col-md-6">
-                <h1>{{ $producto['nombre'] }}</h1>
-                <p class="lead">{{ $producto['descripcion'] }}</p>
-                <p><strong>Precio: {{ $producto['precio'] }}</strong></p>
-                <button class="btn btn-primary add-to-cart" data-id="{{ $id }}">Añadir al Carrito</button>
-                <button class="btn btn-warning add-to-favorites" data-id="{{ $id }}">❤️ Favorito</button>
+        <!-- 📄 Información del producto -->
+         <!-- 📄 Información del producto con SEO optimizado -->
+         <div class="product-info">
+                <h1 class="product-title">{{ $producto['nombre'] }}</h1>
+                <meta itemprop="brand" content="{{ $producto['marca'] }}">
+                <meta itemprop="description" content="{{ $producto['descripcion'] }}">
+                <meta itemprop="sku" content="{{ $producto['id'] }}">
 
-                <!-- Especificaciones Técnicas -->
-                <div class="detalles-tecnicos mt-4">
-                    <h2>Especificaciones Técnicas</h2>
-                    <ul>
-                        <li><strong>Marca:</strong> {{ $producto['marca'] ?? 'N/A' }}</li>
-                        <li><strong>Modelo:</strong> {{ $producto['modelo'] ?? 'N/A' }}</li>
-                        <li><strong>Procesador:</strong> {{ $producto['procesador'] ?? 'N/A' }}</li>
-                        <li><strong>Memoria RAM:</strong> {{ $producto['ram'] ?? 'N/A' }}</li>
-                        <li><strong>Almacenamiento:</strong> {{ $producto['almacenamiento'] ?? 'N/A' }}</li>
-                        <li><strong>Pantalla:</strong> {{ $producto['pantalla'] ?? 'N/A' }}</li>
-                        <li><strong>Gráficos:</strong> {{ $producto['graficos'] ?? 'N/A' }}</li>
-                    </ul>
+                <p class="product-description">{{ $producto['descripcion'] }}</p>
+                <p class="product-price"><strong>Precio:</strong> <span>${{ number_format((float) $producto['precio'], 2) }}</span></p>
+
+                <div class="product-buttons">
+                    <button class="btn btn-primary add-to-cart" data-id="{{ $id }}">
+                        <i class="fas fa-shopping-cart"></i> Añadir al Carrito
+                    </button>
+                    <button class="btn btn-outline-danger add-to-favorites" data-id="{{ $id }}">
+                        <i class="fas fa-heart"></i> Favorito
+                    </button>
                 </div>
             </div>
         </div>
 
-        <!-- Reseñas de Usuarios -->
-        <div class="reseñas mt-5">
-            <h2>Reseñas de Usuarios</h2>
-            <div class="reseña">
-                <h3>Juan Pérez</h3>
-                <p>¡Excelente producto! Lo recomiendo totalmente.</p>
-            </div>
-            <div class="reseña">
-                <h3>María Gómez</h3>
-                <p>Muy buena calidad, cumple con todas mis expectativas.</p>
-            </div>
+    <!-- 🛠 Especificaciones Técnicas -->
+    <div class="product-specs mt-4">
+        <h2>Especificaciones Técnicas</h2>
+        <div class="row">
+            <div class="col-md-6"><strong>Marca:</strong> {{ $producto['marca'] ?? 'N/A' }}</div>
+            <div class="col-md-6"><strong>Modelo:</strong> {{ $producto['modelo'] ?? 'N/A' }}</div>
+            <div class="col-md-6"><strong>Procesador:</strong> {{ $producto['procesador'] ?? 'N/A' }}</div>
+            <div class="col-md-6"><strong>Memoria RAM:</strong> {{ $producto['ram'] ?? 'N/A' }}</div>
+            <div class="col-md-6"><strong>Almacenamiento:</strong> {{ $producto['almacenamiento'] ?? 'N/A' }}</div>
+            <div class="col-md-6"><strong>Pantalla:</strong> {{ $producto['pantalla'] ?? 'N/A' }}</div>
+            <div class="col-md-6"><strong>Gráficos:</strong> {{ $producto['graficos'] ?? 'N/A' }}</div>
         </div>
     </div>
 
-    <script>
-        // Funcionalidad de añadir al carrito y favoritos
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', function() {
-                fetch("{{ route('cart.add') }}", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                    },
-                    body: JSON.stringify({ id: this.dataset.id })
-                }).then(response => response.json())
-                  .then(data => alert('Producto añadido al carrito'));
-            });
-        });
+    <!-- ⭐ Reseñas -->
+    <div class="product-reviews mt-5">
+        <h2>Reseñas de Usuarios</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="review-card">
+                    <h3>Juan Pérez</h3>
+                    <p>¡Excelente producto! Lo recomiendo totalmente.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="review-card">
+                    <h3>María Gómez</h3>
+                    <p>Muy buena calidad, cumple con todas mis expectativas.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-        document.querySelectorAll('.add-to-favorites').forEach(button => {
-            button.addEventListener('click', function() {
-                fetch("{{ route('favorites.add') }}", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                    },
-                    body: JSON.stringify({ id: this.dataset.id })
-                }).then(response => response.json())
-                  .then(data => alert('Producto añadido a favoritos'));
+<script>
+    // ✅ Scroll automático al cuadro del producto si hay un parámetro en la URL
+    document.addEventListener("DOMContentLoaded", function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has("producto")) {
+            document.getElementById("product-detail").scrollIntoView({
+                behavior: "smooth"
             });
+        }
+    });
+
+    // ✅ Cambio de imagen principal al hacer clic en una miniatura
+    document.querySelectorAll('.thumb').forEach(thumb => {
+        thumb.addEventListener('click', function() {
+            document.querySelector('.product-main-image img').src = this.src;
         });
-    </script>
+    });
+</script>
 @endsection
