@@ -1,7 +1,7 @@
 /* ======= ESTILOS GENERALES ======= */
 html, body {
     width: 100%;
-    overflow-x: hidden; /* Evita el desplazamiento horizontal */
+    overflow-x: hidden;
     margin: 0;
     padding: 0;
 }
@@ -15,27 +15,31 @@ html, body {
 }
 
 /* ======= HEADER RESPONSIVO ======= */
-.header {
-    border-bottom: 3px solid var(--primary-color);
-    padding: 1rem 0;
-    width: 100%;
-    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
-}
-
-.logo {
-    height: 70px; /* Tamaño base */
-    width: auto;
-}
-
-/* Ajuste del logo en pantallas pequeñas */
 @media (max-width: 768px) {
+    .header {
+        text-align: center;
+    }
+
     .logo {
         height: 50px;
     }
-}
 
-.navbar-nav {
-    gap: 1rem; /* Espacio entre enlaces */
+    .navbar-toggler {
+        display: block;
+    }
+
+    .collapse.navbar-collapse {
+        display: none;
+    }
+
+    .collapse.navbar-collapse.show {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        background: white;
+        padding: 1rem 0;
+    }
 }
 
 .nav-link {
@@ -46,6 +50,11 @@ html, body {
     transition: color var(--transition);
     display: flex;
     align-items: center; /* Alinea el icono y el texto verticalmente */
+}
+
+.logo {
+    height: 50px; /* Tamaño ajustado para evitar que se vea demasiado grande */
+    max-width: 180px; /* Limita el ancho para mejor adaptación en todas las pantallas */
 }
 
 .nav-link:hover {
@@ -89,16 +98,12 @@ html, body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
-/* Icono dentro del botón (opcional) */
-.btn-primary .fas {
-    font-size: 1.2rem; /* Tamaño del icono */
-}
-
 /* ======= MENÚ RESPONSIVO ======= */
 .navbar-toggler {
     border: none;
     outline: none;
     padding: 0.5rem;
+    display: none; /* Ocultar el botón por defecto */
 }
 
 .navbar-toggler:focus {
@@ -116,36 +121,27 @@ html, body {
     border-top: 2px solid var(--primary-color);
 }
 
-/* Ajustes para móviles */
-@media (max-width: 768px) {
-    .navbar-nav {
-        flex-direction: column;
-        gap: 0.5rem;
+
+/* Mostrar el botón del menú en pantallas menores a 1024px */
+@media (max-width: 1023.98px) {
+    .navbar-toggler {
+        display: block; /* Asegura que el botón de menú esté visible */
     }
 
-    .btn-primary {
-        width: 100%;
+    .header nav {
+        display: none; /* Oculta el menú de escritorio */
     }
 
-    .search-form {
-        width: 100%;
-        margin-bottom: 1rem;
+    .collapse.navbar-collapse {
+        display: none; /* Mantiene oculto el menú desplegable */
     }
 
-    .search-input {
-        width: 100%;
-    }
-
-    .search-button {
-        width: 100%;
-    }
-
-    /* Asegura que el menú no cause desplazamiento horizontal */
-    .navbar-collapse {
-        max-width: 100%;
-        overflow: hidden;
+    .collapse.navbar-collapse.show {
+        display: block; /* Solo se muestra cuando el usuario lo activa */
     }
 }
+
+
 /* ======= FIN DE ESTILOS HEADER ======= */
 
 /* ======= ESTILOS DE PRODUCTOS ======= */
@@ -519,9 +515,9 @@ h1 {
     background-color: #1a1a1a;
     color: white;
     padding: 40px 20px;
-    font-family: 'Poppins', sans-serif; /* Cambiamos la fuente principal */
+    text-align: center;
+    margin-top: auto;
 }
-
 /* Contenido del footer */
 .footer-content {
     display: flex;
@@ -805,4 +801,98 @@ h1 {
 
 .btn-whatsapp i {
     font-size: 1.2rem;
+}
+
+/* ======= SLIDER RESPONSIVO ======= */
+@media (max-width: 768px) {
+    .carousel-item .row {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .carousel-item .col-md-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-bottom: 1rem;
+    }
+}
+
+/* fin de estilos del slider */
+
+/* ======= ESTILOS DEL ASIDE ======= */
+
+.content-wrapper {
+    flex: 1; /* Hace que el contenido principal ocupe el espacio disponible */
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Asegura que el contenedor ocupe toda la pantalla */
+}
+
+/* Sidebar fijo pero sin forzar altura */
+.left-sidebar {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+    position: sticky;
+    top: 80px;
+    flex: 0 0 25%;
+}
+
+
+.left-sidebar h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.panel-group .panel {
+    margin-bottom: 10px;
+}
+
+.panel-heading {
+    padding: 10px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+}
+
+.panel-title a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+.tech-icon {
+    margin-right: 10px;
+}
+
+.shipping img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Estilos para el contenido principal */
+main {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+/* Ajustes para móviles */
+@media (max-width: 768px) {
+    .left-sidebar {
+        width: 100%;
+        position: relative;
+        height: auto;
+        top: 0;
+    }
+
+    main {
+        width: 100%;
+    }
 }
