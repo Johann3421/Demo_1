@@ -340,6 +340,75 @@ html, body {
     font-weight: bold;
 }
 
+.product-additional-info {
+    margin: 1rem 0;
+}
+
+.product-additional-info p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.stock-status {
+    color: #28a745;
+    font-weight: bold;
+}
+
+/* 🛠 Especificaciones Técnicas */
+.product-specs {
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-top: 2rem;
+}
+
+.product-specs h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.product-specs .row {
+    margin: 0;
+}
+
+.product-specs .col-md-6 {
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+/* ⭐ Reseñas */
+.product-reviews {
+    margin-top: 2rem;
+}
+
+.product-reviews h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.review-card {
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+}
+
+.review-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.review-card p {
+    font-size: 1rem;
+    color: #555;
+}
+
 /* 🛒 Botones */
 .product-buttons {
     display: flex;
@@ -378,7 +447,6 @@ html, body {
         justify-content: center;
     }
 }
-
 
 /* fin de ESTILOS CART */
 
@@ -704,43 +772,63 @@ h1 {
     padding: 2rem 0;
 }
 
+.slider-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
 .carousel-item {
     padding: 2rem 0;
 }
 
-.carousel-item .row {
+.slider-content {
     display: flex;
-    flex-wrap: nowrap; /* Evita que las columnas se apilen */
-    justify-content: space-between; /* Distribuye los elementos sin encimar */
-    align-items: center; /* Centra verticalmente */
-    width: 100%; /* Asegura que ocupe todo el espacio disponible */
-    margin: 0 auto; /* Centra el contenido horizontalmente */
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
 }
 
-
-.carousel-item h1 .text-sekai {
-    color: #007bff; /* Azul para SEKAI */
-}
-
-.carousel-item h1 .text-tech {
-    color: #343a40; /* Gris oscuro para TECH */
-}
-
-.carousel-item .col-md-6 {
-    flex: 0 0 50%; /* Cada columna ocupa el 50% del ancho */
+.slider-text {
+    flex: 1;
     max-width: 50%;
-    padding: 0 15px; /* Espaciado interno */
+    text-align: left;
+}
+
+.slider-image {
+    flex: 1;
+    max-width: 50%;
     text-align: center;
 }
 
-/* Asegurar que la imagen no cambie de tamaño */
-.carousel-item img {
-    max-width: 100%;
-    height: auto;
+.slider-text h1 .text-sekai {
+    color: #007bff; /* Azul para SEKAI */
 }
 
-/* Botón */
-.carousel-item .btn-primary {
+.slider-text h1 .text-tech {
+    color: #343a40; /* Gris oscuro para TECH */
+}
+
+.slider-text h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.slider-text p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+.slider-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Botones */
+.btn-primary {
     background-color: #007bff;
     border: none;
     padding: 0.75rem 1.5rem;
@@ -750,10 +838,33 @@ h1 {
     color: white;
 }
 
-.carousel-item .btn-primary:hover {
+.btn-primary:hover {
     background-color: #0056b3;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-whatsapp {
+    background-color: #25D366; /* Verde oficial de WhatsApp */
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-whatsapp:hover {
+    background-color: #1ebe57;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-whatsapp i {
+    font-size: 1.2rem;
 }
 
 /* Controles del slider */
@@ -802,44 +913,26 @@ h1 {
     transition: color 0.3s ease;
 }
 
-.btn-whatsapp {
-    background-color: #25D366; /* Verde oficial de WhatsApp */
-    border: none;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    color: white;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.btn-whatsapp:hover {
-    background-color: #1ebe57;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.btn-whatsapp i {
-    font-size: 1.2rem;
-}
-
 /* ======= SLIDER RESPONSIVO ======= */
 @media (max-width: 768px) {
-    .carousel-item .row {
+    .slider-content {
         flex-direction: column;
-        align-items: center;
         text-align: center;
     }
 
-    .carousel-item .col-md-6 {
-        flex: 0 0 100%;
+    .slider-text,
+    .slider-image {
         max-width: 100%;
-        padding-bottom: 1rem;
+    }
+
+    .slider-text {
+        order: 2;
+    }
+
+    .slider-image {
+        order: 1;
     }
 }
-
 /* fin de estilos del slider */
 
 /* ======= ESTILOS DEL ASIDE ======= */

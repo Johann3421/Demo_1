@@ -20,26 +20,33 @@
         </div>
 
         <!-- 📄 Información del producto -->
-         <!-- 📄 Información del producto con SEO optimizado -->
-         <div class="product-info">
-                <h1 class="product-title">{{ $producto['nombre'] }}</h1>
-                <meta itemprop="brand" content="{{ $producto['marca'] }}">
-                <meta itemprop="description" content="{{ $producto['descripcion'] }}">
-                <meta itemprop="sku" content="{{ $producto['id'] }}">
+        <div class="product-info">
+            <h1 class="product-title">{{ $producto['nombre'] }}</h1>
+            <meta itemprop="brand" content="{{ $producto['marca'] }}">
+            <meta itemprop="description" content="{{ $producto['descripcion'] }}">
+            <meta itemprop="sku" content="{{ $producto['id'] }}">
 
-                <p class="product-description">{{ $producto['descripcion'] }}</p>
-                <p class="product-price"><strong>Precio:</strong> <span>${{ number_format((float) $producto['precio'], 2) }}</span></p>
+            <p class="product-description">{{ $producto['descripcion'] }}</p>
+            <p class="product-price"><strong>Precio:</strong> <span>${{ number_format((float) $producto['precio'], 2) }}</span></p>
 
-                <div class="product-buttons">
-                    <button class="btn btn-primary add-to-cart" data-id="{{ $id }}">
-                        <i class="fas fa-shopping-cart"></i> Añadir al Carrito
-                    </button>
-                    <button class="btn btn-outline-danger add-to-favorites" data-id="{{ $id }}">
-                        <i class="fas fa-heart"></i> Favorito
-                    </button>
-                </div>
+            <!-- 🛠 Información adicional -->
+            <div class="product-additional-info">
+                <p><strong>Garantía:</strong> {{ $producto['garantia'] ?? '12 meses' }}</p>
+                <p><strong>Disponibilidad:</strong> <span class="stock-status">{{ $producto['stock'] > 0 ? 'En stock' : 'Agotado' }}</span></p>
+                <p><strong>Envío:</strong> Gratis a todo el país</p>
+                <p><strong>Devoluciones:</strong> 30 días de garantía de devolución</p>
+            </div>
+
+            <div class="product-buttons">
+                <button class="btn btn-primary add-to-cart" data-id="{{ $id }}">
+                    <i class="fas fa-shopping-cart"></i> Añadir al Carrito
+                </button>
+                <button class="btn btn-outline-danger add-to-favorites" data-id="{{ $id }}">
+                    <i class="fas fa-heart"></i> Favorito
+                </button>
             </div>
         </div>
+    </div>
 
     <!-- 🛠 Especificaciones Técnicas -->
     <div class="product-specs mt-4">
