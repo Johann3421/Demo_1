@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\FavoriteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoriaController;
 
 Route::get('/', function () {
     return view('home');
@@ -30,3 +31,5 @@ Route::get('/contact', function () {
 })->name('contact');
 
 Route::get('/search', [ProductController::class, 'search'])->name('search');
+
+Route::get('/', [CategoriaController::class, 'index'])->name('home');

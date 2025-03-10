@@ -4,15 +4,17 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <img src="{{ asset('images/kenya1.png') }}" class="card-img-top" alt="Producto 1" loading="lazy">
-                <div class="card-body">
-                    <h5 class="card-title">Computadoras</h5>
-                    <p class="card-text">Puedes ver la seccion de productos con la mejor calidad en Huanuco</p>
-                    <a class="btn btn-primary" href="{{ route('products') }}">Ver Catalogo</a>
+        @foreach($categorias as $categoria)
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{{ asset('images/' . $categoria->imagen_url) }}" class="card-img-top" alt="{{ $categoria->nombre }}" loading="lazy">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $categoria->nombre }}</h5>
+                        <p class="card-text">{{ $categoria->descripcion }}</p>
+                        <a class="btn btn-primary" href="{{ route('products') }}">Ver Catalogo</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endforeach
     </div>
 @endsection

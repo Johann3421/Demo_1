@@ -77,6 +77,8 @@
 
     @include('partials.header')
 
+    @include('partials.subheader')
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
