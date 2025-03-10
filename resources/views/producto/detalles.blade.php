@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', $producto['nombre'] . ' - Tienda Kenya')
+@section('title', $producto['nombre'] . ' - ' . $producto['marca'] . ' | SEKAITECH')
 
-@section('meta-description', $producto['descripcion'])
+@section('meta-description', 'Compra el ' . $producto['nombre'] . ' de ' . $producto['marca'] . ' al mejor precio en SEKAITECH. ' . $producto['descripcion'])
 
 @section('content')
 <div class="container product-page">
@@ -10,12 +10,12 @@
         <!-- 📷 Galería de imágenes -->
         <div class="product-gallery">
             <div class="product-main-image">
-                <img src="{{ asset('images/' . $producto['imagen']) }}" alt="{{ $producto['nombre'] }}">
+                <img src="{{ asset('images/' . $producto['imagen']) }}" alt="{{ $producto['nombre'] }} - {{ $producto['marca'] }}">
             </div>
             <div class="product-thumbnails">
-                <img src="{{ asset('images/' . $producto['imagen']) }}" class="thumb" alt="Miniatura 1">
-                <img src="{{ asset('images/' . $producto['imagen']) }}" class="thumb" alt="Miniatura 2">
-                <img src="{{ asset('images/' . $producto['imagen']) }}" class="thumb" alt="Miniatura 3">
+                <img src="{{ asset('images/' . $producto['imagen']) }}" class="thumb" alt="Miniatura 1 - {{ $producto['nombre'] }}">
+                <img src="{{ asset('images/' . $producto['imagen']) }}" class="thumb" alt="Miniatura 2 - {{ $producto['nombre'] }}">
+                <img src="{{ asset('images/' . $producto['imagen']) }}" class="thumb" alt="Miniatura 3 - {{ $producto['nombre'] }}">
             </div>
         </div>
 
@@ -27,7 +27,13 @@
             <meta itemprop="sku" content="{{ $producto['id'] }}">
 
             <p class="product-description">{{ $producto['descripcion'] }}</p>
-            <p class="product-price"><strong>Precio:</strong> <span>${{ number_format((float) $producto['precio'], 2) }}</span></p>
+<p class="product-price" style="color: red; font-size: 1.8rem; font-weight: bold;">
+    <strong>Precio en dólares:</strong> ${{ number_format($producto['precio'], 2) }}
+</p>
+<p class="product-price" style="color: green; font-size: 1.8rem; font-weight: bold;">
+    <strong>Precio en soles:</strong> S/.{{ number_format($producto['precio_soles'], 2) }}
+</p>
+
 
             <!-- 🛠 Información adicional -->
             <div class="product-additional-info">
@@ -38,11 +44,11 @@
             </div>
 
             <div class="product-buttons">
-                <button class="btn btn-primary add-to-cart" data-id="{{ $id }}">
-                    <i class="fas fa-shopping-cart"></i> Añadir al Carrito
-                </button>
-                <button class="btn btn-outline-danger add-to-favorites" data-id="{{ $id }}">
-                    <i class="fas fa-heart"></i> Favorito
+                <a href="https://wa.me/51933573985?text=Hola,%20estoy%20interesado%20en%20el%20producto%20{{ urlencode($producto['nombre']) }}%20-%20Precio:%20${{ number_format((float) $producto['precio'], 2) }}" class="btn btn-success" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
+                </a>
+                <button class="btn btn-outline-primary like-button" data-id="{{ $id }}">
+                    <i class="fas fa-thumbs-up"></i> <span class="like-count">0</span> Likes
                 </button>
             </div>
         </div>
@@ -82,6 +88,31 @@
     </div>
 </div>
 
+<!-- Schema Markup para SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "{{ $producto['nombre'] }}",
+  "description": "{{ $producto['descripcion'] }}",
+  "brand": {
+    "@type": "Brand",
+    "name": "{{ $producto['marca'] }}"
+  },
+  "image": "{{ asset('images/' . $producto['imagen']) }}",
+  "offers": {
+    "@type": "Offer",
+    "price": "{{ $producto['precio'] }}",
+    "priceCurrency": "USD",
+    "availability": "{{ $producto['stock'] > 0 ? 'InStock' : 'OutOfStock' }}",
+    "seller": {
+      "@type": "Organization",
+      "name": "SEKAITECH"
+    }
+  }
+}
+</script>
+
 <script>
     // ✅ Scroll automático al cuadro del producto si hay un parámetro en la URL
     document.addEventListener("DOMContentLoaded", function() {
@@ -98,6 +129,21 @@
         thumb.addEventListener('click', function() {
             document.querySelector('.product-main-image img').src = this.src;
         });
+    });
+
+    // ✅ Funcionalidad de Likes
+    document.querySelector('.like-button').addEventListener('click', function() {
+        const productId = this.dataset.id;
+        const likeCountElement = this.querySelector('.like-count');
+        let likeCount = parseInt(likeCountElement.textContent);
+
+        // Simular la acción de dar like (puedes implementar una llamada AJAX aquí)
+        likeCount += 1;
+        likeCountElement.textContent = likeCount;
+
+        // Deshabilitar el botón después de dar like
+        this.disabled = true;
+        this.classList.add('disabled');
     });
 </script>
 @endsection

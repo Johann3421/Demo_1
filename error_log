@@ -1,0 +1,1 @@
+[05-Mar-2025 15:02:16 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\ProductController::show() in /home7/sekaitec/public_html/app/Http/Controllers/ProductController.php on line 151

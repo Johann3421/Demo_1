@@ -8,9 +8,9 @@
             <div class="card">
                 <img src="{{ asset('images/kenya1.png') }}" class="card-img-top" alt="Producto 1" loading="lazy">
                 <div class="card-body">
-                    <h5 class="card-title">Producto 1</h5>
-                    <p class="card-text">Descripción breve del producto.</p>
-                    <button class="btn btn-primary add-to-cart" data-id="1">Añadir al Carrito</button>
+                    <h5 class="card-title">Computadoras</h5>
+                    <p class="card-text">Puedes ver la seccion de productos con la mejor calidad en Huanuco</p>
+                    <a class="btn btn-primary" href="{{ route('products') }}">Ver Catalogo</a>
                 </div>
             </div>
         </div>

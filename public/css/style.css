@@ -6,96 +6,37 @@ html, body {
     padding: 0;
 }
 
-.container {
-    max-width: 100%;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-left: auto;
-    margin-right: auto;
+/* ======= HEADER ======= */
+.header {
+    background: linear-gradient(to bottom, #00c6ff, #ffffff) !important;
+}
+
+/* Ajuste de tamaño del logo */
+.logo {
+    height: 50px;
+    max-width: 180px;
 }
 
 /* ======= HEADER RESPONSIVO ======= */
-@media (max-width: 768px) {
-    .header {
-        text-align: center;
-    }
-
-    .logo {
-        height: 50px;
+@media (max-width: 1119px) {
+    .header nav {
+        display: none; /* Ocultar el menú de escritorio hasta 1120px */
     }
 
     .navbar-toggler {
-        display: block;
-    }
-
-    .collapse.navbar-collapse {
-        display: none;
-    }
-
-    .collapse.navbar-collapse.show {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        background: white;
-        padding: 1rem 0;
+        display: block; /* Mostrar el botón del menú */
     }
 }
 
-.nav-link {
-    color: var(--dark-text);
-    font-weight: 500;
-    font-size: 1.1rem;
-    letter-spacing: 0.5px;
-    transition: color var(--transition);
-    display: flex;
-    align-items: center; /* Alinea el icono y el texto verticalmente */
-}
+/* Mostrar el menú de escritorio a partir de 1120px */
+@media (min-width: 1120px) {
+    .navbar-toggler {
+        display: none; /* Ocultar el botón del menú */
+    }
 
-.logo {
-    height: 50px; /* Tamaño ajustado para evitar que se vea demasiado grande */
-    max-width: 180px; /* Limita el ancho para mejor adaptación en todas las pantallas */
-}
-
-.nav-link:hover {
-    color: var(--primary-color);
-}
-
-/* Icono del carrito */
-.nav-link .fas.fa-shopping-cart {
-    margin-right: 0.5rem; /* Espacio entre el icono y el texto */
-}
-
-/* Botón de contacto mejorado */
-.btn-primary {
-    background-color: var(--primary-color); /* Color de fondo inicial */
-    border: none;
-    font-size: 1rem;
-    padding: 0.75rem 1.5rem; /* Más padding para un mejor aspecto */
-    transition: all 0.3s ease; /* Transición suave para todos los efectos */
-    color: rgb(0, 0, 0); /* Color del texto */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    font-weight: 600; /* Texto en negrita */
-    letter-spacing: 0.5px; /* Espaciado entre letras */
-    text-transform: uppercase; /* Texto en mayúsculas */
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem; /* Espacio entre icono y texto */
-}
-
-/* Efecto hover */
-.btn-primary:hover {
-    background-color: #0056b3; /* Cambio de color al pasar el mouse */
-    transform: translateY(-2px); /* Efecto de elevación */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
-}
-
-/* Efecto active (al hacer clic) */
-.btn-primary:active {
-    transform: translateY(0); /* Vuelve a la posición original */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    .header nav {
+        display: flex !important;
+    }
 }
 
 /* ======= MENÚ RESPONSIVO ======= */
@@ -103,66 +44,62 @@ html, body {
     border: none;
     outline: none;
     padding: 0.5rem;
-    display: none; /* Ocultar el botón por defecto */
+    font-size: 1.8rem;
+    background: none;
+    color: #000;
 }
 
-.navbar-toggler:focus {
-    box-shadow: none;
+/* Estilos del menú desplegable */
+.offcanvas {
+    background: linear-gradient(to bottom, #00c6ff, #ffffff) !important;
 }
 
-.navbar-toggler-icon {
-    font-size: 1.5rem;
-    color: var(--primary-color);
+/* Estilos del botón de contacto */
+.btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s ease;
+    color: rgb(0, 0, 0);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
-.collapse.navbar-collapse {
-    background: white;
-    padding: 1rem;
-    border-top: 2px solid var(--primary-color);
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-
-/* Mostrar el botón del menú en pantallas menores a 1024px */
-@media (max-width: 1023.98px) {
-    .navbar-toggler {
-        display: block; /* Asegura que el botón de menú esté visible */
-    }
-
-    .header nav {
-        display: none; /* Oculta el menú de escritorio */
-    }
-
-    .collapse.navbar-collapse {
-        display: none; /* Mantiene oculto el menú desplegable */
-    }
-
-    .collapse.navbar-collapse.show {
-        display: block; /* Solo se muestra cuando el usuario lo activa */
-    }
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* ======= FIN DE ESTILOS ======= */
 
-/* ======= FIN DE ESTILOS HEADER ======= */
 
 /* ======= ESTILOS DE PRODUCTOS ======= */
-.row {
-    display: flex;
-    flex-wrap: wrap;
+.product-grid-specific {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 3 columnas en desktop */
     gap: 1rem; /* Espacio entre tarjetas */
     margin-top: 1rem;
 }
 
-.col-md-4 {
-    flex: 1 1 calc(33.333% - 1rem); /* 3 columnas en desktop */
-    max-width: calc(33.333% - 1rem);
-    display: flex;
-}
-
-.card {
+.product-card-specific {
     border: none;
     border-radius: 10px;
     overflow: hidden;
-    transition: transform var(--transition), box-shadow var(--transition);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     background: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     opacity: 0;
@@ -170,26 +107,26 @@ html, body {
     display: flex;
     flex-direction: column;
     width: 100%; /* Asegura que la tarjeta ocupe todo el ancho de la columna */
-    height: 100%; /* Asegura que todas las tarjetas tengan la misma altura */
+    height: auto; /* Altura automática para que el contenido fluya */
 }
 
-.card:hover {
+.product-card-specific:hover {
     transform: translateY(-10px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.card-img-top {
+.product-image-specific {
     width: 100%;
     height: 200px; /* Altura fija para las imágenes */
-    object-fit: cover;
-    transition: transform var(--transition);
+    object-fit: contain; /* Asegura que la imagen se vea completa */
+    transition: transform 0.3s ease;
 }
 
-.card:hover .card-img-top {
+.product-card-specific:hover .product-image-specific {
     transform: scale(1.1);
 }
 
-.card-body {
+.product-body-specific {
     padding: 1.5rem;
     flex: 1; /* Hace que el cuerpo de la tarjeta ocupe el espacio restante */
     display: flex;
@@ -197,28 +134,44 @@ html, body {
     justify-content: space-between; /* Distribuye el espacio entre los elementos */
 }
 
-.card-title {
+.product-title-specific {
     font-size: 1.25rem;
     font-weight: bold;
     margin-bottom: 0.75rem;
-    height: 3rem; /* Altura fija para los títulos */
+    height: auto; /* Altura automática para el título */
     overflow: hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* Limita el título a 2 líneas */
-    -webkit-box-orient: vertical;
+    display: block; /* Eliminamos el límite de líneas */
 }
 
-.card-text {
+.product-text-specific {
     font-size: 0.9rem;
-    color: var(--light-text);
+    color: #555;
     margin-bottom: 1rem;
     flex: 1; /* Hace que la descripción ocupe el espacio restante */
     overflow: hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3; /* Limita la descripción a 3 líneas */
-    -webkit-box-orient: vertical;
+    display: block; /* Eliminamos el límite de líneas */
+}
+
+/* Estilos para los precios */
+.product-price-specific {
+    display: flex;
+    flex-direction: column; /* Hace que los precios estén en líneas separadas */
+    gap: 0.5rem; /* Espacio entre los precios */
+    margin-bottom: 1rem;
+}
+
+.product-price-specific .price-usd {
+    font-size: 1rem;
+    color: #dc3545; /* Rojo para el precio en dólares */
+    font-weight: bold;
+}
+
+.product-price-specific .price-pen {
+    font-size: 1rem;
+    color: #28a745; /* Verde para el precio en soles */
+    font-weight: bold;
 }
 
 /* Botones de productos */
@@ -226,7 +179,7 @@ html, body {
     font-size: 0.9rem;
     padding: 0.5rem 1rem;
     margin-right: 0.5rem;
-    transition: background var(--transition), transform var(--transition);
+    transition: background 0.3s ease, transform 0.3s ease;
     width: 100%; /* Botones de ancho completo */
     margin-top: 0.5rem; /* Espacio entre botones */
 }
@@ -237,9 +190,8 @@ html, body {
 
 /* ======= DISEÑO RESPONSIVO DE TARJETAS ======= */
 @media (max-width: 768px) {
-    .col-md-4 {
-        flex: 1 1 100%; /* Una columna en móviles */
-        max-width: 100%;
+    .product-grid-specific {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 2 columnas en móviles */
     }
 }
 
@@ -256,12 +208,12 @@ html, body {
 }
 
 /* Añadir retraso a cada tarjeta */
-.card:nth-child(1) { animation-delay: 0.1s; }
-.card:nth-child(2) { animation-delay: 0.2s; }
-.card:nth-child(3) { animation-delay: 0.3s; }
-.card:nth-child(4) { animation-delay: 0.4s; }
-.card:nth-child(5) { animation-delay: 0.5s; }
-.card:nth-child(6) { animation-delay: 0.6s; }
+.product-card-specific:nth-child(1) { animation-delay: 0.1s; }
+.product-card-specific:nth-child(2) { animation-delay: 0.2s; }
+.product-card-specific:nth-child(3) { animation-delay: 0.3s; }
+.product-card-specific:nth-child(4) { animation-delay: 0.4s; }
+.product-card-specific:nth-child(5) { animation-delay: 0.5s; }
+.product-card-specific:nth-child(6) { animation-delay: 0.6s; }
 
 /* Fin de ESTILOS DE PRODUCTOS */
 
@@ -769,59 +721,66 @@ h1 {
 /* ======= ESTILOS DEL SLIDER ======= */
 .slider-section {
     background-color: #f8f9fa;
-    padding: 2rem 0;
+    padding: 4rem 0; /* Aumentamos el padding para pantallas grandes */
 }
 
 .slider-container {
-    max-width: 1200px;
+    max-width: 1400px; /* Aumentamos el ancho máximo */
     margin: 0 auto;
     padding: 0 15px;
 }
 
 .carousel-item {
-    padding: 2rem 0;
+    padding: 3rem 0; /* Aumentamos el padding para pantallas grandes */
 }
 
-.slider-content {
+.slider-content-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 2rem;
+    gap: 3rem; /* Aumentamos el espacio entre texto e imagen */
+    width: 100%; /* Ocupa todo el ancho disponible */
 }
 
-.slider-text {
+.slider-text-content {
     flex: 1;
     max-width: 50%;
     text-align: left;
 }
 
-.slider-image {
+.slider-image-content {
     flex: 1;
     max-width: 50%;
     text-align: center;
 }
 
-.slider-text h1 .text-sekai {
+.slider-text-content h2 .text-sekai {
     color: #007bff; /* Azul para SEKAI */
 }
 
-.slider-text h1 .text-tech {
+.slider-text-content h2 .text-tech {
     color: #343a40; /* Gris oscuro para TECH */
 }
 
-.slider-text h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+.slider-text-content h2 {
+    font-size: 2.5rem; /* Aumentamos el tamaño del título */
+    margin-bottom: 1.5rem;
     color: #333;
 }
 
-.slider-text p {
-    font-size: 1rem;
-    color: #555;
+.slider-text-content h3 {
+    font-size: 1.75rem; /* Aumentamos el tamaño del subtítulo */
     margin-bottom: 1.5rem;
+    color: #333;
 }
 
-.slider-image img {
+.slider-text-content p {
+    font-size: 1.25rem; /* Aumentamos el tamaño del texto */
+    color: #555;
+    margin-bottom: 2rem;
+}
+
+.slider-image-content img {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
@@ -831,8 +790,8 @@ h1 {
 .btn-primary {
     background-color: #007bff;
     border: none;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
+    padding: 1rem 2rem; /* Aumentamos el padding */
+    font-size: 1.25rem; /* Aumentamos el tamaño del texto */
     border-radius: 8px;
     transition: all 0.3s ease;
     color: white;
@@ -847,8 +806,8 @@ h1 {
 .btn-whatsapp {
     background-color: #25D366; /* Verde oficial de WhatsApp */
     border: none;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
+    padding: 1rem 2rem; /* Aumentamos el padding */
+    font-size: 1.25rem; /* Aumentamos el tamaño del texto */
     border-radius: 8px;
     transition: all 0.3s ease;
     color: white;
@@ -864,7 +823,7 @@ h1 {
 }
 
 .btn-whatsapp i {
-    font-size: 1.2rem;
+    font-size: 1.5rem; /* Aumentamos el tamaño del ícono */
 }
 
 /* Controles del slider */
@@ -872,7 +831,7 @@ h1 {
 .carousel-control-next-icon {
     background-color: #007bff;
     border-radius: 50%;
-    padding: 1rem;
+    padding: 1.5rem; /* Aumentamos el tamaño */
 }
 
 .carousel-control-prev,
@@ -883,20 +842,20 @@ h1 {
 /* Indicadores */
 .carousel-indicators {
     position: absolute;
-    bottom: 10px;
-    left: 60%;
+    bottom: 20px; /* Aumentamos la distancia desde el fondo */
+    left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 8px;
+    gap: 10px; /* Aumentamos el espacio entre indicadores */
 }
 
 .carousel-indicators li {
-    width: 12px;
-    height: 12px;
+    width: 15px; /* Aumentamos el tamaño */
+    height: 15px;
     background-color: transparent;
     border: none;
     color: #fff;
-    font-size: 12px;
+    font-size: 15px;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -908,29 +867,33 @@ h1 {
 }
 
 .carousel-indicators i {
-    font-size: 10px;
+    font-size: 12px; /* Aumentamos el tamaño del ícono */
     color: #ccc;
     transition: color 0.3s ease;
 }
 
 /* ======= SLIDER RESPONSIVO ======= */
 @media (max-width: 768px) {
-    .slider-content {
+    .slider-content-wrapper {
         flex-direction: column;
         text-align: center;
     }
 
-    .slider-text,
-    .slider-image {
+    .slider-text-content,
+    .slider-image-content {
         max-width: 100%;
     }
 
-    .slider-text {
+    .slider-text-content {
         order: 2;
     }
 
-    .slider-image {
+    .slider-image-content {
         order: 1;
+    }
+
+    .carousel-indicators {
+        bottom: 10px;
     }
 }
 /* fin de estilos del slider */
@@ -1013,4 +976,8 @@ main {
 }
 
 /* fin de estilos del aside */
+
+/* Estilos de Home */
+
+
 

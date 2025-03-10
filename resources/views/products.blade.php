@@ -1,142 +1,199 @@
 @extends('layouts.app')
 
-@section('title', 'Productos - Tienda Kenya')
+@section('title', 'Productos de Tecnología - Laptops, Tarjetas Gráficas y Monitores | SEKAITECH')
 
-@section('meta-description', 'Explora nuestros productos genéricos y exclusivos. Encuentra tarjetas de video, laptops, pantallas y productos únicos que solo encontrarás aquí.')
+@section('meta-description', 'Encuentra los mejores productos de tecnología en SEKAITECH: laptops, tarjetas gráficas, monitores y más. Calidad garantizada y envíos rápidos en Huánuco.')
 
 @section('content')
-<h1 class="mb-4">Nuestros Productos</h1>
-<div class="row">
-    <!-- Productos Genéricos -->
-    <div class="col-md-4">
-        <div class="card">
-            <a href="{{ route('producto.detalles', ['id' => 1]) }}">
-                <img src="{{ asset('images/rtx.webp') }}" class="card-img-top" alt="Tarjeta de Video Genérica">
-            </a>
-            <div class="card-body">
-                <h5 class="card-title">Tarjeta Grafica Msi Geforce Rtx 4070ti Super 16gb Gddr6x</h5>
-                <p class="card-text">Tarjeta de video de alto rendimiento para gaming y diseño gráfico.</p>
-                <p class="card-text"><strong>Precio: $299.99</strong></p>
-                <button class="btn btn-primary add-to-cart" data-id="1">Añadir al Carrito</button>
-                <button class="btn btn-warning add-to-favorites" data-id="1">❤️ Favorito</button>
+<h1 class="mb-4">Nuestros Productos de Tecnología</h1>
+<div class="product-grid-specific">
+    <!-- Laptop Lenovo IdeaPad Gaming 3 15IMH05 -->
+    <div class="product-card-specific">
+        <a href="{{ route('producto.detalles', ['id' => 1, 'slug' => 'laptop-lenovo-ideapad-gaming-3-15imh05']) }}">
+            <img src="{{ asset('images/lenovo1.png') }}" class="product-image-specific" alt="Laptop Lenovo IdeaPad Gaming 3 15IMH05 - Intel Core i5, 8GB RAM, 512GB SSD, GTX 1650" loading="lazy">
+        </a>
+        <div class="product-body-specific">
+            <h2 class="product-title-specific">Laptop Lenovo IdeaPad Gaming 3 15IMH05</h2>
+            <p class="product-text-specific">Laptop Lenovo IdeaPad Gaming 3 con Intel Core i5-10300H, pantalla 15.6" FHD, 8GB RAM, 512GB SSD y NVIDIA GeForce GTX 1650 4GB. Perfecta para gaming y multitarea.</p>
+            <div class="product-price-specific">
+                <span class="price-usd">$531.23</span>
+                <span class="price-pen">S/. 1976.18</span>
             </div>
+            <a href="{{ route('producto.detalles', ['id' => 1, 'slug' => 'laptop-lenovo-ideapad-gaming-3-15imh05']) }}" class="btn btn-primary">Ver Detalles</a>
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="card">
-            <a href="{{ route('producto.detalles', ['id' => 2]) }}">
-                <img src="{{ asset('images/laptop.webp') }}" class="card-img-top" alt="Laptop Genérica">
-            </a>
-            <div class="card-body">
-                <h5 class="card-title">Laptop Lenovo Intel Core I5 16gb 512gb Ssd Ideapad Slim 3i 12° Gen Fhd</h5>
-                <p class="card-text">Laptop potente y ligera para trabajo y entretenimiento.</p>
-                <p class="card-text"><strong>Precio: $799.99</strong></p>
-                <button class="btn btn-primary add-to-cart" data-id="2">Añadir al Carrito</button>
-                <button class="btn btn-warning add-to-favorites" data-id="2">❤️ Favorito</button>
+    <!-- Laptop Lenovo IdeaPad Gaming 3 15ARH05 -->
+    <div class="product-card-specific">
+        <a href="{{ route('producto.detalles', ['id' => 2, 'slug' => 'laptop-lenovo-ideapad-gaming-3-15arh05']) }}">
+            <img src="{{ asset('images/lenovo2.png') }}" class="product-image-specific" alt="Laptop Lenovo IdeaPad Gaming 3 15ARH05 - AMD Ryzen 7, 16GB RAM, 1TB HDD, 256GB SSD, GTX 1650 Ti" loading="lazy">
+        </a>
+        <div class="product-body-specific">
+            <h2 class="product-title-specific">Laptop Lenovo IdeaPad Gaming 3 15ARH05</h2>
+            <p class="product-text-specific">Laptop Lenovo IdeaPad Gaming 3 con AMD Ryzen 7 4800H, pantalla 15.6" FHD, 16GB RAM, 1TB HDD + 256GB SSD y NVIDIA GTX 1650 Ti 4GB. Potencia y almacenamiento para gaming.</p>
+            <div class="product-price-specific">
+                <span class="price-usd">$1031.78</span>
+                <span class="price-pen">S/. 3838.22</span>
             </div>
+            <a href="{{ route('producto.detalles', ['id' => 2, 'slug' => 'laptop-lenovo-ideapad-gaming-3-15arh05']) }}" class="btn btn-primary">Ver Detalles</a>
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="card">
-            <a href="{{ route('producto.detalles', ['id' => 3]) }}">
-                <img src="{{ asset('images/monitor.jfif') }}" class="card-img-top" alt="Pantalla Genérica">
-            </a>
-            <div class="card-body">
-                <h5 class="card-title">Monitor plano 21.5" Teros TE-2127S Panel IPS, FHD (1920 x 1080), 100Hz, 1ms, entradas HDMI/VGA</h5>
-                <p class="card-text">Pantalla Full HD de 24 pulgadas para una experiencia visual increíble.</p>
-                <p class="card-text"><strong>Precio: $149.99</strong></p>
-                <button class="btn btn-primary add-to-cart" data-id="3">Añadir al Carrito</button>
-                <button class="btn btn-warning add-to-favorites" data-id="3">❤️ Favorito</button>
+    <!-- Tarjeta de Video Gigabyte GTX 1660 Super -->
+    <div class="product-card-specific">
+        <a href="{{ route('producto.detalles', ['id' => 3, 'slug' => 'tarjeta-video-gigabyte-gtx-1660-super']) }}">
+            <img src="{{ asset('images/gtx1.png') }}" class="product-image-specific" alt="Tarjeta de Video Gigabyte GTX 1660 Super - 6GB GDDR6" loading="lazy">
+        </a>
+        <div class="product-body-specific">
+            <h2 class="product-title-specific">Tarjeta de Video Gigabyte GTX 1660 Super</h2>
+            <p class="product-text-specific">Tarjeta de video Gigabyte GTX 1660 Super con 6GB GDDR6. Rendimiento excepcional para gaming en 1080p.</p>
+            <div class="product-price-specific">
+                <span class="price-usd">$470.78</span>
+                <span class="price-pen">S/. 1751.30</span>
             </div>
+            <a href="{{ route('producto.detalles', ['id' => 3, 'slug' => 'tarjeta-video-gigabyte-gtx-1660-super']) }}" class="btn btn-primary">Ver Detalles</a>
         </div>
     </div>
 
-    <!-- Productos Específicos -->
-    <div class="col-md-4">
-        <div class="card">
-            <a href="{{ route('producto.detalles', ['id' => 2]) }}">
-                <img src="{{ asset('images/laptop.webp') }}" class="card-img-top" alt="Producto Exclusivo 1">
-            </a>
-            <div class="card-body">
-                <h5 class="card-title">Laptop Exclusiva KenyaPro X1</h5>
-                <p class="card-text">Laptop exclusiva con procesador de última generación y diseño ultradelgado.</p>
-                <p class="card-text"><strong>Precio: $1299.99</strong></p>
-                <button class="btn btn-primary add-to-cart" data-id="4">Añadir al Carrito</button>
-                <button class="btn btn-warning add-to-favorites" data-id="4">❤️ Favorito</button>
+    <!-- Tarjeta de Video Gigabyte AORUS RTX 3070 Master -->
+    <div class="product-card-specific">
+        <a href="{{ route('producto.detalles', ['id' => 4, 'slug' => 'tarjeta-video-gigabyte-aorus-rtx-3070-master']) }}">
+            <img src="{{ asset('images/gtx2.png') }}" class="product-image-specific" alt="Tarjeta de Video Gigabyte AORUS RTX 3070 Master - 8GB GDDR6" loading="lazy">
+        </a>
+        <div class="product-body-specific">
+            <h2 class="product-title-specific">Tarjeta de Video Gigabyte AORUS RTX 3070 Master</h2>
+            <p class="product-text-specific">Tarjeta de video Gigabyte AORUS RTX 3070 Master con 8GB GDDR6. Tecnología de trazado de rayos en tiempo real para gaming en 4K.</p>
+            <div class="product-price-specific">
+                <span class="price-usd">$1105.00</span>
+                <span class="price-pen">S/. 4110.60</span>
             </div>
+            <a href="{{ route('producto.detalles', ['id' => 4, 'slug' => 'tarjeta-video-gigabyte-aorus-rtx-3070-master']) }}" class="btn btn-primary">Ver Detalles</a>
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="card">
-            <a href="{{ route('producto.detalles', ['id' => 1]) }}">
-                <img src="{{ asset('images/rtx.webp') }}" class="card-img-top" alt="Producto Exclusivo 2">
-            </a>
-            <div class="card-body">
-                <h5 class="card-title">Tarjeta de Video KenyaUltra RTX</h5>
-                <p class="card-text">Tarjeta de video exclusiva con tecnología RTX para gaming extremo.</p>
-                <p class="card-text"><strong>Precio: $899.99</strong></p>
-                <button class="btn btn-primary add-to-cart" data-id="5">Añadir al Carrito</button>
-                <button class="btn btn-warning add-to-favorites" data-id="5">❤️ Favorito</button>
+    <!-- Monitor AOC 24" G2460PQU -->
+    <div class="product-card-specific">
+        <a href="{{ route('producto.detalles', ['id' => 5, 'slug' => 'monitor-aoc-24-g2460pqu']) }}">
+            <img src="{{ asset('images/monitor1.png') }}" class="product-image-specific" alt="Monitor AOC 24 G2460PQU - 24 pulgadas, 144Hz, 1ms" loading="lazy">
+        </a>
+        <div class="product-body-specific">
+            <h2 class="product-title-specific">Monitor AOC 24" G2460PQU</h2>
+            <p class="product-text-specific">Monitor AOC 24" G2460PQU con resolución Full HD 1080p, 144Hz y 1ms. Ideal para gaming y diseño con colores precisos y tiempo de respuesta rápido.</p>
+            <div class="product-price-specific">
+                <span class="price-usd">$186.40</span>
+                <span class="price-pen">S/. 693.41</span>
             </div>
+            <a href="{{ route('producto.detalles', ['id' => 5, 'slug' => 'monitor-aoc-24-g2460pqu']) }}" class="btn btn-primary">Ver Detalles</a>
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="card">
-            <a href="{{ route('producto.detalles', ['id' => 3]) }}">
-                <img src="{{ asset('images/monitor.jfif') }}" class="card-img-top" alt="Producto Exclusivo 3">
-            </a>
-            <div class="card-body">
-                <h5 class="card-title">Pantalla KenyaView 4K</h5>
-                <p class="card-text">Pantalla exclusiva 4K con colores vibrantes y diseño sin bordes.</p>
-                <p class="card-text"><strong>Precio: $499.99</strong></p>
-                <button class="btn btn-primary add-to-cart" data-id="6">Añadir al Carrito</button>
-                <button class="btn btn-warning add-to-favorites" data-id="6">❤️ Favorito</button>
+    <!-- Monitor Gigabyte G27FC -->
+    <div class="product-card-specific">
+        <a href="{{ route('producto.detalles', ['id' => 6, 'slug' => 'monitor-gigabyte-g27fc']) }}">
+            <img src="{{ asset('images/monitor2.png') }}" class="product-image-specific" alt="Monitor Gigabyte G27FC - 27 pulgadas, 165Hz, curvatura 1500R" loading="lazy">
+        </a>
+        <div class="product-body-specific">
+            <h2 class="product-title-specific">Monitor Gigabyte G27FC</h2>
+            <p class="product-text-specific">Monitor Gigabyte G27FC de 27" con resolución Full HD 1080p, 165Hz, 1ms y curvatura 1500R. Experiencia envolvente para gaming y multimedia.</p>
+            <div class="product-price-specific">
+                <span class="price-usd">$226.66</span>
+                <span class="price-pen">S/. 843.18</span>
             </div>
+            <a href="{{ route('producto.detalles', ['id' => 6, 'slug' => 'monitor-gigabyte-g27fc']) }}" class="btn btn-primary">Ver Detalles</a>
         </div>
     </div>
 </div>
+
+<!-- Schema Markup para SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": [
+    {
+      "@type": "Product",
+      "name": "Laptop Lenovo IdeaPad Gaming 3 15IMH05",
+      "description": "Laptop Lenovo IdeaPad Gaming 3 con Intel Core i5-10300H, pantalla 15.6 FHD, 8GB RAM, 512GB SSD y NVIDIA GeForce GTX 1650 4GB.",
+      "brand": "Lenovo",
+      "image": "{{ asset('images/lenovo1.png') }}",
+      "offers": {
+        "@type": "Offer",
+        "price": "531.23",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "Product",
+      "name": "Laptop Lenovo IdeaPad Gaming 3 15ARH05",
+      "description": "Laptop Lenovo IdeaPad Gaming 3 con AMD Ryzen 7 4800H, pantalla 15.6 FHD, 16GB RAM, 1TB HDD + 256GB SSD y NVIDIA GTX 1650 Ti 4GB.",
+      "brand": "Lenovo",
+      "image": "{{ asset('images/lenovo2.png') }}",
+      "offers": {
+        "@type": "Offer",
+        "price": "1031.78",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "Product",
+      "name": "Tarjeta de Video Gigabyte GTX 1660 Super",
+      "description": "Tarjeta de video Gigabyte GTX 1660 Super con 6GB GDDR6.",
+      "brand": "Gigabyte",
+      "image": "{{ asset('images/gtx1.png') }}",
+      "offers": {
+        "@type": "Offer",
+        "price": "470.78",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "Product",
+      "name": "Tarjeta de Video Gigabyte AORUS RTX 3070 Master",
+      "description": "Tarjeta de video Gigabyte AORUS RTX 3070 Master con 8GB GDDR6.",
+      "brand": "Gigabyte",
+      "image": "{{ asset('images/gtx2.png') }}",
+      "offers": {
+        "@type": "Offer",
+        "price": "1105.00",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "Product",
+      "name": "Monitor AOC 24 G2460PQU",
+      "description": "Monitor AOC 24 G2460PQU con resolución Full HD 1080p, 144Hz y 1ms.",
+      "brand": "AOC",
+      "image": "{{ asset('images/monitor1.png') }}",
+      "offers": {
+        "@type": "Offer",
+        "price": "186.40",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "Product",
+      "name": "Monitor Gigabyte G27FC",
+      "description": "Monitor Gigabyte G27FC de 27 con resolución Full HD 1080p, 165Hz, 1ms y curvatura 1500R.",
+      "brand": "Gigabyte",
+      "image": "{{ asset('images/monitor2.png') }}",
+      "offers": {
+        "@type": "Offer",
+        "price": "226.66",
+        "priceCurrency": "USD"
+      }
+    }
+  ]
+}
+</script>
 
 <script>
     // Simular tiempo de carga
     document.addEventListener("DOMContentLoaded", function() {
         setTimeout(function() {
-            document.querySelectorAll('.card').forEach(card => {
+            document.querySelectorAll('.product-card-specific').forEach(card => {
                 card.style.opacity = '1';
             });
         }, 500); // 500ms de retraso
-    });
-
-    // Funcionalidad de añadir al carrito y favoritos
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-        button.addEventListener('click', function() {
-            fetch("{{ route('cart.add') }}", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                },
-                body: JSON.stringify({ id: this.dataset.id })
-            }).then(response => response.json())
-              .then(data => alert('Producto añadido al carrito'));
-        });
-    });
-
-    document.querySelectorAll('.add-to-favorites').forEach(button => {
-        button.addEventListener('click', function() {
-            fetch("{{ route('favorites.add') }}", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                },
-                body: JSON.stringify({ id: this.dataset.id })
-            }).then(response => response.json())
-              .then(data => alert('Producto añadido a favoritos'));
-        });
     });
 </script>
 @endsection

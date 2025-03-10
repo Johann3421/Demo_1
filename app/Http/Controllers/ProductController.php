@@ -17,70 +17,130 @@ class ProductController extends Controller
         $productos = [
             1 => [
                 'id' => 1,
-                'nombre' => 'Tarjeta Grafica Msi Geforce Rtx 4070ti Super 16gb Gddr6x',
-                'descripcion' => 'Tarjeta de video de alto rendimiento para gaming y diseño gráfico.',
-                'precio' => 299.99,
-                'imagen' => 'rtx.webp',
-                'marca' => 'MSI',
-                'modelo' => 'RTX 4070 Ti Super',
-                'procesador' => 'N/A',
-                'ram' => '16GB GDDR6X',
-                'almacenamiento' => 'N/A',
-                'pantalla' => 'N/A',
-                'graficos' => 'PCIe 4.0, 3 ventiladores, RGB',
+                'nombre' => 'Laptop Lenovo IdeaPad Gaming 3 15IMH05',
+                'descripcion' => 'Intel Core i5-10300H, 15.6" FHD, 8GB RAM, 512GB SSD, NVIDIA GeForce GTX 1650 4GB. Ideal para gaming y multitarea.',
+                'precio' => 531.23,
+                'imagen' => 'lenovo1.png',
+                'marca' => 'Lenovo',
+                'modelo' => 'IdeaPad Gaming 3 15IMH05',
+                'procesador' => 'Intel Core i5-10300H',
+                'ram' => '8GB',
+                'almacenamiento' => '512GB SSD',
+                'pantalla' => '15.6" FHD',
+                'graficos' => 'NVIDIA GeForce GTX 1650 4GB',
                 'stock' => 10,
-                'descuento' => 10,
-                'slug' => Str::slug('Tarjeta Grafica Msi Geforce Rtx 4070ti Super 16gb Gddr6x')
+                'descuento' => 5,
+                'slug' => Str::slug('Laptop Lenovo IdeaPad Gaming 3 15IMH05'),
+                'precio_soles' => 0
             ],
             2 => [
                 'id' => 2,
-                'nombre' => 'Laptop Intel Core I5 16gb 512gb Ssd Ideapad Slim 3i 12° Gen Fhd',
-                'descripcion' => 'Laptop potente y ligera para trabajo y entretenimiento.',
-                'precio' => 799.99,
-                'imagen' => 'laptop.webp',
+                'nombre' => 'Laptop Lenovo IdeaPad Gaming 3 15ARH05',
+                'descripcion' => 'AMD Ryzen 7 4800H, 15.6" FHD, 16GB RAM, 1TB HDD + 256GB SSD, NVIDIA GTX 1650 Ti 4GB. Potencia y almacenamiento para gaming.',
+                'precio' => 1031.78,
+                'imagen' => 'lenovo2.png',
                 'marca' => 'Lenovo',
-                'modelo' => 'Ideapad Slim 3i',
-                'procesador' => 'Intel Core i5 12° Gen',
+                'modelo' => 'IdeaPad Gaming 3 15ARH05',
+                'procesador' => 'AMD Ryzen 7 4800H',
                 'ram' => '16GB',
-                'almacenamiento' => '512GB SSD',
-                'pantalla' => '15.6” Full HD',
-                'graficos' => 'Intel Iris Xe',
-                'stock' => 5,
-                'descuento' => 5,
-                'slug' => Str::slug('Laptop Intel Core I5 16gb 512gb Ssd Ideapad Slim 3i 12° Gen Fhd')
+                'almacenamiento' => '1TB HDD + 256GB SSD',
+                'pantalla' => '15.6" FHD',
+                'graficos' => 'NVIDIA GTX 1650 Ti 4GB',
+                'stock' => 8,
+                'descuento' => 10,
+                'slug' => Str::slug('Laptop Lenovo IdeaPad Gaming 3 15ARH05'),
+                'precio_soles' => 0
             ],
             3 => [
                 'id' => 3,
-                'nombre' => 'Monitor plano 21.5" Teros TE-2127S Panel IPS, FHD (1920 x 1080), 100Hz, 1ms, entradas HDMI/VGA',
-                'descripcion' => 'Pantalla Full HD de 24 pulgadas para una experiencia visual increíble.',
-                'precio' => 149.99,
-                'imagen' => 'monitor.jfif',
-                'marca' => 'Teros',
-                'modelo' => 'TE-2127S',
+                'nombre' => 'Tarjeta de Video Gigabyte GTX 1660 Super',
+                'descripcion' => 'NVIDIA GeForce GTX 1660 Super, 6GB GDDR6. Rendimiento excepcional para gaming en 1080p.',
+                'precio' => 470.78,
+                'imagen' => 'gtx1.png',
+                'marca' => 'Gigabyte',
+                'modelo' => 'GTX 1660 Super Gaming OC 6G',
+                'procesador' => 'N/A',
+                'ram' => '6GB GDDR6',
+                'almacenamiento' => 'N/A',
+                'pantalla' => 'N/A',
+                'graficos' => 'NVIDIA GeForce GTX 1660 Super',
+                'stock' => 12,
+                'descuento' => 0,
+                'slug' => Str::slug('Tarjeta de Video Gigabyte GTX 1660 Super'),
+                'precio_soles' => 0
+            ],
+            4 => [
+                'id' => 4,
+                'nombre' => 'Tarjeta de Video Gigabyte AORUS RTX 3070 Master',
+                'descripcion' => 'NVIDIA GeForce RTX 3070, 8GB GDDR6. Tecnología de trazado de rayos en tiempo real para gaming en 4K.',
+                'precio' => 1105.00,
+                'imagen' => 'gtx2.png',
+                'marca' => 'Gigabyte',
+                'modelo' => 'AORUS RTX 3070 Master',
+                'procesador' => 'N/A',
+                'ram' => '8GB GDDR6',
+                'almacenamiento' => 'N/A',
+                'pantalla' => 'N/A',
+                'graficos' => 'NVIDIA GeForce RTX 3070',
+                'stock' => 6,
+                'descuento' => 15,
+                'slug' => Str::slug('Tarjeta de Video Gigabyte AORUS RTX 3070 Master'),
+                'precio_soles' => 0
+            ],
+            5 => [
+                'id' => 5,
+                'nombre' => 'Monitor AOC 24 G2460PQU',
+                'descripcion' => '24" Full HD 1080p, 144Hz, 1ms. Ideal para gaming y diseño con colores precisos y tiempo de respuesta rápido.',
+                'precio' => 186.40,
+                'imagen' => 'monitor1.png',
+                'marca' => 'AOC',
+                'modelo' => 'G2460PQU',
                 'procesador' => 'N/A',
                 'ram' => 'N/A',
                 'almacenamiento' => 'N/A',
-                'pantalla' => '21.5” IPS Full HD, 100Hz',
-                'graficos' => 'HDMI/VGA',
-                'stock' => 15,
+                'pantalla' => '24" Full HD 1080p, 144Hz',
+                'graficos' => 'N/A',
+                'stock' => 20,
                 'descuento' => 0,
-                'slug' => Str::slug('Monitor plano 21.5 Teros TE-2127S Panel IPS FHD 100Hz 1ms HDMI VGA')
+                'slug' => Str::slug('Monitor AOC 24 G2460PQU'),
+                'precio_soles' => 0
+            ],
+            6 => [
+                'id' => 6,
+                'nombre' => 'Monitor Gigabyte G27FC',
+                'descripcion' => '27" Full HD 1080p, 165Hz, 1ms, curvatura 1500R. Experiencia envolvente para gaming y multimedia.',
+                'precio' => 226.66,
+                'imagen' => 'monitor2.png',
+                'marca' => 'Gigabyte',
+                'modelo' => 'G27FC',
+                'procesador' => 'N/A',
+                'ram' => 'N/A',
+                'almacenamiento' => 'N/A',
+                'pantalla' => '27" Full HD 1080p, 165Hz',
+                'graficos' => 'N/A',
+                'stock' => 15,
+                'descuento' => 5,
+                'slug' => Str::slug('Monitor Gigabyte G27FC'),
+                'precio_soles' => 0
             ],
         ];
 
         // ❌ Verificar si el producto no existe
-        if (!isset($productos[$id])) {
-            abort(404, 'Producto no encontrado');
-        }
+        // 🛠 Corregido: Se debe calcular 'precio_soles' dentro del producto seleccionado
+if (!isset($productos[$id])) {
+    abort(404, 'Producto no encontrado');
+}
 
-        // ✅ Obtener el producto
-        $producto = $productos[$id];
+$producto = $productos[$id];
 
-        // ✅ Generar URL amigable
-        $url = route('producto.detalles', ['id' => $producto['id'], 'slug' => $producto['slug']]);
+// ✅ Asegurar que 'precio' exista antes de la conversión
+$producto['precio_soles'] = isset($producto['precio']) ? round($producto['precio'] * 3.8, 2) : 0;
 
-        // 🔍 Pasar los datos del producto a la vista
-        return view('producto.detalles', compact('producto', 'id', 'url'));
+// ✅ Generar URL amigable
+$url = route('producto.detalles', ['id' => $producto['id'], 'slug' => $producto['slug']]);
+
+// 🔍 Pasar los datos del producto a la vista
+return view('producto.detalles', compact('producto', 'id', 'url'));
     }
 
     // 🔍 Método de búsqueda optimizado
@@ -97,4 +157,5 @@ class ProductController extends Controller
 
         return view('search-results', compact('products', 'query'));
     }
+    
 }
