@@ -24,7 +24,8 @@ Route::post('/favoritos/agregar', [FavoriteController::class, 'addToFavorites'])
 Route::get('/favoritos', [FavoriteController::class, 'viewFavorites'])->name('favorites.view');
 Route::get('/producto/{id}/detalle', 'ProductoController@detalle')->name('producto.detalle');
 
-Route::get('/producto/{id}', [ProductController::class, 'show'])->name('producto.detalles');
+Route::get('/producto/{id}/{slug}', [ProductController::class, 'show'])->name('producto.detalles');
+Route::get('/productos', [ProductController::class, 'index'])->name('products');
 
 Route::get('/contact', function () {
     return view('contact');

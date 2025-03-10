@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', $producto['nombre'] . ' - ' . $producto['marca'] . ' | SEKAITECH')
+@section('title', $producto->nombre . ' - ' . $producto->marca . ' | SEKAITECH')
 
-@section('meta-description', 'Compra el ' . $producto['nombre'] . ' de ' . $producto['marca'] . ' al mejor precio en SEKAITECH. ' . $producto['descripcion'])
+@section('meta-description', 'Compra el ' . $producto->nombre . ' de ' . $producto->marca . ' al mejor precio en SEKAITECH. ' . $producto->descripcion)
 
 @section('content')
 <div class="container product-page">
@@ -10,44 +10,43 @@
         <!-- 📷 Galería de imágenes -->
         <div class="product-gallery">
             <div class="product-main-image">
-                <img src="{{ asset('images/' . $producto['imagen']) }}" alt="{{ $producto['nombre'] }} - {{ $producto['marca'] }}">
+                <img src="{{ asset('images/' . $producto->imagen_url) }}" alt="{{ $producto->nombre }} - {{ $producto->marca }}">
             </div>
             <div class="product-thumbnails">
-                <img src="{{ asset('images/' . $producto['imagen']) }}" class="thumb" alt="Miniatura 1 - {{ $producto['nombre'] }}">
-                <img src="{{ asset('images/' . $producto['imagen']) }}" class="thumb" alt="Miniatura 2 - {{ $producto['nombre'] }}">
-                <img src="{{ asset('images/' . $producto['imagen']) }}" class="thumb" alt="Miniatura 3 - {{ $producto['nombre'] }}">
+                <img src="{{ asset('images/' . $producto->imagen_url) }}" class="thumb" alt="Miniatura 1 - {{ $producto->nombre }}">
+                <img src="{{ asset('images/' . $producto->imagen_url) }}" class="thumb" alt="Miniatura 2 - {{ $producto->nombre }}">
+                <img src="{{ asset('images/' . $producto->imagen_url) }}" class="thumb" alt="Miniatura 3 - {{ $producto->nombre }}">
             </div>
         </div>
 
         <!-- 📄 Información del producto -->
         <div class="product-info">
-            <h1 class="product-title">{{ $producto['nombre'] }}</h1>
-            <meta itemprop="brand" content="{{ $producto['marca'] }}">
-            <meta itemprop="description" content="{{ $producto['descripcion'] }}">
-            <meta itemprop="sku" content="{{ $producto['id'] }}">
+            <h1 class="product-title">{{ $producto->nombre }}</h1>
+            <meta itemprop="brand" content="{{ $producto->marca }}">
+            <meta itemprop="description" content="{{ $producto->descripcion }}">
+            <meta itemprop="sku" content="{{ $producto->id }}">
 
-            <p class="product-description">{{ $producto['descripcion'] }}</p>
-<p class="product-price" style="color: red; font-size: 1.8rem; font-weight: bold;">
-    <strong>Precio en dólares:</strong> ${{ number_format($producto['precio'], 2) }}
-</p>
-<p class="product-price" style="color: green; font-size: 1.8rem; font-weight: bold;">
-    <strong>Precio en soles:</strong> S/.{{ number_format($producto['precio_soles'], 2) }}
-</p>
-
+            <p class="product-description">{{ $producto->descripcion }}</p>
+            <p class="product-price" style="color: red; font-size: 1.8rem; font-weight: bold;">
+                <strong>Precio en dólares:</strong> ${{ number_format($producto->precio_dolares, 2) }}
+            </p>
+            <p class="product-price" style="color: green; font-size: 1.8rem; font-weight: bold;">
+                <strong>Precio en soles:</strong> S/.{{ number_format($producto->precio_soles, 2) }}
+            </p>
 
             <!-- 🛠 Información adicional -->
             <div class="product-additional-info">
-                <p><strong>Garantía:</strong> {{ $producto['garantia'] ?? '12 meses' }}</p>
-                <p><strong>Disponibilidad:</strong> <span class="stock-status">{{ $producto['stock'] > 0 ? 'En stock' : 'Agotado' }}</span></p>
+                <p><strong>Garantía:</strong> {{ $producto->garantia ?? '12 meses' }}</p>
+                <p><strong>Disponibilidad:</strong> <span class="stock-status">{{ $producto->stock > 0 ? 'En stock' : 'Agotado' }}</span></p>
                 <p><strong>Envío:</strong> Gratis a todo el país</p>
                 <p><strong>Devoluciones:</strong> 30 días de garantía de devolución</p>
             </div>
 
             <div class="product-buttons">
-                <a href="https://wa.me/51933573985?text=Hola,%20estoy%20interesado%20en%20el%20producto%20{{ urlencode($producto['nombre']) }}%20-%20Precio:%20${{ number_format((float) $producto['precio'], 2) }}" class="btn btn-success" target="_blank">
+                <a href="https://wa.me/51933573985?text=Hola,%20estoy%20interesado%20en%20el%20producto%20{{ urlencode($producto->nombre) }}%20-%20Precio:%20${{ number_format((float) $producto->precio_dolares, 2) }}" class="btn btn-success" target="_blank">
                     <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
                 </a>
-                <button class="btn btn-outline-primary like-button" data-id="{{ $id }}">
+                <button class="btn btn-outline-primary like-button" data-id="{{ $producto->id }}">
                     <i class="fas fa-thumbs-up"></i> <span class="like-count">0</span> Likes
                 </button>
             </div>
@@ -58,13 +57,13 @@
     <div class="product-specs mt-4">
         <h2>Especificaciones Técnicas</h2>
         <div class="row">
-            <div class="col-md-6"><strong>Marca:</strong> {{ $producto['marca'] ?? 'N/A' }}</div>
-            <div class="col-md-6"><strong>Modelo:</strong> {{ $producto['modelo'] ?? 'N/A' }}</div>
-            <div class="col-md-6"><strong>Procesador:</strong> {{ $producto['procesador'] ?? 'N/A' }}</div>
-            <div class="col-md-6"><strong>Memoria RAM:</strong> {{ $producto['ram'] ?? 'N/A' }}</div>
-            <div class="col-md-6"><strong>Almacenamiento:</strong> {{ $producto['almacenamiento'] ?? 'N/A' }}</div>
-            <div class="col-md-6"><strong>Pantalla:</strong> {{ $producto['pantalla'] ?? 'N/A' }}</div>
-            <div class="col-md-6"><strong>Gráficos:</strong> {{ $producto['graficos'] ?? 'N/A' }}</div>
+            <div class="col-md-6"><strong>Marca:</strong> {{ $producto->marca ?? 'N/A' }}</div>
+            <div class="col-md-6"><strong>Modelo:</strong> {{ $producto->modelo ?? 'N/A' }}</div>
+            <div class="col-md-6"><strong>Procesador:</strong> {{ $producto->procesador ?? 'N/A' }}</div>
+            <div class="col-md-6"><strong>Memoria RAM:</strong> {{ $producto->ram ?? 'N/A' }}</div>
+            <div class="col-md-6"><strong>Almacenamiento:</strong> {{ $producto->almacenamiento ?? 'N/A' }}</div>
+            <div class="col-md-6"><strong>Pantalla:</strong> {{ $producto->pantalla ?? 'N/A' }}</div>
+            <div class="col-md-6"><strong>Gráficos:</strong> {{ $producto->graficos ?? 'N/A' }}</div>
         </div>
     </div>
 
@@ -93,18 +92,18 @@
 {
   "@context": "https://schema.org/",
   "@type": "Product",
-  "name": "{{ $producto['nombre'] }}",
-  "description": "{{ $producto['descripcion'] }}",
+  "name": "{{ $producto->nombre }}",
+  "description": "{{ $producto->descripcion }}",
   "brand": {
     "@type": "Brand",
-    "name": "{{ $producto['marca'] }}"
+    "name": "{{ $producto->marca }}"
   },
-  "image": "{{ asset('images/' . $producto['imagen']) }}",
+  "image": "{{ asset('images/' . $producto->imagen_url) }}",
   "offers": {
     "@type": "Offer",
-    "price": "{{ $producto['precio'] }}",
+    "price": "{{ $producto->precio_dolares }}",
     "priceCurrency": "USD",
-    "availability": "{{ $producto['stock'] > 0 ? 'InStock' : 'OutOfStock' }}",
+    "availability": "{{ $producto->stock > 0 ? 'InStock' : 'OutOfStock' }}",
     "seller": {
       "@type": "Organization",
       "name": "SEKAITECH"

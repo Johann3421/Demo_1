@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SEKAITECH - Lo mejor en productos tecnológicos en Huánuco</title>
-    <meta name="description" content="Descubre SEKAI TECH, tu aliado en informática en Huánuco y Perú. Comprar computadoras, laptops, tarjetas de video y monitores de alta calidad es fácil con nuestra asesoría experta y tecnología de vanguardia.">
+    <meta name="description" content="Descubre SEKAITECH, tu aliado en informática en Huánuco y Perú. Comprar computadoras, laptops, tarjetas de video y monitores de alta calidad es fácil con nuestra asesoría experta y tecnología de vanguardia.">
     <meta name="keywords" content="productos, tienda online, ecommerce, ofertas, comprar online, envío rápido, productos de calidad, laptops, impresoras, PCs, puntos de venta">
     <meta name="robots" content="index, follow">
     <meta name="author" content="SEKAITECH">
@@ -86,20 +86,13 @@
             </div>
         </div>
 
-        <div class="row content-wrapper">
-            <aside class="col-md-3 d-none d-md-block left-sidebar">
-                @include('partials.aside')
-            </aside>
-            <main class="col-md-9 col-12">
-                <!-- Añadir un <h1> principal -->
-                @hasSection('h1')
-                    <h1 class="main-heading">@yield('h1')</h1>
-                @else
-                    <h1 class="main-heading">Bienvenido a SEKAITECH - Lo mejor en productos tecnológicos en Huánuco</h1>
-                @endif
-                @yield('content')
-            </main>
-        </div>
+        <div class="container custom-container d-flex justify-content-center">
+    <main class="col-md-9 col-12">
+        @yield('content')
+    </main>
+</div>
+
+
     </div>
 
     @include('partials.footer') <!-- Ahora siempre se mostrará correctamente -->
