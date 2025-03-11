@@ -34,3 +34,5 @@ Route::get('/contact', function () {
 Route::get('/search', [ProductController::class, 'search'])->name('search');
 
 Route::get('/', [CategoriaController::class, 'index'])->name('home');
+
+Route::get('/productos/filter', [ProductController::class, 'filter'])->name('productos.filter');

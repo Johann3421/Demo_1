@@ -9,18 +9,22 @@ class ProductController extends Controller
 {
     // Método para mostrar todos los productos
     public function index()
-{
-    // Obtener todos los productos
-    $productos = Producto::all();
-
-    // Calcular el precio en soles para cada producto
-    foreach ($productos as $producto) {
-        $producto->precio_soles = round($producto->precio_dolares * 3.8, 2);
+    {
+        // Obtener todos los productos
+        $productos = Producto::all();
+    
+        // Calcular el precio en soles para cada producto antes de retornar la vista
+        foreach ($productos as $producto) {
+            $producto->precio_soles = round($producto->precio_dolares * 3.8, 2);
+        }
+    
+        // Obtener 3 productos aleatorios para "Top de Ventas"
+        $topVentas = Producto::inRandomOrder()->limit(3)->get();
+    
+        // Pasar los productos y top ventas a la vista
+        return view('products', compact('productos', 'topVentas'));
     }
-
-    // Pasar los productos a la vista
-    return view('products', compact('productos')); // Asegúrate de que el nombre de la vista sea correcto
-}
+    
 
     // Método para mostrar los detalles del producto desde la base de datos
     public function show($id)
@@ -51,4 +55,40 @@ class ProductController extends Controller
 
         return view('search-results', compact('products', 'query'));
     }
+    public function filter(Request $request)
+{
+    $query = Producto::query();
+
+    // Filtrar por precio
+    if ($request->filled('min_price') && $request->filled('max_price')) {
+        $query->whereBetween('precio_dolares', [$request->min_price, $request->max_price]);
+    }
+
+    // Filtrar por stock
+    if ($request->filled('stock')) {
+        if ($request->stock == 'in-stock') {
+            $query->where('stock', '>', 0);
+        } elseif ($request->stock == 'on-sale') {
+            $query->where('descuento', '>', 0);
+        }
+    }
+
+    // Filtrar por categoría
+    if ($request->filled('categoria_id')) {
+        $query->where('categoria_id', $request->categoria_id);
+    }
+
+    // Obtener los productos filtrados
+    $productos = $query->get();
+
+    // Calcular el precio en soles
+    foreach ($productos as $producto) {
+        $producto->precio_soles = round($producto->precio_dolares * 3.8, 2);
+    }
+
+    // Retornar la vista parcial con los productos filtrados
+    return view('components.product-list', compact('productos'));
+}
+
+
 }
