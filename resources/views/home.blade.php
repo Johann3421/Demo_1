@@ -21,7 +21,7 @@
             $totalProductos = rand(5, 50);
         @endphp
         <div class="col-md-4 mb-4">
-            <a href="{{ route('products') }}" class="text-decoration-none">
+            <a href="{{ route('products', ['categoria' => $categoria->nombre]) }}" class="text-decoration-none">
                 <div class="categoria-card shadow-lg" 
                      style="background: url('{{ asset('images/' . $categoria->imagen_url) }}') center/cover no-repeat; height: 250px;">
                     <div class="category-name">{{ $categoria->nombre }}</div>
@@ -31,6 +31,7 @@
         </div>
     @endforeach
 </div>
+
 
 <!-- Sección del Banner -->
 <div class="sekai-banner-placeholder">ESPACIO PARA BANNER</div>

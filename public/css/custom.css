@@ -221,3 +221,95 @@ body {
 /*FIN DE ESTILO DE SIDEBAR */
 
 
+/* ESTILOS DEL FILTER VIEW */
+
+/* Contenedor principal */
+.flex.items-center {
+    display: flex;
+    justify-content: space-between; /* Distribuye los elementos */
+    align-items: center;
+}
+
+/* Breadcrumb (categoría alineada a la izquierda) */
+.category-container {
+    flex-grow: 1; /* Ocupa todo el espacio disponible a la izquierda */
+}
+
+/* Contenedor de los controles de vista (alineados a la derecha) */
+.controls-container {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Espacio entre los elementos */
+}
+
+/* Separación específica después de "Show:" */
+.show-label {
+    margin-right: 8px;
+    font-weight: 500;
+}
+
+/* Contenedor de filtros */
+#filters-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    opacity: 0;
+}
+
+/* Mostrar menú de filtros cuando está activo */
+#filters-menu.active {
+    max-height: 300px;
+    opacity: 1;
+    padding: 1rem;
+}
+
+/* Iconos de vista */
+.view-mode {
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.view-mode:hover {
+    color: #2563eb;
+    transform: scale(1.1);
+}
+
+/* Enlaces de cantidad de productos */
+.items-per-page {
+    cursor: pointer;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.items-per-page:hover {
+    color: #2563eb;
+    background-color: rgba(59, 130, 246, 0.1);
+    text-decoration: none;
+}
+
+/* Botón de filtros */
+.filter-toggle {
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.filter-toggle:hover {
+    color: #2563eb;
+}
+
+/* Estilos del select y slider de filtros */
+#advanced-filters select,
+#advanced-filters input {
+    transition: all 0.2s ease-in-out;
+}
+
+#advanced-filters select:focus,
+#advanced-filters input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+}
+
+/* FIN DE ESTILOS DEL FILTER VIEW */

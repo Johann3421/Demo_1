@@ -8,22 +8,30 @@ use Illuminate\Support\Str;
 class ProductController extends Controller
 {
     // Método para mostrar todos los productos
-    public function index()
-    {
-        // Obtener todos los productos
-        $productos = Producto::all();
-    
-        // Calcular el precio en soles para cada producto antes de retornar la vista
-        foreach ($productos as $producto) {
-            $producto->precio_soles = round($producto->precio_dolares * 3.8, 2);
-        }
-    
-        // Obtener 3 productos aleatorios para "Top de Ventas"
-        $topVentas = Producto::inRandomOrder()->limit(3)->get();
-    
-        // Pasar los productos y top ventas a la vista
-        return view('products', compact('productos', 'topVentas'));
+    public function index(Request $request)
+{
+    // Obtener la categoría desde la URL (si no hay, usa "Productos")
+    $categoriaActual = $request->query('categoria', 'Productos');
+
+    // Filtrar productos por categoría si se especifica
+    $productos = Producto::when($categoriaActual !== 'Productos', function ($query) use ($categoriaActual) {
+        return $query->whereHas('categoria', function ($q) use ($categoriaActual) {
+            $q->where('nombre', $categoriaActual);
+        });
+    })->get();
+
+    // Calcular el precio en soles
+    foreach ($productos as $producto) {
+        $producto->precio_soles = round($producto->precio_dolares * 3.8, 2);
     }
+
+    // Obtener 3 productos aleatorios para "Top de Ventas"
+    $topVentas = Producto::inRandomOrder()->limit(3)->get();
+
+    // Pasar datos a la vista
+    return view('products', compact('productos', 'topVentas', 'categoriaActual'));
+}
+
     
 
     // Método para mostrar los detalles del producto desde la base de datos
