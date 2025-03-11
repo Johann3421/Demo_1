@@ -961,140 +961,121 @@ h1 {
 }
 
 /* fin de estilos para el Buscador */
-
 /* ======= ESTILOS DEL SLIDER ======= */
 .slider-section {
     background-color: #f8f9fa;
-    padding: 4rem 0; /* Aumentamos el padding para pantallas grandes */
+    padding: 0;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
 }
 
+/* Contenedor del slider */
 .slider-container {
-    max-width: 1400px; /* Aumentamos el ancho máximo */
+    width: 100%;
+    max-width: 100vw;
+    height: 600px; /* Más alto en PC */
     margin: 0 auto;
-    padding: 0 15px;
+    position: relative;
+    overflow: hidden;
 }
 
+/* Contenedor de cada slide */
 .carousel-item {
-    padding: 3rem 0; /* Aumentamos el padding para pantallas grandes */
+    width: 100%;
+    height: 100%;
+    position: relative;
 }
 
-.slider-content-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 3rem; /* Aumentamos el espacio entre texto e imagen */
-    width: 100%; /* Ocupa todo el ancho disponible */
-}
-
-.slider-text-content {
-    flex: 1;
-    max-width: 50%;
-    text-align: left;
-}
-
+/* Contenedor de la imagen */
 .slider-image-content {
-    flex: 1;
-    max-width: 50%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Imagen dentro del slider */
+.slider-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que la imagen llene el contenedor sin deformarse */
+    display: block;
+}
+
+/* Oculta el texto "SLIDER" si hay imagen */
+.slider-placeholder {
+    display: none;
+}
+
+/* Si la imagen no está disponible, muestra el texto "SLIDER" con fondo negro */
+.slider-image[src=""], 
+.slider-image:not([src]) {
+    display: none;
+}
+
+.slider-image[src=""] + .slider-placeholder, 
+.slider-image:not([src]) + .slider-placeholder {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 50px;
+    font-weight: bold;
+    color: white;
+    background: rgba(0, 0, 0, 0.8);
+    align-items: center;
+    justify-content: center;
     text-align: center;
 }
 
-.slider-text-content h2 .text-sekai {
-    color: #007bff; /* Azul para SEKAI */
+/* Hace que todo el slide sea clickeable */
+.slider-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
 }
 
-.slider-text-content h2 .text-tech {
-    color: #343a40; /* Gris oscuro para TECH */
-}
-
-.slider-text-content h2 {
-    font-size: 2.5rem; /* Aumentamos el tamaño del título */
-    margin-bottom: 1.5rem;
-    color: #333;
-}
-
-.slider-text-content h3 {
-    font-size: 1.75rem; /* Aumentamos el tamaño del subtítulo */
-    margin-bottom: 1.5rem;
-    color: #333;
-}
-
-.slider-text-content p {
-    font-size: 1.25rem; /* Aumentamos el tamaño del texto */
-    color: #555;
-    margin-bottom: 2rem;
-}
-
-.slider-image-content img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-}
-
-/* Botones */
-.btn-primary {
-    background-color: #007bff;
-    border: none;
-    padding: 1rem 2rem; /* Aumentamos el padding */
-    font-size: 1.25rem; /* Aumentamos el tamaño del texto */
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    color: white;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.btn-whatsapp {
-    background-color: #25D366; /* Verde oficial de WhatsApp */
-    border: none;
-    padding: 1rem 2rem; /* Aumentamos el padding */
-    font-size: 1.25rem; /* Aumentamos el tamaño del texto */
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    color: white;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.btn-whatsapp:hover {
-    background-color: #1ebe57;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.btn-whatsapp i {
-    font-size: 1.5rem; /* Aumentamos el tamaño del ícono */
-}
-
-/* Controles del slider */
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-color: #007bff;
-    border-radius: 50%;
-    padding: 1.5rem; /* Aumentamos el tamaño */
-}
-
+/* ======= Botones del slider dentro de la imagen ======= */
 .carousel-control-prev,
 .carousel-control-next {
-    width: 5%;
+    width: 10%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    z-index: 10;
 }
 
-/* Indicadores */
+/* Ajuste de tamaño y fondo de los botones */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 1rem;
+}
+
+/* ======= Indicadores ======= */
 .carousel-indicators {
     position: absolute;
-    bottom: 20px; /* Aumentamos la distancia desde el fondo */
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 10px; /* Aumentamos el espacio entre indicadores */
+    gap: 10px;
 }
 
 .carousel-indicators li {
-    width: 15px; /* Aumentamos el tamaño */
+    width: 15px;
     height: 15px;
     background-color: transparent;
     border: none;
@@ -1111,35 +1092,46 @@ h1 {
 }
 
 .carousel-indicators i {
-    font-size: 12px; /* Aumentamos el tamaño del ícono */
+    font-size: 12px;
     color: #ccc;
     transition: color 0.3s ease;
 }
 
 /* ======= SLIDER RESPONSIVO ======= */
-@media (max-width: 768px) {
-    .slider-content-wrapper {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .slider-text-content,
-    .slider-image-content {
-        max-width: 100%;
-    }
-
-    .slider-text-content {
-        order: 2;
-    }
-
-    .slider-image-content {
-        order: 1;
-    }
-
-    .carousel-indicators {
-        bottom: 10px;
+@media (max-width: 1024px) {
+    .slider-container {
+        height: 500px; /* Ajuste de altura para tablets */
     }
 }
+
+@media (max-width: 768px) {
+    .slider-container {
+        height: auto; /* Se adapta a la imagen en móviles */
+    }
+
+    .slider-image {
+        object-fit: contain; /* Evita cortes en móviles */
+    }
+
+    /* Ajuste de los indicadores en pantallas pequeñas */
+    .carousel-indicators {
+        bottom: 5px;
+        gap: 5px;
+    }
+
+    /* Ajusta los botones de navegación para que no ocupen demasiado espacio */
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 15%;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        padding: 0.8rem;
+    }
+}
+
+
 /* fin de estilos del slider */
 
 /* ======= ESTILOS DEL ASIDE ======= */
