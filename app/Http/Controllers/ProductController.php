@@ -97,6 +97,12 @@ class ProductController extends Controller
     // Retornar la vista parcial con los productos filtrados
     return view('components.product-list', compact('productos'));
 }
+public function getLatestProducts()
+{
+    $productos = Producto::inRandomOrder()->take(12)->get();
+    return view('partials.product-slider', compact('productos'));
+}
+
 
 
 }

@@ -313,3 +313,156 @@ body {
 }
 
 /* FIN DE ESTILOS DEL FILTER VIEW */
+
+/* 🎡 Estilos generales del Product Slider */
+.product-slider-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* 🏷 Asegurar que el slider mantenga una alineación uniforme */
+.product-slider-inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    will-change: transform;
+    gap: 10px;
+    align-items: stretch; /* 🔹 Asegura que todas las tarjetas tengan la misma altura */
+}
+
+/* 🎯 Establecer 4 productos por fila en PC */
+.product-slider-item {
+    flex: 0 0 calc(25% - 10px); /* 4 productos en PC */
+    box-sizing: border-box;
+    display: flex; /* 🔹 Hace que las tarjetas sean del mismo tamaño */
+    align-items: stretch;
+}
+
+/* 📦 Tarjetas de productos alineadas y con altura uniforme */
+.product-card {
+    text-align: center;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    min-height: 380px; /* 🔹 Ajusta esto según tu diseño */
+}
+
+/* 🔹 Todas las imágenes tendrán el mismo tamaño sin deformarse */
+.product-image {
+    width: 100%;
+    max-width: 250px; /* 🔹 Tamaño máximo uniforme */
+    height: 200px; /* 🔹 Tamaño fijo */
+    object-fit: contain; /* 🔹 Mantiene la proporción sin recortar */
+    border-radius: 8px;
+    background: #f8f8f8; /* 🔹 Fondo para imágenes más pequeñas */
+    padding: 10px; /* 🔹 Espaciado para imágenes más pequeñas */
+}
+
+/* 📄 Nombre del producto con altura fija */
+.product-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+    min-height: 55px; /* 🔹 Mantener el mismo tamaño en todas las tarjetas */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* 💰 Precio del producto */
+.product-price {
+    font-size: 1.1rem;
+    color: #28a745;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* 🎯 Botones de navegación con mejor visibilidad */
+.product-slider-prev, .product-slider-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.3s ease, transform 0.2s ease;
+    z-index: 10;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-slider-prev:hover, .product-slider-next:hover {
+    background: rgba(0, 0, 0, 1);
+    transform: scale(1.1);
+}
+
+.product-slider-prev {
+    left: 10px;
+}
+
+.product-slider-next {
+    right: 10px;
+}
+
+/* Iconos de navegación */
+.product-slider-prev::before,
+.product-slider-next::before {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.product-slider-prev::before {
+    content: '❮'; /* Icono de flecha izquierda */
+}
+
+.product-slider-next::before {
+    content: '❯'; /* Icono de flecha derecha */
+}
+
+/* 📱 RESPONSIVE DESIGN */
+
+/* 🟢 Tablets (2 productos por fila) */
+@media (max-width: 991px) {
+    .product-slider-item {
+        flex: 0 0 calc(50% - 10px);
+    }
+}
+
+/* 🔵 Móviles (1 producto por fila) */
+@media (max-width: 767px) {
+    .product-slider-item {
+        flex: 0 0 100%;
+    }
+
+    .product-slider-prev, .product-slider-next {
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+    }
+
+    .product-slider-prev::before,
+    .product-slider-next::before {
+        font-size: 20px;
+    }
+}
+
+
+
+/* FIN DE ESTILOS DEL PRODUCT SLIDER */

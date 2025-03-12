@@ -1,18 +1,25 @@
 @extends('layouts.app')
 
-@section('title', 'Inicio')
+@section('title', 'Inicio - SEKAITECH | Productos Tecnologicos en Huanuco')
+
+@section('meta_description', 'Explora los productos m¨¢s vendidos de SEKAITECH en Hu¨¢nuco. Encuentra laptops, computadoras, tarjetas de video y m¨¢s. Tecnolog¨ªa de vanguardia al mejor precio.')
+
+@section('meta_keywords', 'productos tecnol¨®gicos, laptops, computadoras, tarjetas de video, monitores, SEKAITECH, Hu¨¢nuco, tecnolog¨ªa, ofertas')
+
+@section('og:title', 'Inicio - SEKAITECH | Productos Tecnologicos en Huanuco')
+@section('og:description', 'Explora los productos m¨¢s vendidos de SEKAITECH en Hu¨¢nuco. Encuentra laptops, computadoras, tarjetas de video y m¨¢s. Tecnolog¨ªa de vanguardia al mejor precio.')
+@section('og:image', asset('images/logo.png'))
+@section('og:url', url()->current())
+
+@section('twitter:title', 'Inicio - SEKAITECH | Productos Tecnologicos en Huanuco')
+@section('twitter:description', 'Explora los productos m¨¢s vendidos de SEKAITECH en Hu¨¢nuco. Encuentra laptops, computadoras, tarjetas de video y m¨¢s. Tecnolog¨ªa de vanguardia al mejor precio.')
+@section('twitter:image', asset('images/logo.png'))
 
 @section('content')
 
 <div class="text-center">
-    <span class="section-tag">MAS VENDIDOS</span>
-    <h1 class="section-title">NUESTROS PRODUCTOS</h1>
-</div>
-
-<div class="sekai-banner-placeholder">ESPACIO PARA BANNER</div>
-
-<div class="text-center">
-    <span class="section-tag">SEKAITECH</span>
+    
+    <h1 class="section-title">CATEGORIAS</h1>
 </div>
 
 <div class="row mt-4">
@@ -32,13 +39,24 @@
     @endforeach
 </div>
 
-
-<!-- Sección del Banner -->
 <div class="sekai-banner-placeholder">ESPACIO PARA BANNER</div>
 
-<!-- Sección de Proveedores -->
+<div class="text-center">
+    <span class="section-tag">SEKAITECH</span>
+</div>
+
+@include('partials.product-slider', ['productos' => \App\Models\Producto::inRandomOrder()->take(20)->get()])
+
+
+
+<!-- Secci¨®n de Proveedores -->
 <div class="text-center mt-5">
     <span class="section-tag">SEKAITECH</span>
+</div>
+
+<div class="text-center">
+    
+    <h1 class="section-title">PRINCIPALES MARCAS</h1>
 </div>
 
 <div id="carouselProveedoresSekai" class="carousel slide sekai-carousel-container mt-3" data-bs-ride="carousel">

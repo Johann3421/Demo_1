@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 <div class="flex justify-between items-center mb-4">
     <!-- Breadcrumb dinámico -->
     <div>
