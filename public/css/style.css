@@ -10,9 +10,8 @@
 }
 
 .container {
-    max-width: 1400px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1026,6 +1025,8 @@ h1 {
 
 /* fin de estilos para el Buscador */
 /* ======= ESTILOS DEL SLIDER ======= */
+
+
 .slider-section {
     background-color: #f8f9fa;
     padding: 0;
@@ -1207,10 +1208,24 @@ h1 {
 }
 
 .container-fluid {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Asegura que el contenedor ocupe toda la pantalla */
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
+
+.container-fluid > .row {
+    --bs-gutter-x: 0 !important; /* Elimina el espacio horizontal entre columnas */
+    --bs-gutter-y: 0 !important; /* Elimina el espacio vertical entre filas (opcional) */
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.col-12 {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
 
 /* Sidebar fijo pero sin forzar altura */
 .left-sidebar {
@@ -1290,14 +1305,7 @@ main {
     flex-wrap: wrap;
 }
 
-/* Contenedor principal */
-.container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 90%;
-    max-width: 1400px;
-}
+
 
 /* Contenedor de menú */
 .menu-wrapper {
@@ -1690,11 +1698,4 @@ main {
 /* fin de estilos de home */
 
 /* estilos para el app */
-
-.custom-container {
-    max-width: 92%; /* Ajusta el porcentaje según lo ancho que lo quieras */
-    width: 100%;
-}
-
-
 

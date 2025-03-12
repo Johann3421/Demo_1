@@ -39,7 +39,10 @@
     @endforeach
 </div>
 
-<div class="sekai-banner-placeholder">ESPACIO PARA BANNER</div>
+<div class="sekai-banner">
+    <img src="{{ asset('images/AUDIFONO.png') }}" alt="Promoción de Audífonos - SEKAITECH" class="img-fluid w-100">
+</div>
+
 
 <div class="text-center">
     <span class="section-tag">SEKAITECH</span>
