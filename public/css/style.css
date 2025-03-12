@@ -412,19 +412,28 @@
 
 /* ======= ESTILOS CART ======= */
 
-/* Estilos para la página de detalles */
-/* 🛍 Contenedor principal */
-.product-container {
+/* 📌 Estilos para la página de detalles */
+.product-page {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 2rem;
-    align-items: flex-start;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
 }
 
-/* 📷 Galería de imágenes */
+/* 📷 Imagen principal con efecto de zoom */
 .product-gallery {
     flex: 1 1 45%;
     text-align: center;
+    max-width: 500px;
+    position: relative;
+}
+.product-main-image {
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
 }
 
 .product-main-image img {
@@ -432,32 +441,63 @@
     max-width: 500px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease-in-out;
+    cursor: zoom-in;
 }
 
-.product-main-image img:hover {
-    transform: scale(1.05);
+.product-main-image:hover img {
+    transform: scale(1.5);
 }
 
-.product-thumbnails {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.product-thumbnails img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
+.fullscreen-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
     cursor: pointer;
-    border-radius: 8px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 5px;
+    transition: background 0.3s ease;
 }
 
-.product-thumbnails img:hover {
-    transform: scale(1.1);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+.fullscreen-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.fullscreen-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.fullscreen-modal img {
+    max-width: 90%;
+    max-height: 90%;
+}
+
+
+.fullscreen-modal .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.fullscreen-modal .close-btn:hover {
+    color: #f00;
 }
 
 /* 📄 Información del producto */
@@ -466,42 +506,72 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    max-width: 500px;
 }
 
+/* 🏷 Fuente profesional para e-commerce */
 .product-title {
+    font-family: 'Arial', sans-serif;
     font-size: 2rem;
     font-weight: bold;
+    color: #222;
 }
 
+/* 📜 Descripción */
 .product-description {
-    font-size: 1.2rem;
-    color: #555;
+    font-size: 1.1rem;
+    color: #444;
     margin-bottom: 1rem;
+    line-height: 1.5;
 }
 
+/* 💰 Precio más pequeño y mejor estilizado */
 .product-price {
-    font-size: 1.8rem;
-    color: #28a745;
+    font-size: 1.4rem;
     font-weight: bold;
+    margin-bottom: 0.5rem;
 }
 
+.product-price strong {
+    font-size: 1.1rem;
+}
+
+/* 🛠 Información adicional */
 .product-additional-info {
     margin: 1rem 0;
+    background: #f8f8f8;
+    padding: 10px;
+    border-radius: 8px;
 }
 
 .product-additional-info p {
-    margin: 0.5rem 0;
+    margin: 5px 0;
     font-size: 1rem;
     color: #333;
 }
 
-.stock-status {
-    color: #28a745;
-    font-weight: bold;
+/* 🛒 Botones */
+.product-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 1rem;
 }
 
-/* 🛠 Especificaciones Técnicas */
+.product-buttons .btn {
+    font-size: 1rem;
+    padding: 0.7rem 1.4rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-buttons .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 🛠 Especificaciones Técnicas elegantes */
 .product-specs {
+    width: 100%;
     background-color: #f9f9f9;
     padding: 1.5rem;
     border-radius: 10px;
@@ -512,20 +582,35 @@
     font-size: 1.5rem;
     margin-bottom: 1rem;
     color: #333;
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 8px;
 }
 
-.product-specs .row {
+/* 📝 Lista de especificaciones sin 'NA' */
+.product-specs ul {
+    list-style: none;
+    padding: 0;
     margin: 0;
 }
 
-.product-specs .col-md-6 {
-    padding: 0.5rem 0;
+.product-specs li {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
     font-size: 1rem;
     color: #555;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-specs li:last-child {
+    border-bottom: none;
 }
 
 /* ⭐ Reseñas */
 .product-reviews {
+    width: 100%;
     margin-top: 2rem;
 }
 
@@ -533,6 +618,7 @@
     font-size: 1.5rem;
     margin-bottom: 1rem;
     color: #333;
+    text-align: center;
 }
 
 .review-card {
@@ -554,48 +640,26 @@
     color: #555;
 }
 
-/* 🛒 Botones */
-.product-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 1rem;
-}
 
-.product-buttons .btn {
-    font-size: 1.1rem;
-    padding: 0.75rem 1.5rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.product-buttons .btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* 📱 Responsive */
-@media (max-width: 768px) {
-    .product-container {
+/* 📱 Responsividad */
+@media screen and (max-width: 768px) {
+    .product-page .row {
         flex-direction: column;
         align-items: center;
+    }
+
+    .product-gallery, .product-info {
+        max-width: 100%;
         text-align: center;
     }
 
-    .product-gallery {
-        width: 100%;
-    }
-
-    .product-info {
-        width: 100%;
-    }
-
-    .product-buttons {
+    .product-thumbnails {
+        flex-wrap: wrap;
         justify-content: center;
     }
 }
 
-/* fin de ESTILOS CART */
-
-/* estilos para el footer */
+/* fin de ESTILOS DE DETALLES */
 
 /* ======= SECCIÓN DE CONTACTO ======= */
 .contact {

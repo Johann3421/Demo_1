@@ -7,7 +7,10 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-X4FWJY61GM"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
         gtag('js', new Date());
         gtag('config', 'G-X4FWJY61GM');
     </script>
@@ -55,7 +58,10 @@
     <script>
         (function(w, d, s, l, i) {
             w[l] = w[l] || [];
-            w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
             var f = d.getElementsByTagName(s)[0],
                 j = d.createElement(s),
                 dl = l != 'dataLayer' ? '&l=' + l : '';
@@ -82,15 +88,18 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                @include('partials.slider') <!-- Asegura que el slider no se vea afectado -->
+                @if(!isset($ocultarSlider) || !$ocultarSlider)
+                @include('partials.slider')
+                @endif
+                <!-- Asegura que el slider no se vea afectado -->
             </div>
         </div>
 
         <div class="container custom-container d-flex justify-content-center">
-    <main class="col-md-9 col-12">
-        @yield('content')
-    </main>
-</div>
+            <main class="col-md-9 col-12">
+                @yield('content')
+            </main>
+        </div>
 
 
     </div>
