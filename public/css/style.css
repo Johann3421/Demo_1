@@ -562,7 +562,7 @@
     border-radius: 10px;
     margin-top: 30px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-left: 5px solid #e60000; /* Resalta el contenedor */
+    border-left: 5px solid #0037FF; /* Resalta el contenedor */
 }
 
 /* 📌 Título principal */
@@ -607,10 +607,10 @@
 
 .specs-info h3 {
     font-size: 1.3rem;
-    color: #e60000;
+    color: #0037FF;
     margin-bottom: 10px;
     text-align: center;
-    border-bottom: 2px solid #e60000;
+    border-bottom: 2px solid #0037FF;
     padding-bottom: 5px;
 }
 
@@ -811,30 +811,37 @@ h1 {
     color: #555;
 }
 
+/*ESTILOS PARA EL FOOTER*/
+
 .footer-container {
     background-color: #1a1a1a;
     color: white;
-    padding: 40px 20px;
+    padding-top: 20px;
     text-align: center;
     margin-top: auto;
 }
-/* Contenido del footer */
+
+/* Contenido del footer con mejor organización */
 .footer-content {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
+    gap: 20px;
     text-align: left;
+    max-width: 1500px;
+    margin: auto;
+    padding: 20px;
 }
 
 /* Secciones dentro del footer */
 .footer-section {
-    max-width: 300px;
+    width: 100%; /* Ahora cada sección ocupa su espacio sin sobreponerse */
+    padding: 10px;
 }
 
 .footer-section h3 {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     margin-bottom: 10px;
-    color: #f39926;
+    color: #0037FF; /* Azul */
 }
 
 .footer-section ul {
@@ -853,13 +860,44 @@ h1 {
 }
 
 .footer-section ul li a:hover {
-    color: #f39926;
+    color: #0037FF; /* Azul */
+}
+
+/* Google Maps Ubicación */
+.footer-map {
+    max-width: 300px;
+    flex: 1 1 100%;
+    text-align: center;
+}
+
+.footer-map iframe {
+    width: 100%;
+    border-radius: 8px;
 }
 
 /* Redes Sociales */
 .footer-social {
     text-align: center;
     padding: 20px 0;
+}
+
+.whatsapp-icon {
+    width: 20px; /* Tamaño igual al resto de iconos */
+    height: 20px;
+    vertical-align: middle; /* Alineación con el texto */
+    margin-right: 5px;
+}
+
+/* 📞 Enlace de WhatsApp */
+.whatsapp-link {
+    color: #25d366; /* Verde WhatsApp */
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.whatsapp-link:hover {
+    color: #1ebe57; /* Verde más oscuro */
 }
 
 .social-icon {
@@ -870,13 +908,13 @@ h1 {
 }
 
 .social-icon:hover {
-    color: #f39926;
+    color: #0037FF; /* Azul */
 }
 
 /* Botón de Libro de Reclamaciones */
 .btn-reclamaciones {
     display: inline-block;
-    background-color: #f39926;
+    background-color: #0037FF; /* Azul */
     color: white;
     font-weight: bold;
     padding: 8px 15px;
@@ -887,10 +925,10 @@ h1 {
 }
 
 .btn-reclamaciones:hover {
-    background-color: #d87e1f;
+    background-color: #0025b4; /* Azul más oscuro */
 }
 
-/* Copyright (Ocupa todo el ancho y está abajo) */
+/* Copyright */
 .footer-bottom {
     width: 100%;
     background-color: #0d0d0d;
@@ -898,13 +936,31 @@ h1 {
     padding: 15px 0;
     margin-top: 20px;
 }
-
-/* 📌 RESPONSIVE DESIGN */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     .footer-content {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en pantallas medianas */
+        text-align: center;
+    }
+
+    .footer-section {
+        width: 100%;
+    }
+
+    .footer-social {
         flex-direction: column;
         align-items: center;
-        text-align: center;
+        gap: 10px;
+    }
+
+    .footer-map iframe {
+        height: 180px;
+    }
+}
+
+/* 📱 RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: repeat(1, 1fr); /* 1 sola columna en móviles */
     }
 
     .footer-section {
@@ -917,7 +973,12 @@ h1 {
         align-items: center;
         gap: 10px;
     }
+
+    .footer-map {
+        max-width: 100%;
+    }
 }
+
 
 /* fin de estilos para el footer */
 

@@ -79,7 +79,6 @@
                 <li>💰 <strong>Precio del producto incluye IGV.</strong></li>
                 <li>🚚 <strong>Precio no incluye flete y Delivery por envío.</strong></li>
                 <li>⚠️ <strong>El precio y stock están sujetos a variación sin previo aviso.</strong></li>
-                <li>❌ <strong>No se aceptan cambios o devoluciones por incompatibilidad entre productos de otros proveedores.</strong></li>
             </ul>
         </div>
     </div>

@@ -1,51 +1,64 @@
 <!-- ======= Footer ======= -->
 <footer class="footer-container">
     <div class="footer-content">
-        <!-- Sección Información -->
+        <!-- 📞 Sección Contáctanos -->
+        <div class="footer-section">
+            <h3>Contáctanos</h3>
+            <p>📧 ventas@sekaitech.com.pe</p>
+            <p>
+                <img src="https://img.icons8.com/?size=100&id=13800&format=png&color=000000" 
+            alt="WhatsApp Icon" class="whatsapp-icon">
+            Ubícanos: JR. SAN MARTIN NRO 1458 - Huánuco</p>
+            <p>📱 WhatsApp: 933 573 985</p>
+            <p>
+                <img src="https://img.icons8.com/?size=100&id=uZWiLUyryScN&format=png&color=000000" 
+                     alt="WhatsApp Icon" class="whatsapp-icon">
+                <a href="https://wa.me/51933573985?text=Hola,%20quisiera%20comunicarme%20con%20el%20área%20de%20VENTAS%20de%20SEKAI%20TECH"
+                   target="_blank" class="whatsapp-link">
+                   Soporte: Contactar por WhatsApp
+                </a>
+            </p>
+        </div>
+
+        <!-- 🏢 Sección Información -->
         <div class="footer-section">
             <h3>Información</h3>
             <ul>
-                <li><a href="#">Quienes somos</a></li>
+                <li><a href="#">Quiénes somos</a></li>
                 <li><a href="#">Misión y Visión</a></li>
-                <li><a href="#">Historia</a></li>
             </ul>
         </div>
 
-        <!-- Sección Atención al Cliente -->
+        <!-- 🛠 Sección Atención al Cliente -->
         <div class="footer-section">
             <h3>Atención al Cliente</h3>
             <ul>
                 <li><a href="#">Soporte técnico</a></li>
-                <li><a href="#">Consulta el estado de tu Producto</a></li>
-                <li><a href="#">Preguntas frecuentes</a></li>
                 <li><a href="#">Términos y condiciones de garantía</a></li>
                 <li><a href="#">Videos tutoriales</a></li>
-                <li><a href="#">Descargar controladores</a></li>
-                <li><a href="#">Estado de la garantía</a></li>
-                <li><a href="#">Problemas con la estática</a></li>
             </ul>
         </div>
 
-        <!-- Sección Contáctanos -->
-        <div class="footer-section">
-            <h3>Contáctanos</h3>
-            <p>📧 Correo: acuerdos.marco@kenya.com.pe</p>
-            <p>📍 Ubícanos: Jr. Huallayco 1135 - Huánuco</p>
-            <p>📧 Soporte: soporte@kenya.com.pe</p>
-            <p>📱 WhatsApp: 958 021 778</p>
+        <!-- 🗺️ Google Maps -->
+        <div class="footer-section footer-map">
+            <h3>Nuestra Ubicación</h3>
+            <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d982.5308553163068!2d-76.24104303040171!3d-9.923677878346464!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91a7c31c6a35fa09%3A0x55c23baa894315eb!2sSan%20Martin%201458%2C%20Hu%C3%A1nuco%2010001!5e0!3m2!1ses!2spe!4v1741879555530!5m2!1ses!2spe" 
+                width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy">
+            </iframe>
         </div>
     </div>
 
-    <!-- Redes Sociales -->
+    <!-- 📱 Redes Sociales -->
     <div class="footer-social">
         <span>Síguenos en:</span>
-        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
-        <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
         <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
         <a href="#" class="btn-reclamaciones">📖 Libro de Reclamaciones</a>
     </div>
 
-    <!-- Copyright (Ahora ocupa todo el ancho y está abajo) -->
+    <!-- 📝 Copyright -->
     <div class="footer-bottom">
         <p>© Copyright SekaiTech - Todos los derechos reservados</p>
     </div>
