@@ -7,34 +7,43 @@
 
 @section('content')
 <div class="container product-page">
-    <div class="row">
-        <!-- 📷 Imagen principal con efecto de zoom -->
+    <div class="product-container">
+        <!-- 📷 Imagen del producto -->
         <div class="product-gallery">
             <div class="product-main-image">
                 <img src="{{ asset('images/' . $producto->imagen_url) }}" alt="{{ $producto->nombre }}">
-                <button class="fullscreen-btn">🔍 Ver</button>
             </div>
-        </div>
-        <!-- Modal para pantalla completa -->
-        <div class="fullscreen-modal">
-            <span class="close-btn">&times;</span>
-            <img src="" alt="Imagen en pantalla completa">
         </div>
 
         <!-- 📄 Información del producto -->
         <div class="product-info">
-            <h1 class="product-title">{{ $producto->nombre }}</h1>
-            <p class="product-description">{{ $producto->descripcion }}</p>
+            <h1 class="product-title">{{ $producto->nombre }} | SEKAITECH</h1>
 
-            <p class="product-price" style="color: red;">
-                <strong>Precio en dólares:</strong> ${{ number_format($producto->precio_dolares, 2) }}
-            </p>
-            <p class="product-price" style="color: green;">
-                <strong>Precio en soles:</strong> S/.{{ number_format($producto->precio_soles, 2) }}
+            <p class="product-description">
+                Descubre el <strong>{{ $producto->nombre }}</strong> de <strong>{{ $producto->marca }}</strong>, un producto diseñado para ofrecerte el máximo rendimiento y calidad. 
+                {{ $producto->descripcion }}. Compra ahora y aprovecha nuestras ofertas exclusivas!
             </p>
 
+            <div class="product-details">
+                <p><strong>Marca:</strong> {{ $producto->marca }}</p>
+                <p><strong>Referencia:</strong> </p>
+                <p><strong>Estado:</strong> </p>
+                <p><strong>En stock:</strong> </p>
+            </div>
+
+            <!-- 💰 Contenedor de precios -->
+            <div id="product-prices">
+                <p id="product-price-red">
+                    <strong></strong> $/.{{ number_format($producto->precio_dolares, 2) }}
+                </p>
+                <p id="product-price-green">
+                    <strong></strong> S/.{{ number_format($producto->precio_soles, 2) }}
+                </p>
+            </div>
+            <!-- 🛒 Botones de compra -->
             <div class="product-buttons">
-                <a href="https://wa.me/51933573985?text=Hola,%20estoy%20interesado%20en%20el%20producto%20{{ urlencode($producto->nombre) }}%20-%20Precio:%20${{ number_format((float) $producto->precio_dolares, 2) }}" class="btn btn-success" target="_blank">
+                <a href="https://wa.me/51933573985?text=Hola,%20estoy%20interesado%20en%20el%20producto%20{{ urlencode($producto->nombre) }}%20-%20Precio:%20${{ number_format((float) $producto->precio_dolares, 2) }}"
+                    class="btn btn-success" target="_blank">
                     <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
                 </a>
                 <button class="btn btn-outline-primary like-button" data-id="{{ $producto->id }}">
@@ -45,9 +54,9 @@
     </div>
 
     <!-- 🛠 Especificaciones Técnicas -->
-    <div class="product-specs mt-4">
-        <h2>Especificaciones Técnicas</h2>
-        <ul>
+    <div class="product-specs">
+        <h2>DETALLES</h2>
+        <ul class="specs-list">
             @if($producto->marca && $producto->marca !== 'NA')
             <li><strong>Marca:</strong> {{ $producto->marca }}</li>
             @endif
@@ -60,18 +69,25 @@
             @if($producto->ram && $producto->ram !== 'NA')
             <li><strong>Memoria RAM:</strong> {{ $producto->ram }}</li>
             @endif
-            @if($producto->almacenamiento && $producto->almacenamiento !== 'NA')
-            <li><strong>Almacenamiento:</strong> {{ $producto->almacenamiento }}</li>
-            @endif
-            @if($producto->pantalla && $producto->pantalla !== 'NA')
-            <li><strong>Pantalla:</strong> {{ $producto->pantalla }}</li>
-            @endif
-            @if($producto->graficos && $producto->graficos !== 'NA')
-            <li><strong>Gráficos:</strong> {{ $producto->graficos }}</li>
-            @endif
         </ul>
+
+        <!-- 🔹 Información adicional -->
+        <div class="specs-info">
+            <h3>Importante</h3>
+            <ul>
+                <li>📷 <strong>IMÁGENES DE REFERENCIA</strong></li>
+                <li>💰 <strong>Precio del producto incluye IGV.</strong></li>
+                <li>🚚 <strong>Precio no incluye flete y Delivery por envío.</strong></li>
+                <li>⚠️ <strong>El precio y stock están sujetos a variación sin previo aviso.</strong></li>
+                <li>❌ <strong>No se aceptan cambios o devoluciones por incompatibilidad entre productos de otros proveedores.</strong></li>
+            </ul>
+        </div>
     </div>
 </div>
+
+
+@include('partials.product-slider', ['productos' => \App\Models\Producto::inRandomOrder()->take(24)->get()])
+
 <!-- Schema Markup para SEO -->
 <script type="application/ld+json">
     {
@@ -135,20 +151,6 @@
         const modalImg = document.querySelector(".fullscreen-modal img");
         const closeBtn = document.querySelector(".fullscreen-modal .close-btn");
 
-        img.addEventListener("click", function() {
-            modal.style.display = "flex";
-            modalImg.src = this.src;
-        });
-
-        closeBtn.addEventListener("click", function() {
-            modal.style.display = "none";
-        });
-
-        modal.addEventListener("click", function(e) {
-            if (e.target === modal) {
-                modal.style.display = "none";
-            }
-        });
     });
 </script>
 @endsection
