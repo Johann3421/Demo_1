@@ -25,7 +25,7 @@
                 <div class="carousel-item">
                     <a href="https://www.tu-link-aqui.com" target="_blank" class="slider-link">
                         <div class="slider-image-content">
-                            <img src="{{ asset('images/banner.png') }}" class="img-fluid slider-image" alt="Gama de Laptops">
+                            <img src="{{ asset('images/AUDIFONO.png') }}" class="img-fluid slider-image" alt="Gama de Laptops">
                             <div class="slider-placeholder">SLIDER</div>
                         </div>
                     </a>

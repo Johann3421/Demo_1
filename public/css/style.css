@@ -10,7 +10,7 @@
 }
 
 .container {
-    max-width: 100%;
+    max-width: 1700px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -27,9 +27,10 @@
 }
 
 .logo {
-    height: 60px;
+    height: 80px;
     max-width: 500px;
     width: auto;
+    margin-left: 5%;
 }
 
 /* ======= NAVEGACIÓN DESKTOP ======= */
@@ -1000,6 +1001,7 @@ h1 {
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
+    margin-left: 20px;
 }
 
 .search-button {
@@ -1198,7 +1200,7 @@ h1 {
 .carousel-indicators {
     position: absolute;
     bottom: 20px;
-    left: 50%;
+    left: 35%;
     transform: translateX(-50%);
     display: flex;
     gap: 10px;
@@ -1361,7 +1363,7 @@ main {
 /* Fondo del dashboard */
 /* ======= SUBHEADER ======= */
 .header-row {
-    background-color: #0056b3; /* Azul intenso agradable */
+    background-color: #0037FF; /* Azul intenso agradable */
     padding: 15px 0;
     display: flex;
     align-items: center;
@@ -1422,6 +1424,7 @@ main {
 .menu-toggle.categorias {
     background: #272424; /* Negro suave */
     color: white;
+    width: 250px;
 }
 
 .menu-toggle.categorias:hover {

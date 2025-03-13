@@ -2,7 +2,7 @@
     <div class="container">
         <!-- Logo -->
         <a href="{{ route('home') }}" class="logo-link">
-            <img src="{{ asset('images/LOGO-SEKAITECH.png') }}" alt="Logo" class="logo">
+            <img src="{{ asset('images/logo_actualizado.png') }}" alt="Logo" class="logo">
         </a>
 
         <!-- Menú de navegación (Desktop) - Visible solo desde 1120px -->
