@@ -103,6 +103,57 @@ public function getLatestProducts()
     return view('partials.product-slider', compact('productos'));
 }
 
+// app/Http/Controllers/ProductoController.php
+public function filterByCategoria($categoria)
+{
+    // Obtener productos filtrados por categoría
+    $productos = Producto::whereHas('categoria', function($query) use ($categoria) {
+        $query->where('nombre', $categoria);
+    })->get();
+
+    // Obtener 3 productos aleatorios para "Top de Ventas"
+    $topVentas = Producto::inRandomOrder()->limit(3)->get();
+
+    // Definir la categoría actual
+    $categoriaActual = $categoria;
+
+    // Retornar la vista con los productos filtrados, los más vendidos y la categoría actual
+    return view('products', compact('productos', 'topVentas', 'categoriaActual'));
+}
+
+public function filterByGrupo($grupo)
+{
+    // Obtener productos filtrados por grupo
+    $productos = Producto::whereHas('grupo', function($query) use ($grupo) {
+        $query->where('nombre', $grupo);
+    })->get();
+
+    // Obtener 3 productos aleatorios para "Top de Ventas"
+    $topVentas = Producto::inRandomOrder()->limit(3)->get();
+
+    // Definir la categoría actual (puedes ajustar esto según tu lógica)
+    $categoriaActual = 'Productos'; // O usa un valor predeterminado
+
+    // Retornar la vista con los productos filtrados, los más vendidos y la categoría actual
+    return view('products', compact('productos', 'topVentas', 'categoriaActual'));
+}
+
+public function filterBySubgrupo($subgrupo)
+{
+    // Obtener productos filtrados por subgrupo
+    $productos = Producto::whereHas('subgrupo', function($query) use ($subgrupo) {
+        $query->where('nombre', $subgrupo);
+    })->get();
+
+    // Obtener 3 productos aleatorios para "Top de Ventas"
+    $topVentas = Producto::inRandomOrder()->limit(3)->get();
+
+    // Definir la categoría actual (puedes ajustar esto según tu lógica)
+    $categoriaActual = 'Productos'; // O usa un valor predeterminado
+
+    // Retornar la vista con los productos filtrados, los más vendidos y la categoría actual
+    return view('products', compact('productos', 'topVentas', 'categoriaActual'));
+}
 
 
 }

@@ -1,5 +1,64 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
+/* 📌 Contenedor Principal */
+.brands-section {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #f8f9fa;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+/* 📌 Contenedor del scroll */
+.marquee {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+/* 📌 Contenido del scroll */
+#marquee-container {
+    display: flex;
+    gap: 20px;
+    min-width: fit-content;
+    animation: scroll 15s linear infinite;
+}
+
+/* 📌 Estilos de las imágenes */
+.brand-item {
+    flex: 0 0 auto;
+}
+
+.brand-item img {
+    height: 80px;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* 📌 Efecto hover */
+.brand-item img:hover {
+    transform: scale(1.1);
+}
+
+/* 📌 Animación infinita */
+@keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); } /* Se mueve la mitad del contenido y reinicia sin cortes */
+}
+
+
+
+
+/* ======= ESTILOS GENERALES ANCHO DEL CONTENIDO ======= */
+
+.col-md-9 {
+    width: 85%;
+}
+
+/* ======= FIN DE ESTILOS GENERALES ANCHO DEL CONTENIDO ======= */
 
 /* ======= HEADER ======= */
 .header {
@@ -1288,10 +1347,6 @@ h1 {
     padding-right: 0 !important;
 }
 
-.col-12 {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-}
 
 
 /* Sidebar fijo pero sin forzar altura */
@@ -1372,8 +1427,6 @@ main {
     flex-wrap: wrap;
 }
 
-
-
 /* Contenedor de menú */
 .menu-wrapper {
     display: flex;
@@ -1382,13 +1435,99 @@ main {
     position: relative;
 }
 
-/* Contenedor de categorías */
-.categorias-container {
+.menu-toggle-container {
     position: relative;
-    display: flex;
-    align-items: center;
 }
 
+.grupos-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #ffffff;
+    width: 250px;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    padding: 10px 0;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.menu-toggle-container:hover .grupos-dropdown {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Estilos de la lista de grupos */
+.grupos-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.grupo-item {
+    padding: 8px 12px;
+    border-bottom: 1px solid #ddd;
+    transition: background 0.3s ease;
+    position: relative;
+}
+
+.grupo-item a {
+    text-decoration: none;
+    color: #0056b3;
+    font-size: 14px;
+    font-weight: bold;
+    display: block;
+}
+
+.grupo-item:hover {
+    background: #f0f0f0;
+}
+
+/* Menú desplegable de subgrupos */
+.subgrupos-list {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background: #ffffff;
+    width: 250px;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1002;
+    padding: 10px 0;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Mostrar el menú desplegable de subgrupos al hacer hover */
+.grupo-item:hover .subgrupos-list {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Estilos de la lista de subgrupos */
+.subgrupos-list li {
+    padding: 8px 12px;
+    border-bottom: 1px solid #ddd;
+    transition: background 0.3s ease;
+}
+
+.subgrupos-list li a {
+    text-decoration: none;
+    color: #0056b3;
+    font-size: 14px;
+    font-weight: bold;
+    display: block;
+}
+
+.subgrupos-list li:hover {
+    background: #f0f0f0;
+}
 /* Botones generales del subheader */
 .menu-toggle {
     cursor: pointer;
@@ -1438,7 +1577,6 @@ main {
     top: 100%;
     left: 0;
     background: #ffffff; /* Fondo blanco */
-    width: 250px;
     border-radius: 5px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     z-index: 1001;
@@ -1456,7 +1594,7 @@ main {
 }
 
 /* Lista de menú */
-.menu-list, .submenu-list {
+.menu-list, .submenu-list, .sub-submenu-list {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -1485,7 +1623,7 @@ main {
 }
 
 .menu-item:hover a {
-    color: #ffcc00;
+    color: #000000;
 }
 
 /* Submenús */
@@ -1510,26 +1648,26 @@ main {
     transform: translateX(0);
 }
 
-/* Submenú Links */
-.submenu-list li {
-    padding: 10px 20px;
-    transition: background 0.3s ease;
+/* Sub-submenús */
+.sub-submenu {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background: #ffffff;
+    width: 250px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 5px 0;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.submenu-list li a {
-    color: #0056b3;
-    font-size: 14px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.submenu-list li:hover {
-    background: #0056b3;
-}
-
-.submenu-list li:hover a {
-    color: white;
+.has-submenu:hover > .sub-submenu {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
 }
 
 /* Flechita en submenús */
@@ -1561,26 +1699,22 @@ main {
         min-height: 60px; /* Evita que el header se haga muy delgado */
     }
 
-    /* Asegurar que el botón de categorías y los demás elementos no se desorganicen */
     .menu-wrapper {
         flex-direction: column;
         width: 100%;
         gap: 5px;
     }
 
-    /* Botón de Categorías en móvil */
     .menu-toggle {
         width: 100%;
         justify-content: flex-start;
         padding: 12px 15px;
     }
 
-    /* Ocultar botones de PC en móviles */
     .pc-only {
         display: none;
     }
 
-    /* Menú lateral */
     .menu-dropdown {
         position: fixed;
         top: 0;
@@ -1595,14 +1729,12 @@ main {
         z-index: 1000;
     }
 
-    /* Mostrar menú activo */
     .menu-dropdown.active {
         left: 0;
         opacity: 1;
     }
 
-    /* Submenús en móviles */
-    .submenu {
+    .submenu, .sub-submenu {
         position: relative;
         left: 0;
         width: 100%;
@@ -1610,12 +1742,10 @@ main {
         display: none;
     }
 
-    /* Mostrar submenú activo */
-    .submenu.active {
+    .submenu.active, .sub-submenu.active {
         display: block;
     }
 
-    /* Fondo oscuro cuando el menú está abierto */
     .overlay {
         display: none;
         position: fixed;
@@ -1633,12 +1763,10 @@ main {
         opacity: 1;
     }
 
-    /* Ocultar labels en móvil */
     .menu-label {
         display: none;
     }
 
-    /* Mostrar botones en el menú lateral */
     .mobile-only {
         display: block !important;
     }
@@ -1658,7 +1786,34 @@ main {
         display: none !important;
     }
 }
+/* ======= SOLUCIÓN ESPECÍFICA PARA 1024px ======= */
+@media screen and (max-width: 1024px) {
+    .pc-only {
+        display: none;
+    }
 
+    .menu-toggle {
+        display: flex;
+    }
+
+    .menu-dropdown {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background: white;
+        box-shadow: 5px 0 10px rgba(0, 0, 0, 0.2);
+        transition: left 0.4s ease;
+        padding: 20px;
+        overflow-y: auto;
+        z-index: 1000;
+    }
+
+    .menu-dropdown.active {
+        left: 0;
+    }
+}
 
 /* fin de estilos de dashboard */
 

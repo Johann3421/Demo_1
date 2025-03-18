@@ -1,0 +1,214 @@
+/* public/css/admin.css */
+
+/* Estilos para el sidebar */
+aside {
+    background-color: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+    width: 250px;
+    min-height: 100vh;
+}
+
+.nav-link {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    color: #333;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    background-color: #e9ecef;
+}
+
+/* Estilos para el contenido principal */
+main {
+    background-color: #ffffff;
+    flex-grow: 1;
+    padding: 1rem;
+}
+
+/* Estilos para el header */
+header {
+    background-color: #343a40;
+    color: #fff;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para el footer */
+footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+}
+
+/* fin para el sidebar */
+
+/* Estilos para la tabla de productos */
+/* public/css/admin.css */
+
+/* Estilos para la tabla */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Estilos para los botones */
+.btn-toggle-stock {
+    width: 60px;
+}
+
+.btn-editar, .btn-eliminar {
+    margin: 2px;
+}
+/* fin para la tabla de productos */
+/* Estilos para el botón de cambio de estado en tienda */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 20px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #28a745;
+}
+
+input:checked + .slider:before {
+    transform: translateX(18px);
+}
+
+
+/* fin del botón de cambio de estado en tienda */
+
+/* Estilos para las categorías */
+/* Estilos para la paginación */
+.pagination {
+    margin: 0;
+}
+
+.pagination .page-item .page-link {
+    color: #0056b3;
+    border: 1px solid #dee2e6;
+    margin: 0 2px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.pagination .page-item.active .page-link {
+    background: #0056b3;
+    border-color: #0056b3;
+    color: #fff;
+}
+
+.pagination .page-item:hover .page-link {
+    background: #f8f9fa;
+    color: #0056b3;
+}
+
+/* Estilos para el selector de cantidad */
+.form-select {
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.form-select:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 0 0.2rem rgba(0, 86, 179, 0.25);
+}
+
+/*fin de estilos para las categorías */
+
+/* ESTILOS DEL ASIDE */
+
+/* Estilos Generales del Sidebar */
+.sidebar-link {
+    color: #333;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+}
+
+/* Efecto de Hover con Resalte */
+.sidebar-link:hover {
+    background: #f8f9fa;
+    transform: scale(1.05);
+}
+
+/* Animación de los Iconos */
+.animate-icon {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Efecto al Pasar el Cursor */
+.sidebar-link:hover .animate-icon {
+    transform: rotate(10deg) scale(1.2);
+    color: #007bff !important; /* Cambia a azul al hacer hover */
+}
+
+/*FIN DE ESTILOS DEL ASIDE */
+
+/* Estilos para la configuración*/
+/* Estilos para las tarjetas de configuración */
+.config-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.config-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Estilos para los iconos */
+.config-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    color: white;
+    font-size: 1.5rem;
+}
+/* FIN DE ESTILOS PARA LAS TARJETAS DE CONFIGURACIÓN */

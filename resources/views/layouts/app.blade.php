@@ -100,6 +100,9 @@
                 @yield('content')
             </main>
         </div>
+        @include('components.proveedores')
+
+
 
 
     </div>

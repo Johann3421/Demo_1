@@ -3,53 +3,23 @@
         <div id="slider-carousel" class="carousel slide" data-bs-ride="carousel">
             <!-- Indicadores -->
             <ol class="carousel-indicators">
-                <li data-bs-target="#slider-carousel" data-bs-slide-to="0" class="active"></li>
-                <li data-bs-target="#slider-carousel" data-bs-slide-to="1"></li>
-                <li data-bs-target="#slider-carousel" data-bs-slide-to="2"></li>
-                <li data-bs-target="#slider-carousel" data-bs-slide-to="3"></li>
+                @foreach($sliders as $index => $slider)
+                    <li data-bs-target="#slider-carousel" data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}"></li>
+                @endforeach
             </ol>
 
             <!-- Contenido del Slider -->
             <div class="carousel-inner">
-                <!-- Slide 1 -->
-                <div class="carousel-item active">
-                    <a href="https://www.tu-link-aqui.com" target="_blank" class="slider-link">
-                        <div class="slider-image-content">
-                            <img src="{{ asset('images/banner.png') }}" class="img-fluid slider-image" alt="Laptops">
-                            <div class="slider-placeholder">SLIDER</div>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Slide 2 -->
-                <div class="carousel-item">
-                    <a href="https://www.tu-link-aqui.com" target="_blank" class="slider-link">
-                        <div class="slider-image-content">
-                            <img src="{{ asset('images/AUDIFONO.png') }}" class="img-fluid slider-image" alt="Gama de Laptops">
-                            <div class="slider-placeholder">SLIDER</div>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Slide 3 -->
-                <div class="carousel-item">
-                    <a href="https://www.tu-link-aqui.com" target="_blank" class="slider-link">
-                        <div class="slider-image-content">
-                            <img src="{{ asset('images/banner.png') }}" class="img-fluid slider-image" alt="Sistemas de Impresión">
-                            <div class="slider-placeholder">SLIDER</div>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Slide 4 -->
-                <div class="carousel-item">
-                    <a href="https://www.tu-link-aqui.com" target="_blank" class="slider-link">
-                        <div class="slider-image-content">
-                            <img src="{{ asset('images/banner.png') }}" class="img-fluid slider-image" alt="PC's">
-                            <div class="slider-placeholder">SLIDER</div>
-                        </div>
-                    </a>
-                </div>
+                @foreach($sliders as $index => $slider)
+                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                        <a href="{{ $slider->enlace }}" target="_blank" class="slider-link">
+                            <div class="slider-image-content">
+                                <img src="{{ asset($slider->imagen_url) }}" class="img-fluid slider-image" alt="{{ $slider->imagen_url }}">
+                                <div class="slider-placeholder">SLIDER</div>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
             </div>
 
             <!-- Controles de navegación -->

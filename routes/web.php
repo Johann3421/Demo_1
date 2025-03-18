@@ -2,12 +2,16 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\SliderController;
+use App\Models\Proveedor;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoriaController;
 
 Route::get('/', function () {
-    return view('home');
+    $proveedores = Proveedor::all(); // Obtener los proveedores
+    return view('home', compact('proveedores')); // Pasarlos a la vista
 })->name('home');
 
 Route::get('/productos', function () {
@@ -21,8 +25,7 @@ Route::get('/carrito', function () {
 Route::post('/carrito/agregar', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/carrito', [CartController::class, 'viewCart'])->name('cart.view');
 Route::post('/favoritos/agregar', [FavoriteController::class, 'addToFavorites'])->name('favorites.add');
-Route::get('/favoritos', [FavoriteController::class, 'viewFavorites'])->name('favorites.view');
-Route::get('/producto/{id}/detalle', 'ProductoController@detalle')->name('producto.detalle');
+Route::get('/favoritos', [FavoriteController::class, 'viewFavorites'])->name('favorites.view'); 
 
 Route::get('/producto/{id}/{slug}', [ProductController::class, 'show'])->name('producto.detalles');
 Route::get('/productos', [ProductController::class, 'index'])->name('products');
@@ -38,3 +41,22 @@ Route::get('/', [CategoriaController::class, 'index'])->name('home');
 Route::get('/productos/filter', [ProductController::class, 'filter'])->name('productos.filter');
 Route::get('/latest-products', [ProductController::class, 'getLatestProducts'])->name('latest.products');
 Route::get('/producto/{id}', [ProductController::class, 'show'])->name('product.show');
+
+///////////////////////////////////BANNER ADMIN////////////////////////////////////
+
+Route::get('/slider', [SliderController::class, 'mostrarSlider'])->name('slider.mostrar');
+
+///////////////////////////////////BANNER ADMIN////////////////////////////////////
+
+
+//////////////////////////////////PROVEEDORES////////////////////////////////////
+
+Route::get('/api/proveedores', [ProveedorController::class, 'obtenerProveedores']);
+
+
+//////////////////////////////////FILTROS////////////////////////////////////
+Route::get('/productos/{categoria}', [ProductController::class, 'filterByCategoria'])->name('products.by.categoria');
+Route::get('/productos/grupo/{grupo}', [ProductController::class, 'filterByGrupo'])->name('products.by.grupo');
+Route::get('/productos/subgrupo/{subgrupo}', [ProductController::class, 'filterBySubgrupo'])->name('products.by.subgrupo');
+
+require __DIR__ . '/admin.php';

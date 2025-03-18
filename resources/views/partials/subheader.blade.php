@@ -6,98 +6,90 @@
                 <span class="menu-toggle categorias" id="menuButton">
                     <i class="fas fa-bars"></i>
                     <span class="menu-label">Categorías</span>
-                    
                 </span>
                 <!-- Componentes con Iconos SOLO EN PC -->
                 <div class="pc-only">
+                    @if ($categorias && $categorias->count() > 0)
+                    @foreach ($categorias as $categoria)
+                    <div class="menu-toggle-container" data-categoria="{{ $categoria->nombre }}">
+                        <span class="menu-toggle">
+                            <i class="fas fa-folder"></i> <!-- Icono por defecto -->
+                            <span class="menu-label">{{ $categoria->nombre }}</span>
+                        </span>
+                        <!-- Menú desplegable de grupos -->
+                        <div class="grupos-dropdown">
+                            <ul class="grupos-list">
+                                @foreach ($categoria->grupos as $grupo)
+                                <li class="grupo-item" data-grupo="{{ $grupo->nombre }}">
+                                    <a href="{{ route('products.by.grupo', ['grupo' => $grupo->nombre]) }}">{{ $grupo->nombre }}</a>
+                                    <!-- Menú desplegable de subgrupos -->
+                                    <ul class="subgrupos-list">
+                                        @foreach ($grupo->subgrupos as $subgrupo)
+                                        <li><a href="{{ route('products.by.subgrupo', ['subgrupo' => $subgrupo->nombre]) }}">{{ $subgrupo->nombre }}</a></li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                    @endforeach
+                    @else
                     <span class="menu-toggle">
-                        <i class="fas fa-laptop"></i>
-                        <span class="menu-label">Laptops</span>
+                        <i class="fas fa-folder"></i>
+                        <span class="menu-label">No hay categorías</span>
                     </span>
-                    <span class="menu-toggle">
-                        <i class="fas fa-desktop"></i>
-                        <span class="menu-label">Computadoras</span>
-                    </span>
-                    <span class="menu-toggle">
-                        <i class="fas fa-memory"></i>
-                        <span class="menu-label">Partes de PC</span>
-                    </span>
-                    <span class="menu-toggle">
-                        <i class="fas fa-tv"></i>
-                        <span class="menu-label">Monitores</span>
-                    </span>
-                    <span class="menu-toggle">
-                        <i class="fas fa-print"></i>
-                        <span class="menu-label">Impresoras</span>
-                    </span>
+                    @endif
                 </div>
                 <!-- Menú lateral en móvil -->
                 <div class="menu-dropdown" id="mobileMenu">
                     <ul class="menu-list">
+                        @if ($categorias && $categorias->count() > 0)
+                        @foreach ($categorias as $categoria)
                         <li class="menu-item has-submenu">
-                            <a href="#" class="menu-link">Computadoras</a>
+                            <a href="{{ route('products.by.categoria', ['categoria' => $categoria->nombre]) }}" class="menu-link">{{ $categoria->nombre }}</a>
                             <div class="submenu">
                                 <ul class="submenu-list">
-                                    <li><a href="#">All In One</a></li>
-                                    <li><a href="#">PC Armada</a></li>
-                                    <li><a href="#">Mini PC</a></li>
+                                    @foreach ($categoria->grupos as $grupo)
+                                    <li class="has-submenu">
+                                        <a href="{{ route('products.by.grupo', ['grupo' => $grupo->nombre]) }}">{{ $grupo->nombre }}</a>
+                                        <!-- Sub-submenú para los subgrupos -->
+                                        <div class="sub-submenu">
+                                            <ul class="sub-submenu-list">
+                                                @foreach ($grupo->subgrupos as $subgrupo)
+                                                <li><a href="{{ route('products.by.subgrupo', ['subgrupo' => $subgrupo->nombre]) }}">{{ $subgrupo->nombre }}</a></li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </li>
-                        <li class="menu-item has-submenu">
-                            <a href="#" class="menu-link">Monitores</a>
-                            <div class="submenu">
-                                <ul class="submenu-list">
-                                    <li><a href="#">Entrada</a></li>
-                                    <li><a href="#">Gamer</a></li>
-                                    <li><a href="#">Productividad</a></li>
-                                    <li><a href="#">Empresarial</a></li>
-                                </ul>
-                            </div>
+                        @endforeach
+                        @else
+                        <li class="menu-item">
+                            <a href="#">No hay categorías</a>
                         </li>
-                        <li class="menu-item has-submenu">
-                            <a href="#" class="menu-link">Impresoras</a>
-                            <div class="submenu">
-                                <ul class="submenu-list">
-                                    <li><a href="#">HP</a></li>
-                                    <li><a href="#">Epson</a></li>
-                                    <li><a href="#">Escáneres</a></li>
-                                    <li><a href="#">Suministros</a></li>
-                                    <li><a href="#">Mantenimiento</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="menu-item"><a href="#">Routers</a></li>
-                        <li class="menu-item"><a href="#">Proyectores</a></li>
-                        <li class="menu-item"><a href="#">Tablets</a></li>
-                        <li class="menu-item"><a href="#">Tableta Gráfica</a></li>
-
-                        <!-- Componentes con Iconos SOLO EN MÓVIL -->
-                        <li class="menu-item mobile-only"><a href="#"><i class="fas fa-laptop"></i> Laptops</a></li>
-                        <li class="menu-item mobile-only"><a href="#"><i class="fas fa-desktop"></i> Computadoras</a></li>
-                        <li class="menu-item mobile-only"><a href="#"><i class="fas fa-memory"></i> Partes de PC</a></li>
-                        <li class="menu-item mobile-only"><a href="#"><i class="fas fa-tv"></i> Monitores</a></li>
-                        <li class="menu-item mobile-only"><a href="#"><i class="fas fa-print"></i> Impresoras</a></li>
+                        @endif
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const menuToggle = document.querySelector(".menu-toggle");
+        const menuToggle = document.querySelector(".menu-toggle.categorias");
         const menuDropdown = document.querySelector(".menu-dropdown");
-        const menuLinks = document.querySelectorAll(".menu-item > .menu-link");
         const overlay = document.createElement("div");
 
         overlay.classList.add("overlay");
         document.body.appendChild(overlay);
 
-        // Función para abrir/cerrar menú principal
-        menuToggle.addEventListener("click", function() {
+        // Función para abrir/cerrar el menú principal
+        menuToggle.addEventListener("click", function(e) {
+            e.stopPropagation(); // Evita que el clic se propague al documento
             const isActive = menuDropdown.classList.contains("active");
 
             if (isActive) {
@@ -119,6 +111,94 @@
                 menuDropdown.style.display = "none";
             }, 400);
             overlay.style.display = "none";
+        });
+
+        // Cerrar el menú al hacer clic fuera de él
+        document.addEventListener("click", function(e) {
+            if (!menuDropdown.contains(e.target)) {
+                menuDropdown.classList.remove("active");
+                overlay.style.display = "none";
+            }
+        });
+
+        // Manejar submenús y sub-submenús en móviles
+        const menuItemsWithSubmenu = document.querySelectorAll(".menu-item.has-submenu");
+        menuItemsWithSubmenu.forEach((item) => {
+            const menuLink = item.querySelector(".menu-link");
+            const submenu = item.querySelector(".submenu");
+
+            menuLink.addEventListener("click", function(e) {
+                e.preventDefault();
+                submenu.classList.toggle("active");
+            });
+
+            // Manejar sub-submenús
+            const submenuItemsWithSubmenu = item.querySelectorAll(".has-submenu > .submenu .has-submenu");
+            submenuItemsWithSubmenu.forEach((subItem) => {
+                const subMenuLink = subItem.querySelector("a");
+                const subSubmenu = subItem.querySelector(".sub-submenu");
+
+                subMenuLink.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    subSubmenu.classList.toggle("active");
+                });
+            });
+        });
+    });
+    // APARTADO PARA LOS ICONOS 
+    document.addEventListener("DOMContentLoaded", function() {
+        // Mapeo de categorías a iconos
+        const categoriaIconos = {
+            "Laptops": "fa-laptop",
+            "Computadoras": "fa-desktop",
+            "Componentes para PC": "fa-memory",
+            "Monitores": "fa-tv",
+            "Impresoras": "fa-print",
+            // Agrega más categorías y sus iconos aquí
+        };
+
+        // Selecciona todos los elementos con la clase .menu-toggle
+        const menuToggles = document.querySelectorAll(".menu-toggle[data-categoria]");
+
+        // Itera sobre cada elemento y asigna el icono correspondiente
+        menuToggles.forEach((toggle) => {
+            const categoria = toggle.getAttribute("data-categoria");
+            const iconElement = toggle.querySelector("i");
+
+            // Verifica si la categoría tiene un icono asignado
+            if (categoriaIconos[categoria]) {
+                iconElement.classList.remove("fa-folder"); // Elimina el icono por defecto
+                iconElement.classList.add(categoriaIconos[categoria]); // Agrega el icono correspondiente
+            }
+        });
+    });
+
+    // APARTADO PARA EL HOVER DE LOS SUBGRUPOS
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        // Mapeo de categorías a iconos
+        const categoriaIconos = {
+            "Laptops": "fa-laptop",
+            "Computadoras": "fa-desktop",
+            "Componentes para PC": "fa-memory",
+            "Monitores": "fa-tv",
+            "Impresoras": "fa-print",
+            // Agrega más categorías y sus iconos aquí
+        };
+
+        // Selecciona todos los elementos con la clase .menu-toggle
+        const menuToggles = document.querySelectorAll(".menu-toggle-container[data-categoria]");
+
+        // Itera sobre cada elemento y asigna el icono correspondiente
+        menuToggles.forEach((toggle) => {
+            const categoria = toggle.getAttribute("data-categoria");
+            const iconElement = toggle.querySelector("i");
+
+            // Verifica si la categoría tiene un icono asignado
+            if (categoriaIconos[categoria]) {
+                iconElement.classList.remove("fa-folder"); // Elimina el icono por defecto
+                iconElement.classList.add(categoriaIconos[categoria]); // Agrega el icono correspondiente
+            }
         });
     });
 </script>
