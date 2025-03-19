@@ -11,7 +11,15 @@
             <div class="search-container">
                 @include('partials.search')
             </div>
-
+            <div class="d-flex align-items-center dolar-container">
+    <div class="dolar-icon">
+        <i class="fas fa-dollar-sign"></i>
+    </div>
+    <div class="dolar-info">
+        <span class="dolar-label">Dólar:</span>
+        <span id="precioDolarHeader" class="dolar-precio">S/ {{ $precio_dolar }}</span>
+    </div>
+</div>
             <!-- Iconos en horizontal -->
             <div class="social-icons">
                 <a href="https://facebook.com/tu-pagina" target="_blank" class="nav-link">

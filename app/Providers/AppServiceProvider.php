@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Categoria;
+use App\Models\Configuracion;
 use App\Models\Grupo;
 use App\Models\Subgrupo;
 use Illuminate\Support\Facades\View;
@@ -32,6 +33,11 @@ class AppServiceProvider extends ServiceProvider
             $view->with('categorias', $categorias)
                  ->with('grupos', $grupos)
                  ->with('subgrupos', $subgrupos);
+        });
+        View::composer('*', function ($view) {
+            $config = Configuracion::first();
+            $precio_dolar = $config ? number_format($config->precio_dolar, 2) : '0.00';
+            $view->with('precio_dolar', $precio_dolar);
         });
     }
 }

@@ -15,6 +15,8 @@
                 <div>
                     <h5 class="fw-bold">Precio del Dólar</h5>
                     <p class="text-muted">Cambia el precio del dólar en tiempo real.</p>
+                    <h3 id="precioDolar">S/ {{ $precio_dolar }}</h3>
+                    <button id="actualizarDolar" class="btn btn-primary">Actualizar</button>
                 </div>
             </div>
         </div>
@@ -33,4 +35,24 @@
         </div>
     </div>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    function actualizarPrecioDolar() {
+        fetch("{{ route('actualizar.dolar') }}")
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('precioDolar').textContent = "S/ " + data.precio;
+                document.getElementById('precioDolarHeader').textContent = "S/ " + data.precio;
+            } else {
+                alert('Error al obtener el precio');
+            }
+        })
+        .catch(error => console.error("Error:", error));
+    }
+
+    document.getElementById('actualizarDolar').addEventListener('click', actualizarPrecioDolar);
+});
+</script>
+
 @endsection

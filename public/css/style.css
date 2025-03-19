@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
+/*======= ESTILOS DE PROVEEDORES =======*/
 /* 📌 Contenedor Principal */
 .brands-section {
     text-align: center;
@@ -49,13 +50,75 @@
     to { transform: translateX(-50%); } /* Se mueve la mitad del contenido y reinicia sin cortes */
 }
 
+/*======= FIN DE ESTILOS DE PROVEEDORES =======*/
 
+/* ======= ESTILOS DEL CUADRO DEL DOLAR ======= */
+
+.dolar-container {
+    background: linear-gradient(135deg, #28a745, #218838);
+    border-radius: 8px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.dolar-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.dolar-icon {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.dolar-info {
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.dolar-label {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+.dolar-precio {
+    font-size: 18px;
+    font-weight: bold;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*======= FIN DE ESTILOS DEL CUADRO DEL DOLAR =======*/
 
 
 /* ======= ESTILOS GENERALES ANCHO DEL CONTENIDO ======= */
 
 .col-md-9 {
-    width: 85%;
+    width: 95%;
 }
 
 /* ======= FIN DE ESTILOS GENERALES ANCHO DEL CONTENIDO ======= */
@@ -69,7 +132,7 @@
 }
 
 .container {
-    max-width: 1700px;
+    max-width: 90%;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -103,7 +166,7 @@
 
 .search-container {
     flex: 1; /* Permite que el buscador ocupe el espacio restante */
-    max-width: 400px;
+    max-width: 280px;
     min-width: 250px;
 }
 

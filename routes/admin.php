@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\FiltroController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\SliderController;
@@ -125,3 +126,9 @@ Route::prefix('panel')->group(function () {
 Route::get('/panel/subfiltros/buscar', [SubFiltroController::class, 'buscarSubFiltros'])->name('subfiltros.buscar');
 
 //////////////////////////////////SUBFILTROS/////////////////////////////////////
+
+//////////////////////////////////DOLAR////////////////////////////////////
+Route::get('/configuracion', [ConfiguracionController::class, 'index'])->name('configuracion.index');
+Route::get('/actualizar-dolar', [ConfiguracionController::class, 'actualizarDolar'])->name('actualizar.dolar');
+
+//////////////////////////////////DOLAR////////////////////////////////////

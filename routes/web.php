@@ -53,10 +53,16 @@ Route::get('/slider', [SliderController::class, 'mostrarSlider'])->name('slider.
 
 Route::get('/api/proveedores', [ProveedorController::class, 'obtenerProveedores']);
 
+//////////////////////////////////PROVEEDORES////////////////////////////////////
+
 
 //////////////////////////////////FILTROS////////////////////////////////////
 Route::get('/productos/{categoria}', [ProductController::class, 'filterByCategoria'])->name('products.by.categoria');
 Route::get('/productos/grupo/{grupo}', [ProductController::class, 'filterByGrupo'])->name('products.by.grupo');
 Route::get('/productos/subgrupo/{subgrupo}', [ProductController::class, 'filterBySubgrupo'])->name('products.by.subgrupo');
+
+//////////////////////////////////FILTROS////////////////////////////////////
+
+
 
 require __DIR__ . '/admin.php';

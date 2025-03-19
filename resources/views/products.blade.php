@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['ocultarSlider' => true])
 
 @section('title', 'Productos de Tecnología - Laptops, Tarjetas Gráficas y Monitores | SEKAITECH')
 
