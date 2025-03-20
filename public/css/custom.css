@@ -466,3 +466,225 @@ body {
 
 
 /* FIN DE ESTILOS DEL PRODUCT SLIDER */
+
+/* ======= ESTILOS GENERALES ANCHO DEL CONTENIDO ======= */
+/* Estilos generales */
+.selectors-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.per-page-selector, .view-selector {
+    display: flex;
+    align-items: center;
+}
+
+.per-page-selector label, .view-selector label {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+select:hover {
+    border-color: #007bff;
+}
+
+select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* Contenedor de productos filtrados */
+.products-container {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Cuadrícula de productos */
+.product-grid-specific {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas por defecto */
+    gap: 20px;
+}
+
+/* Estilos para cada producto */
+.product-card-specific {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card-specific:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.product-image-specific {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+
+.product-title-specific {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #333;
+}
+
+.product-text-specific {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.product-price-specific {
+    margin: 10px 0;
+}
+
+.price-usd, .price-pen {
+    display: block;
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* ======= ESTILOS PARA LA VISTA DE LISTA ======= */
+.product-list-specific {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.product-list-specific .product-card-specific {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-list-specific .product-card-specific:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.product-list-specific .product-image-link {
+    flex: 0 0 120px; /* Ancho fijo para la imagen */
+    height: 120px; /* Altura fija para la imagen */
+    overflow: hidden;
+    border-radius: 0.5rem;
+}
+
+.product-list-specific .product-image-specific {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajustar la imagen al contenedor */
+}
+
+.product-list-specific .product-body-specific {
+    flex: 1;
+}
+
+.product-list-specific .product-title-specific {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #2d3748;
+}
+
+.product-list-specific .product-text-specific {
+    font-size: 0.875rem;
+    color: #4a5568;
+    margin-bottom: 0.5rem;
+}
+
+.product-list-specific .product-price-specific {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 1rem;
+    color: #2d3748;
+}
+
+.product-list-specific .price-usd, .product-list-specific .price-pen {
+    display: inline-block;
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.product-list-specific .btn-primary {
+    align-self: flex-start;
+    padding: 0.5rem 1rem;
+    background-color: #3b82f6;
+    color: #fff;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.product-list-specific .btn-primary:hover {
+    background-color: #2563eb;
+}
+
+/* Paginación */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination a, .pagination span {
+    padding: 8px 16px;
+    margin: 0 4px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #007bff;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #f8f9fa;
+}
+
+.pagination .current {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}

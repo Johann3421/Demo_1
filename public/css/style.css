@@ -166,7 +166,6 @@
 
 .search-container {
     flex: 1; /* Permite que el buscador ocupe el espacio restante */
-    max-width: 280px;
     min-width: 250px;
 }
 
@@ -329,6 +328,7 @@
 }
 
 .md\:flex-row {
+    width: 100%;
     flex-direction: row;
 }
 
@@ -419,8 +419,6 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     opacity: 0;
     animation: fadeIn 0.5s ease forwards;
-    display: flex;
-    flex-direction: column;
     width: 100%; /* Asegura que la tarjeta ocupe todo el ancho de la columna */
     height: auto; /* Altura automática para que el contenido fluya */
 }
@@ -443,10 +441,6 @@
 
 .product-body-specific {
     padding: 1.5rem;
-    flex: 1; /* Hace que el cuerpo de la tarjeta ocupe el espacio restante */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Distribuye el espacio entre los elementos */
 }
 
 .product-title-specific {
@@ -495,7 +489,6 @@
     padding: 0.5rem 1rem;
     margin-right: 0.5rem;
     transition: background 0.3s ease, transform 0.3s ease;
-    width: 100%; /* Botones de ancho completo */
     margin-top: 0.5rem; /* Espacio entre botones */
 }
 
@@ -1111,8 +1104,7 @@ h1 {
 .search-form {
     position: relative; /* Asegura que el contenedor de resultados sea relativo al formulario */
     display: flex;
-    align-items: center;
-    width: 200%; /* Asegura que el formulario ocupe el ancho disponible */
+    align-items: center; /* Asegura que el formulario ocupe el ancho disponible */
     max-width: 800px; /* Hace la barra de búsqueda más ancha */
     margin: 0 auto; /* Centra el buscador */
 }
@@ -1227,8 +1219,7 @@ h1 {
 /* Contenedor del slider */
 .slider-container {
     width: 100%;
-    max-width: 100vw;
-    height: 600px; /* Más alto en PC */
+    max-width: 100vw; /* Más alto en PC */
     margin: 0 auto;
     position: relative;
     overflow: hidden;

@@ -22,4 +22,9 @@ class Categoria extends Model
     {
         return $this->hasMany(Grupo::class, 'categoria_id'); // Asegúrate de que 'categoria_id' sea la clave foránea correcta
     }
+    // Relación con sub_filtros
+    public function subFiltros()
+    {
+        return $this->hasMany(SubFiltro::class, 'categoria_id');
+    }
 }

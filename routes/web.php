@@ -57,9 +57,17 @@ Route::get('/api/proveedores', [ProveedorController::class, 'obtenerProveedores'
 
 
 //////////////////////////////////FILTROS////////////////////////////////////
-Route::get('/productos/{categoria}', [ProductController::class, 'filterByCategoria'])->name('products.by.categoria');
-Route::get('/productos/grupo/{grupo}', [ProductController::class, 'filterByGrupo'])->name('products.by.grupo');
-Route::get('/productos/subgrupo/{subgrupo}', [ProductController::class, 'filterBySubgrupo'])->name('products.by.subgrupo');
+// Filtrar productos por categoría
+Route::get('/productos/categoria/{categoria}', [ProductController::class, 'filtrarPorCategoria'])
+    ->name('products.by.categoria');
+
+// Filtrar productos por grupo
+Route::get('/productos/grupo/{grupo}', [ProductController::class, 'filtrarPorGrupo'])
+    ->name('products.by.grupo');
+
+// Filtrar productos por subgrupo
+Route::get('/productos/subgrupo/{subgrupo}', [ProductController::class, 'filtrarPorSubgrupo'])
+    ->name('products.by.subgrupo');
 
 //////////////////////////////////FILTROS////////////////////////////////////
 

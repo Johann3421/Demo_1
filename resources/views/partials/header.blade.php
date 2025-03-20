@@ -11,6 +11,8 @@
             <div class="search-container">
                 @include('partials.search')
             </div>
+            <!-- Iconos en horizontal -->
+            <div class="social-icons">
             <div class="d-flex align-items-center dolar-container">
     <div class="dolar-icon">
         <i class="fas fa-dollar-sign"></i>
@@ -20,8 +22,6 @@
         <span id="precioDolarHeader" class="dolar-precio">S/ {{ $precio_dolar }}</span>
     </div>
 </div>
-            <!-- Iconos en horizontal -->
-            <div class="social-icons">
                 <a href="https://facebook.com/tu-pagina" target="_blank" class="nav-link">
                     <i class="fab fa-facebook"></i>
                 </a>
@@ -31,7 +31,9 @@
                 <a href="https://twitter.com/tu-pagina" target="_blank" class="nav-link">
                     <i class="fab fa-twitter"></i>
                 </a>
+                
             </div>
+            
         </nav>
 
         <!-- Botón de menú para móviles - Visible hasta 1119px -->
