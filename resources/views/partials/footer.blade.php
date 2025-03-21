@@ -62,4 +62,48 @@
     <div class="footer-bottom">
         <p>© Copyright SekaiTech - Todos los derechos reservados</p>
     </div>
+
+    <!-- 🐱 Gato de la Suerte Animado -->
+    <div class="maneki-neko">
+        <img src="{{ asset('images/gato.png') }}" alt="Gato de la Suerte">
+    </div>
 </footer>
+
+<style>
+/* 🐱 Estilos para el Gato de la Suerte */
+.footer-container {
+    position: relative; /* Mantiene el gato dentro del footer */
+}
+
+.maneki-neko {
+    position: absolute;
+    top: 22%; /* Mueve el gato hasta el borde superior del footer */
+    right: 90px;
+    width: 100px;
+    z-index: 10;
+}
+
+.maneki-neko img {
+    width: 110%;
+    animation: movePaw 1s infinite alternate ease-in-out;
+}
+
+/* 🎭 Animación de la pata */
+
+/* 📱 Responsividad para pantallas pequeñas */
+@media (max-width: 768px) {
+    .maneki-neko {
+        width: 80px; /* Reduce el tamaño del gato */
+        right: 10px; /* Ajusta la posición */
+    }
+}
+
+@media (max-width: 480px) {
+    .maneki-neko {
+        width: 60px; /* Más pequeño en móviles */
+        right: 5px;  /* Se acerca más al borde */
+        top: 10px;   /* Baja un poco en móviles */
+    }
+}
+
+</style>

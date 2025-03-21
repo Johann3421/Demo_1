@@ -101,10 +101,6 @@
             </main>
         </div>
         @include('components.proveedores')
-
-
-
-
     </div>
 
     @include('partials.footer') <!-- Ahora siempre se mostrará correctamente -->
