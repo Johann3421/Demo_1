@@ -60,4 +60,8 @@ public function subFiltros()
     {
         return $this->belongsToMany(SubFiltro::class, 'producto_subfiltro');
     }
+    public function opciones()
+{
+    return $this->belongsToMany(Opcion::class, 'producto_opcion');
+}
 }

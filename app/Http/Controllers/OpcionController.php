@@ -8,6 +8,12 @@ use App\Models\SubFiltro;
 
 class OpcionController extends Controller
 {
+
+    public function getOpcionesPorSubfiltro($subfiltro_id)
+    {
+        $opciones = Opcion::where('sub_filtro_id', $subfiltro_id)->get();
+        return response()->json($opciones);
+    }
     // Mostrar la lista de opciones
     public function index()
     {

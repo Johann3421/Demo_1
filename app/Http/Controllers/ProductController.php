@@ -12,60 +12,59 @@ class ProductController extends Controller
 {
     // Método para mostrar todos los productos
     public function index(Request $request)
-    {
-        // Obtener todas las categorías
-        $categorias = Categoria::all();
+{
+    // Obtener todas las categorías
+    $categorias = Categoria::all();
 
-        // Construir la consulta base
-        $query = Producto::query();
+    // Construir la consulta base
+    $query = Producto::query();
 
-        // Filtro por categoría
-        if ($request->has('categoria_id') && $request->categoria_id != '') {
-            $query->where('categoria_id', $request->categoria_id);
-        }
-
-        // Filtro por subfiltros
-        if ($request->has('filtros')) {
-            foreach ($request->filtros as $subFiltro => $opciones) {
-                $query->whereHas('subFiltros', function ($q) use ($subFiltro, $opciones) {
-                    $q->where('nombre', $subFiltro)
-                        ->whereHas('opciones', function ($q2) use ($opciones) {
-                            $q2->whereIn('nombre', $opciones);
-                        });
-                });
-            }
-        }
-
-        // Filtro por precio máximo
-        if ($request->has('max_price') && $request->max_price != '') {
-            $query->where('precio_soles', '<=', $request->max_price);
-        }
-
-        // Filtro por stock
-        if ($request->has('stock')) {
-            if (in_array('on-sale', $request->stock)) {
-                $query->where('en_oferta', true);
-            }
-            if (in_array('in-stock', $request->stock)) {
-                $query->where('stock', '>', 0);
-            }
-        }
-
-        // Paginación
-        $perPage = $request->get('per_page', 6);
-        $productos = $query->paginate($perPage);
-
-        // Calcular el precio en soles para cada producto
-        foreach ($productos as $producto) {
-            $producto->precio_soles = round($producto->precio_dolares * 3.8, 2);
-        }
-
-        // Obtener 3 productos aleatorios para "Top de Ventas"
-        $topVentas = Producto::inRandomOrder()->limit(3)->get();
-
-        // Pasar datos a la vista
-        return view('products', compact('productos', 'topVentas', 'categorias'));
+    // Filtro por categoría
+    if ($request->filled('categoria_id')) {
+        $query->where('categoria_id', $request->categoria_id);
     }
+
+    // Filtro por subfiltros y opciones seleccionadas
+    if ($request->has('filtros')) {
+        foreach ($request->filtros as $subFiltroNombre => $opcionesSeleccionadas) {
+            $query->whereHas('opciones', function ($q) use ($opcionesSeleccionadas) {
+                $q->whereIn('nombre', $opcionesSeleccionadas);
+            });
+        }
+    }
+
+    // Filtro por precio máximo en dólares
+    if ($request->filled('max_price') && is_numeric($request->max_price)) {
+        $precioEnDolares = $request->max_price / 3.8; // Convertir soles a dólares
+        $query->where('precio_dolares', '<=', $precioEnDolares);
+    }
+
+    // Filtro por stock y ofertas
+    if ($request->has('stock')) {
+        if (in_array('on-sale', $request->stock)) {
+            $query->where('en_oferta', true);
+        }
+        if (in_array('in-stock', $request->stock)) {
+            $query->where('stock', '>', 0);
+        }
+    }
+
+    // Paginación
+    $perPage = $request->get('per_page', 6);
+    $productos = $query->paginate($perPage);
+
+    // Calcular el precio en soles para cada producto
+    foreach ($productos as $producto) {
+        $producto->precio_soles = round($producto->precio_dolares * 3.8, 2);
+    }
+
+    // Obtener 3 productos aleatorios para "Top de Ventas"
+    $topVentas = Producto::inRandomOrder()->limit(3)->get();
+
+    // Pasar datos a la vista
+    return view('products', compact('productos', 'topVentas', 'categorias'));
+}
+
 
     // Método para mostrar los detalles del producto desde la base de datos
     public function show($id)

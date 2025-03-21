@@ -17,6 +17,10 @@
             <a href="{{ route('panel.productos') }}" class="nav-link sidebar-link">
                 <i class="fas fa-box me-2 text-warning animate-icon"></i> Productos
             </a>
+            <!-- Nueva opción para asignar opciones a productos -->
+            <a href="{{ route('panel.productos.asignar_opciones') }}" class="nav-link sidebar-link">
+                <i class="fas fa-check-circle me-2 text-success animate-icon"></i> Asignar Opciones
+            </a>
             <a href="{{ route('panel.categorias') }}" class="nav-link sidebar-link">
                 <i class="fas fa-tags me-2 text-success animate-icon"></i> Categorías
             </a>

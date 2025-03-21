@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\OpcionController;
+use App\Http\Controllers\PanelProductoController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\SubFiltroController;
@@ -76,5 +78,16 @@ Route::get('/productos/subgrupo/{subgrupo}', [ProductController::class, 'filtrar
 Route::get('/api/subfiltros/{categoria_id}', [SubFiltroController::class, 'getSubFiltrosPorCategoria']);
 //////////////////////////////////API/////////////////////////////////////
 
+
+//////////////////////////////////OPCIONES/////////////////////////////////////
+
+Route::prefix('panel')->group(function () {
+    Route::get('/productos/asignar-opciones', [PanelProductoController::class, 'asignarOpciones'])->name('panel.productos.asignar_opciones');
+    Route::post('/productos/guardar-opciones', [PanelProductoController::class, 'guardarOpciones'])->name('panel.productos.guardar_opciones');
+});
+
+Route::get('/api/opciones/{subfiltro_id}', [OpcionController::class, 'getOpcionesPorSubfiltro']);
+
+//////////////////////////////////OPCIONES/////////////////////////////////////
 
 require __DIR__ . '/admin.php';
