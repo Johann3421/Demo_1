@@ -221,6 +221,17 @@ public function filtrarPorSubgrupo($subgrupo)
     // Pasar datos a la vista
     return view('products', compact('productos', 'topVentas', 'categorias'));
 }
+public function buscar(Request $request)
+{
+    $query = $request->input('query');
+
+    $productos = Producto::where('nombre', 'LIKE', "%{$query}%")
+        ->orWhere('descripcion', 'LIKE', "%{$query}%")
+        ->limit(6)
+        ->get();
+
+    return response()->json($productos);
+}
 
 
 }
