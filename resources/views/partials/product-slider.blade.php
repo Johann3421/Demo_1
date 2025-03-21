@@ -8,7 +8,7 @@
         @foreach($productos as $producto)
             <div class="product-slider-item">
                 <div class="product-card">
-                    <a href="{{ route('product.show', $producto->id) }}" class="text-decoration-none">
+                    <a href="{{ route('product.show', ['id' => $producto->id, 'slug' => $producto->slug]) }}" class="text-decoration-none">
                         <img src="{{ asset('images/' . $producto->imagen_url) }}" class="product-image" alt="{{ $producto->nombre }}">
                         <h5 class="product-name">{{ $producto->nombre }}</h5>
                         <p class="product-price">S/. {{ number_format($producto->precio_soles, 2) }}</p>
@@ -22,9 +22,8 @@
     <button class="product-slider-next" type="button"></button>
 </div>
 
-
 <script> 
-    document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const slider = document.querySelector(".product-slider-inner");
     const items = document.querySelectorAll(".product-slider-item");
     const prevBtn = document.querySelector(".product-slider-prev");
