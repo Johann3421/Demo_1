@@ -56,4 +56,8 @@ public function subgrupo()
 {
     return $this->belongsTo(Subgrupo::class);
 }
+public function subFiltros()
+    {
+        return $this->belongsToMany(SubFiltro::class, 'producto_subfiltro');
+    }
 }

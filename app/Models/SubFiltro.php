@@ -22,4 +22,9 @@ class SubFiltro extends Model
     {
         return $this->hasMany(Opcion::class, 'sub_filtro_id');
     }
+    public function productos()
+{
+    return $this->belongsToMany(Producto::class, 'producto_subfiltro')
+                ->withPivot('opcion_id'); // Si usas opciones
+}
 }

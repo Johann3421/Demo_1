@@ -9,57 +9,68 @@
 @section('content')
 <div class="container mx-auto p-4">
     <div class="flex flex-col md:flex-row">
-        <!-- Sidebar (Filtros) -->
-        <div class="w-full md:w-1/4 p-4">
-            <div class="sidebar-container">
-                <!-- Formulario de Filtros -->
-                <form id="filter-form" method="GET" action="{{ url()->current() }}">
-    <!-- Filtro de Precio -->
-    <div>
-        <h2>FILTER BY PRICE</h2>
-        <div class="price-container">
-            <span id="price-label">${{ request('max_price', 0) }}</span>
-            <span>$5000</span>
-        </div>
-        <input type="range" id="price" name="max_price" min="0" max="5000" step="1" value="{{ request('max_price', 5000) }}" class="price-range w-full mt-2">
-    </div>
-
-    
-
-    <!-- Filtro de Categoría -->
-    <div class="mb-6">
-        <h2>CATEGORY</h2>
-        <select name="categoria_id" class="category-select">
-            <option value="">All Categories</option>
-            @foreach($categorias as $categoria)
-                <option value="{{ $categoria->id }}" {{ request('categoria_id') == $categoria->id ? 'selected' : '' }}>{{ $categoria->nombre }}</option>
-            @endforeach
-        </select>
-    </div>
-
-    <!-- Botón de Filtrar -->
-    <button type="submit" class="filter-button mt-6">FILTRAR</button>
-</form>
-
-                <!-- Sección Top de Ventas -->
-                <div class="top-sales mt-8">
-                    <h2 class="text-lg font-bold text-gray-800 mb-4">TOP DE VENTAS</h2>
-                    <ul id="top-sales-list" class="space-y-4">
-                        @foreach($topVentas as $producto)
-                            <li class="flex items-center space-x-4 border-b pb-3">
-                                <a href="{{ route('producto.detalles', ['id' => $producto->id, 'slug' => $producto->slug]) }}" class="flex items-center space-x-4">
-                                    <img src="{{ asset('images/' . $producto->imagen_url) }}" class="top-sales-img">
-                                    <div class="top-sales-info">
-                                        <p class="top-sales-name">{{ $producto->nombre }}</p>
-                                        <p class="top-sales-price">${{ number_format($producto->precio_dolares, 2) }}</p>
-                                    </div>
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
+<!-- Sidebar (Filtros) -->
+<div class="w-full md:w-1/4 p-4">
+    <div class="sidebar-container">
+        <!-- Formulario de Filtros -->
+        <form id="filter-form" method="GET" action="{{ url()->current() }}">
+            <!-- Filtro de Precio -->
+            <div>
+                <h2>FILTER BY PRICE</h2>
+                <div class="price-container">
+                    <span id="price-label">${{ request('max_price', 0) }}</span>
+                    <span>$5000</span>
                 </div>
+                <input type="range" id="price" name="max_price" min="0" max="5000" step="1"
+                    value="{{ request('max_price', 5000) }}" class="price-range w-full mt-2">
             </div>
+
+            <!-- Filtro de Categoría -->
+            <div class="mb-6">
+                <h2>CATEGORY</h2>
+                <select id="categoria-select" name="categoria_id" class="category-select">
+                    <option value="">All Categories</option>
+                    @foreach($categorias as $categoria)
+                        <option value="{{ $categoria->id }}" {{ request('categoria_id') == $categoria->id ? 'selected' : '' }}>
+                            {{ $categoria->nombre }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Sub-Filtros dinámicos -->
+            <div id="subfiltros-container" class="mb-6 hidden">
+                <h2>ADDITIONAL FILTERS</h2>
+                <div id="subfiltros-list" class="space-y-2"></div>
+            </div>
+
+            <!-- Botones de Filtrar y Limpiar -->
+            <div class="flex space-x-2 mt-6">
+                <button type="submit" class="filter-button w-1/2">FILTRAR</button>
+                <a href="{{ url('productos') }}" class="clear-button w-1/2 text-center">LIMPIAR</a>
+            </div>
+        </form>
+
+        <!-- Sección Top de Ventas -->
+        <div class="top-sales mt-8">
+            <h2 class="text-lg font-bold text-gray-800 mb-4">TOP DE VENTAS</h2>
+            <ul id="top-sales-list" class="space-y-4">
+                @foreach($topVentas as $producto)
+                    <li class="flex items-center space-x-4 border-b pb-3">
+                        <a href="{{ route('producto.detalles', ['id' => $producto->id, 'slug' => $producto->slug]) }}"
+                            class="flex items-center space-x-4">
+                            <img src="{{ asset('images/' . $producto->imagen_url) }}" class="top-sales-img">
+                            <div class="top-sales-info">
+                                <p class="top-sales-name">{{ $producto->nombre }}</p>
+                                <p class="top-sales-price">${{ number_format($producto->precio_dolares, 2) }}</p>
+                            </div>
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
         </div>
+    </div>
+</div>
 
         <!-- Main Content (Productos) -->
         <div class="w-full md:w-3/4 p-4">
@@ -113,6 +124,67 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const categoriaSelect = document.getElementById("categoria-select");
+        const subFiltrosContainer = document.getElementById("subfiltros-container");
+        const subFiltrosList = document.getElementById("subfiltros-list");
+
+        categoriaSelect.addEventListener("change", function () {
+            const categoriaId = this.value;
+            subFiltrosList.innerHTML = "";
+            subFiltrosContainer.classList.add("hidden");
+
+            if (categoriaId) {
+                fetch(`/api/subfiltros/${categoriaId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length > 0) {
+                            subFiltrosContainer.classList.remove("hidden");
+                            data.forEach(subFiltro => {
+                                let subFiltroSection = document.createElement("div");
+                                subFiltroSection.classList.add("mb-4");
+
+                                // Etiqueta del Subfiltro (hace de botón desplegable)
+                                let label = document.createElement("div");
+                                label.classList.add("subfiltro-label");
+                                label.textContent = subFiltro.nombre;
+                                label.addEventListener("click", function () {
+                                    optionsContainer.classList.toggle("show");
+                                });
+
+                                // Opciones del Subfiltro
+                                let optionsContainer = document.createElement("div");
+                                optionsContainer.classList.add("subfiltro-options");
+
+                                subFiltro.opciones.forEach(opcion => {
+                                    let optionLabel = document.createElement("label");
+                                    optionLabel.classList.add("checkbox-label");
+
+                                    let checkbox = document.createElement("input");
+                                    checkbox.type = "checkbox";
+                                    checkbox.name = `filtros[${subFiltro.nombre}][]`;
+                                    checkbox.value = opcion.nombre;
+
+                                    let optionText = document.createElement("span");
+                                    optionText.textContent = opcion.nombre;
+
+                                    optionLabel.appendChild(checkbox);
+                                    optionLabel.appendChild(optionText);
+                                    optionsContainer.appendChild(optionLabel);
+                                });
+
+                                subFiltroSection.appendChild(label);
+                                subFiltroSection.appendChild(optionsContainer);
+                                subFiltrosList.appendChild(subFiltroSection);
+                            });
+                        }
+                    })
+                    .catch(error => console.error("Error al obtener subfiltros:", error));
+            }
+        });
+    });
+</script>
 
 <script>
     // Simular tiempo de carga

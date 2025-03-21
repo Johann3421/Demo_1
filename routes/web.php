@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\SubFiltroController;
 use App\Models\Proveedor;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
@@ -71,6 +72,9 @@ Route::get('/productos/subgrupo/{subgrupo}', [ProductController::class, 'filtrar
 
 //////////////////////////////////FILTROS////////////////////////////////////
 
+//////////////////////////////////API/////////////////////////////////////
+Route::get('/api/subfiltros/{categoria_id}', [SubFiltroController::class, 'getSubFiltrosPorCategoria']);
+//////////////////////////////////API/////////////////////////////////////
 
 
 require __DIR__ . '/admin.php';
