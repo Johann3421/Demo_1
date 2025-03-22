@@ -2,12 +2,13 @@
 <!DOCTYPE html>
 <html lang="es">
 
+<link rel="canonical" href="{{ url()->current() }}">
+
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-X4FWJY61GM"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-
         function gtag() {
             dataLayer.push(arguments);
         }
@@ -17,24 +18,24 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEKAITECH - Lo mejor en productos tecnológicos en Huánuco</title>
-    <meta name="description" content="Descubre SEKAITECH, tu aliado en informática en Huánuco y Perú. Comprar computadoras, laptops, tarjetas de video y monitores de alta calidad es fácil con nuestra asesoría experta y tecnología de vanguardia.">
-    <meta name="keywords" content="productos, tienda online, ecommerce, ofertas, comprar online, envío rápido, productos de calidad, laptops, impresoras, PCs, puntos de venta">
+    <title>@yield('title', 'SEKAITECH - Lo mejor en productos tecnológicos en Huánuco')</title>
+    <meta name="description" content="@yield('meta-description', 'Descubre SEKAITECH, tu tienda de tecnología en Huánuco. Encuentra laptops, PCs, monitores y más al mejor precio. ¡Envíos a todo Perú!')">
+    <meta name="keywords" content="@yield('keywords', 'productos, tienda online, ecommerce, ofertas, comprar online, envío rápido, productos de calidad, laptops, impresoras, PCs, puntos de venta')">
     <meta name="robots" content="index, follow">
     <meta name="author" content="SEKAITECH">
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:title" content="SEKAITECH - Lo mejor en productos tecnológicos en Huánuco">
-    <meta property="og:description" content="Descubre SEKAI TECH, tu aliado en informática en Huánuco y Perú. Comprar computadoras, laptops, tarjetas de video y monitores de alta calidad es fácil con nuestra asesoría experta y tecnología de vanguardia.">
-    <meta property="og:image" content="{{ asset('images/logo.png') }}">
+    <meta property="og:title" content="@yield('og:title', 'SEKAITECH - Lo mejor en productos tecnológicos en Huánuco')">
+    <meta property="og:description" content="@yield('og:description', 'Descubre SEKAI TECH, tu aliado en informática en Huánuco y Perú. Comprar computadoras, laptops, tarjetas de video y monitores de alta calidad es fácil con nuestra asesoría experta y tecnología de vanguardia.')">
+    <meta property="og:image" content="@yield('og:image', asset('images/logo.png'))">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="SEKAITECH - Lo mejor en productos tecnológicos en Huánuco">
-    <meta name="twitter:description" content="Descubre SEKAI TECH, tu aliado en informática en Huánuco y Perú. Comprar computadoras, laptops, tarjetas de video y monitores de alta calidad es fácil con nuestra asesoría experta y tecnología de vanguardia.">
-    <meta name="twitter:image" content="{{ asset('images/logo.png') }}">
+    <meta name="twitter:title" content="@yield('twitter:title', 'SEKAITECH - Lo mejor en productos tecnológicos en Huánuco')">
+    <meta name="twitter:description" content="@yield('twitter:description', 'Descubre SEKAI TECH, tu aliado en informática en Huánuco y Perú. Comprar computadoras, laptops, tarjetas de video y monitores de alta calidad es fácil con nuestra asesoría experta y tecnología de vanguardia.')">
+    <meta name="twitter:image" content="@yield('twitter:image', asset('images/logo.png'))">
 
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('images/LOGO-SEKAITECH-2 (1).ico') }}" type="image/x-icon">
@@ -82,7 +83,6 @@
     <!-- End Google Tag Manager (noscript) -->
 
     @include('partials.header')
-
     @include('partials.subheader')
 
     <div class="container-fluid">
@@ -91,7 +91,6 @@
                 @if(!isset($ocultarSlider) || !$ocultarSlider)
                 @include('partials.slider')
                 @endif
-                <!-- Asegura que el slider no se vea afectado -->
             </div>
         </div>
 
@@ -100,16 +99,38 @@
                 @yield('content')
             </main>
         </div>
+        
         @include('components.proveedores')
     </div>
 
-    @include('partials.footer') <!-- Ahora siempre se mostrará correctamente -->
-<!-- Botón flotante para volver arriba -->
-<div id="scrollToTop" class="scroll-to-top">
+    @include('partials.footer')
+
+    <script>
+        (function checkCookies() {
+            document.cookie = "test=1"; // Intenta establecer una cookie
+            let cookiesEnabled = document.cookie.indexOf("test=") !== -1;
+
+            if (!cookiesEnabled) {
+                let warningDiv = document.createElement("div");
+                warningDiv.innerHTML = "⚠️ Las cookies están deshabilitadas en tu navegador. Actívalas para una mejor experiencia.";
+                warningDiv.style.position = "fixed";
+                warningDiv.style.bottom = "0";
+                warningDiv.style.left = "0";
+                warningDiv.style.width = "100%";
+                warningDiv.style.backgroundColor = "#f44336";
+                warningDiv.style.color = "white";
+                warningDiv.style.padding = "10px";
+                warningDiv.style.textAlign = "center";
+                warningDiv.style.fontSize = "16px";
+                warningDiv.style.zIndex = "10000";
+                
+                document.body.appendChild(warningDiv);
+            }
+        })();
+    </script>
+    <div id="scrollToTop" class="scroll-to-top">
     <i class="fas fa-chevron-up"></i>
 </div>
-
-
 </body>
 
 </html>

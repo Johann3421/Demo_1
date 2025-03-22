@@ -1,4 +1,62 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+
+
+/* ======= ESTILOS DE ESPECIFICACIONES ======= */
+
+/* Estilos para las especificaciones */
+.specs-list {
+    list-style: none;
+    padding: 0;
+}
+
+.specs-list li {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #555;
+}
+
+.specs-list li strong {
+    color: #333;
+}
+
+.dynamic-specs {
+    margin-top: 20px;
+}
+
+.dynamic-specs h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.specs-info {
+    margin-top: 30px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.specs-info h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.specs-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.specs-info ul li {
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #555;
+}
+
+/* ======= FIN DE ESTILOS DE ESPECIFICACIONES ======= */
+
 /* ======= ESTILOS PARA SCROLL POPUP ======= */
 
 /* 📌 Estilo del botón flotante */

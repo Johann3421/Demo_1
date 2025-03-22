@@ -69,6 +69,7 @@ class ProductController extends Controller
     // Método para mostrar los detalles del producto desde la base de datos
     public function show($id)
     {
+        $producto = Producto::with('especificaciones')->findOrFail($id);
         // Buscar el producto en la base de datos
         $producto = Producto::findOrFail($id);
 
