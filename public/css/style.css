@@ -1,4 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+/* ======= ESTILOS PARA SCROLL POPUP ======= */
+
+/* 📌 Estilo del botón flotante */
+.scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #0037FF;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    font-size: 24px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+/* 📌 Cuando se muestra el botón */
+.scroll-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* 📌 Efecto hover */
+.scroll-to-top:hover {
+    background-color: #0026B3;
+}
+
+/* ======= FIN DE ESTILOS PARA SCROLL POPUP ======= */
+
 
 /* ======= ESTILOS PARA SUBFILTROS ======= */
 

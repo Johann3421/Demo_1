@@ -35,7 +35,6 @@
             <ul>
                 <li><a href="#">Soporte técnico</a></li>
                 <li><a href="#">Términos y condiciones de garantía</a></li>
-                <li><a href="#">Videos tutoriales</a></li>
             </ul>
         </div>
 

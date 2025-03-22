@@ -104,6 +104,35 @@
     </div>
 
     @include('partials.footer') <!-- Ahora siempre se mostrará correctamente -->
+<!-- Botón flotante para volver arriba -->
+<div id="scrollToTop" class="scroll-to-top">
+    <i class="fas fa-chevron-up"></i>
+</div>
+
+
 </body>
 
 </html>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const scrollToTopButton = document.getElementById("scrollToTop");
+
+    // Detectar el scroll para mostrar el botón
+    window.addEventListener("scroll", function () {
+        if (window.scrollY > 300) {
+            scrollToTopButton.classList.add("show");
+        } else {
+            scrollToTopButton.classList.remove("show");
+        }
+    });
+
+    // Evento de clic para volver al header
+    scrollToTopButton.addEventListener("click", function () {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+});
+</script>
