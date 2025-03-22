@@ -64,4 +64,9 @@ public function subFiltros()
 {
     return $this->belongsToMany(Opcion::class, 'producto_opcion');
 }
+
+public function especificaciones()
+    {
+        return $this->hasMany(Especificacion::class);
+    }
 }
