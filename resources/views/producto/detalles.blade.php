@@ -104,7 +104,6 @@ number_format($producto->precio_dolares, 2) . ' | S/' . number_format($producto-
     </div>
 
     <!-- 🛠 Especificaciones Técnicas -->
-    <!-- resources/views/producto/detalles.blade.php -->
     <div class="product-specs">
         <!-- 🛠 Pestañas -->
         <ul class="nav nav-tabs" id="specsTabs" role="tablist">
@@ -249,13 +248,15 @@ number_format($producto->precio_dolares, 2) . ' | S/' . number_format($producto-
     /* Estilos generales para los botones */
     .product-buttons {
         display: flex;
-        gap: 10px; /* Espacio entre los botones */
+        gap: 10px;
+        /* Espacio entre los botones */
         margin-top: 15px;
     }
 
     /* Estilos para el botón de WhatsApp */
     .whatsapp-button {
-        background-color: #25D366; /* Color de WhatsApp */
+        background-color: #25D366;
+        /* Color de WhatsApp */
         border: none;
         color: white;
         padding: 10px 20px;
@@ -269,12 +270,15 @@ number_format($producto->precio_dolares, 2) . ' | S/' . number_format($producto-
     }
 
     .whatsapp-button:hover {
-        background-color: #128C7E; /* Color más oscuro al hacer hover */
-        transform: translateY(-2px); /* Efecto de levantamiento */
+        background-color: #128C7E;
+        /* Color más oscuro al hacer hover */
+        transform: translateY(-2px);
+        /* Efecto de levantamiento */
     }
 
     .whatsapp-button:active {
-        transform: translateY(0); /* Restablece la posición al hacer clic */
+        transform: translateY(0);
+        /* Restablece la posición al hacer clic */
     }
 
     /* Estilos para el botón de Like */
@@ -314,12 +318,12 @@ number_format($producto->precio_dolares, 2) . ' | S/' . number_format($producto-
     });
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         // Selecciona todos los botones de Like
         const likeButtons = document.querySelectorAll('.like-button');
 
         likeButtons.forEach(button => {
-            button.addEventListener('click', function () {
+            button.addEventListener('click', function() {
                 // Alternar la clase 'liked' para cambiar el estilo
                 this.classList.toggle('liked');
 
