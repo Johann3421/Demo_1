@@ -13,7 +13,7 @@
 <div class="w-full md:w-1/4 p-4">
     <div class="sidebar-container">
         <!-- Formulario de Filtros -->
-        <form id="filter-form" method="GET" action="{{ url()->current() }}">
+        <form id="filter-form" method="GET">
             <!-- Filtro de Precio -->
             <div>
                 <h2>FILTER BY PRICE</h2>
@@ -46,7 +46,7 @@
 
             <!-- Botones de Filtrar y Limpiar -->
             <div class="flex space-x-2 mt-6">
-                <button type="submit" class="filter-button w-1/2">FILTRAR</button>
+                <button type="button" id="filter-button" class="filter-button w-1/2">FILTRAR</button>
                 <a href="{{ url('productos') }}" class="clear-button w-1/2 text-center">LIMPIAR</a>
             </div>
         </form>
@@ -238,6 +238,44 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Redirigir a la misma página con los filtros aplicados
         window.location.href = window.location.pathname + '?' + queryString;
+    });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filterForm = document.getElementById('filter-form');
+    const filterButton = document.getElementById('filter-button');
+    
+    filterButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Obtener todos los datos del formulario
+        const formData = new FormData(filterForm);
+        const params = new URLSearchParams();
+        
+        // Agregar solo los parámetros con valor
+        for (const [key, value] of formData.entries()) {
+            if (value) {
+                params.append(key, value);
+            }
+        }
+        
+        // Construir la URL base /productos con los parámetros
+        const baseUrl = '/productos';
+        const queryString = params.toString();
+        const fullUrl = queryString ? `${baseUrl}?${queryString}` : baseUrl;
+        
+        // Redirigir
+        window.location.href = fullUrl;
+    });
+    
+    // Actualizar el label del precio cuando cambia el rango
+    const priceInput = document.getElementById('price');
+    const priceLabel = document.getElementById('price-label');
+    
+    priceInput.addEventListener('input', function() {
+        priceLabel.textContent = '$' + this.value;
     });
 });
 </script>

@@ -1249,6 +1249,59 @@ h1 {
 
 /*ESTILOS PARA EL FOOTER*/
 
+/* 🔵 Estilos Únicos para Iconos Sociales del Footer */
+.footer-social-icon {
+    font-size: 1.5rem;
+    color: white;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.footer-social-icon:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Colores específicos para cada red social */
+.footer-social-icon.fa-facebook:hover {
+    color: #1877f2;
+    background-color: rgba(24, 119, 242, 0.1);
+}
+
+.footer-social-icon.fa-instagram:hover {
+    color: #e4405f;
+    background-color: rgba(228, 64, 95, 0.1);
+}
+
+.footer-social-icon.fa-tiktok:hover {
+    color: #25f4ee;
+    background-color: rgba(37, 244, 238, 0.1);
+}
+
+/* Alineación y espaciado mejorado */
+.footer-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 25px 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+
+.footer-social span {
+    font-size: 1.1rem;
+    margin-right: 10px;
+}
+
 .footer-container {
     background-color: #1a1a1a;
     color: white;
@@ -1412,6 +1465,18 @@ h1 {
 
     .footer-map {
         max-width: 100%;
+    }
+    .footer-social {
+        flex-direction: column;
+    }
+    
+    .footer-social span {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .footer-social-icon {
+        margin: 5px;
     }
 }
 

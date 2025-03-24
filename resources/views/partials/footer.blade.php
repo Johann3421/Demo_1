@@ -49,13 +49,13 @@
     </div>
 
     <!-- 📱 Redes Sociales -->
-    <div class="footer-social">
-        <span>Síguenos en:</span>
-        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-        <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
-        <a href="#" class="btn-reclamaciones">📖 Libro de Reclamaciones</a>
-    </div>
+<div class="footer-social">
+    <span>Síguenos en:</span>
+    <a href="#" class="footer-social-icon"><i class="fab fa-facebook"></i></a>
+    <a href="#" class="footer-social-icon"><i class="fab fa-instagram"></i></a>
+    <a href="#" class="footer-social-icon"><i class="fab fa-tiktok"></i></a>
+    <a href="#" class="btn-reclamaciones">📖 Libro de Reclamaciones</a>
+</div>
 
     <!-- 📝 Copyright -->
     <div class="footer-bottom">

@@ -12,16 +12,16 @@
                     @if ($categorias && $categorias->count() > 0)
                     @foreach ($categorias as $categoria)
                     <div class="menu-toggle-container" data-categoria="{{ $categoria->nombre }}">
-                        <span class="menu-toggle">
+                        <a href="{{ route('products.by.categoria', ['categoria' => $categoria->nombre]) }}" class="menu-toggle">
                             <i class="fas fa-folder"></i> <!-- Icono por defecto -->
                             <span class="menu-label">{{ $categoria->nombre }}</span>
-                        </span>
+                        </a>
                         <!-- Menú desplegable de grupos -->
                         <div class="grupos-dropdown">
                             <ul class="grupos-list">
                                 @foreach ($categoria->grupos as $grupo)
                                 <li class="grupo-item" data-grupo="{{ $grupo->nombre }}">
-                                    <a href="{{ route('products.by.grupo', ['grupo' => $grupo->nombre]) }}">{{ $grupo->nombre }}</a>
+                                    <a href="{{ route('products.by.grupo', ['grupo' => $grupo->nombre]) }}" class="grupo-link">{{ $grupo->nombre }}</a>
                                     <!-- Menú desplegable de subgrupos -->
                                     <ul class="subgrupos-list">
                                         @foreach ($grupo->subgrupos as $subgrupo)
@@ -78,8 +78,32 @@
         </div>
     </div>
 </div>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+        // Mapeo de categorías a iconos
+        const categoriaIconos = {
+            "Laptops": "fa-laptop",
+            "Computadoras": "fa-desktop",
+            "Componentes para PC": "fa-memory",
+            "Monitores": "fa-tv",
+            "Impresoras": "fa-print",
+            // Agrega más categorías y sus iconos aquí
+        };
+
+        // Asignar iconos a categorías en versión desktop
+        const menuTogglesDesktop = document.querySelectorAll(".menu-toggle-container[data-categoria]");
+        menuTogglesDesktop.forEach((toggle) => {
+            const categoria = toggle.getAttribute("data-categoria");
+            const iconElement = toggle.querySelector("i");
+
+            if (categoriaIconos[categoria]) {
+                iconElement.classList.remove("fa-folder");
+                iconElement.classList.add(categoriaIconos[categoria]);
+            }
+        });
+
+        // Menú móvil
         const menuToggle = document.querySelector(".menu-toggle.categorias");
         const menuDropdown = document.querySelector(".menu-dropdown");
         const overlay = document.createElement("div");
@@ -89,14 +113,14 @@
 
         // Función para abrir/cerrar el menú principal
         menuToggle.addEventListener("click", function(e) {
-            e.stopPropagation(); // Evita que el clic se propague al documento
+            e.stopPropagation();
             const isActive = menuDropdown.classList.contains("active");
 
             if (isActive) {
                 menuDropdown.classList.remove("active");
                 overlay.style.display = "none";
             } else {
-                menuDropdown.style.display = "block"; // Mostrar primero para iniciar la animación
+                menuDropdown.style.display = "block";
                 setTimeout(() => {
                     menuDropdown.classList.add("active");
                 }, 10);
@@ -104,7 +128,7 @@
             }
         });
 
-        // Cerrar el menú principal al hacer clic en el overlay
+        // Cerrar menús
         overlay.addEventListener("click", function() {
             menuDropdown.classList.remove("active");
             setTimeout(() => {
@@ -113,7 +137,6 @@
             overlay.style.display = "none";
         });
 
-        // Cerrar el menú al hacer clic fuera de él
         document.addEventListener("click", function(e) {
             if (!menuDropdown.contains(e.target)) {
                 menuDropdown.classList.remove("active");
@@ -121,84 +144,50 @@
             }
         });
 
-        // Manejar submenús y sub-submenús en móviles
+        // Manejar submenús en móviles
         const menuItemsWithSubmenu = document.querySelectorAll(".menu-item.has-submenu");
         menuItemsWithSubmenu.forEach((item) => {
             const menuLink = item.querySelector(".menu-link");
             const submenu = item.querySelector(".submenu");
 
             menuLink.addEventListener("click", function(e) {
-                e.preventDefault();
-                submenu.classList.toggle("active");
+                if (window.innerWidth <= 768) { // Solo en móvil
+                    e.preventDefault();
+                    submenu.classList.toggle("active");
+                }
             });
 
-            // Manejar sub-submenús
+            // Manejar sub-submenús en móviles
             const submenuItemsWithSubmenu = item.querySelectorAll(".has-submenu > .submenu .has-submenu");
             submenuItemsWithSubmenu.forEach((subItem) => {
                 const subMenuLink = subItem.querySelector("a");
                 const subSubmenu = subItem.querySelector(".sub-submenu");
 
                 subMenuLink.addEventListener("click", function(e) {
-                    e.preventDefault();
-                    subSubmenu.classList.toggle("active");
+                    if (window.innerWidth <= 768) { // Solo en móvil
+                        e.preventDefault();
+                        subSubmenu.classList.toggle("active");
+                    }
                 });
             });
         });
-    });
-    // APARTADO PARA LOS ICONOS 
-    document.addEventListener("DOMContentLoaded", function() {
-        // Mapeo de categorías a iconos
-        const categoriaIconos = {
-            "Laptops": "fa-laptop",
-            "Computadoras": "fa-desktop",
-            "Componentes para PC": "fa-memory",
-            "Monitores": "fa-tv",
-            "Impresoras": "fa-print",
-            // Agrega más categorías y sus iconos aquí
-        };
 
-        // Selecciona todos los elementos con la clase .menu-toggle
-        const menuToggles = document.querySelectorAll(".menu-toggle[data-categoria]");
-
-        // Itera sobre cada elemento y asigna el icono correspondiente
-        menuToggles.forEach((toggle) => {
-            const categoria = toggle.getAttribute("data-categoria");
-            const iconElement = toggle.querySelector("i");
-
-            // Verifica si la categoría tiene un icono asignado
-            if (categoriaIconos[categoria]) {
-                iconElement.classList.remove("fa-folder"); // Elimina el icono por defecto
-                iconElement.classList.add(categoriaIconos[categoria]); // Agrega el icono correspondiente
-            }
-        });
-    });
-
-    // APARTADO PARA EL HOVER DE LOS SUBGRUPOS
-    
-    document.addEventListener("DOMContentLoaded", function() {
-        // Mapeo de categorías a iconos
-        const categoriaIconos = {
-            "Laptops": "fa-laptop",
-            "Computadoras": "fa-desktop",
-            "Componentes para PC": "fa-memory",
-            "Monitores": "fa-tv",
-            "Impresoras": "fa-print",
-            // Agrega más categorías y sus iconos aquí
-        };
-
-        // Selecciona todos los elementos con la clase .menu-toggle
-        const menuToggles = document.querySelectorAll(".menu-toggle-container[data-categoria]");
-
-        // Itera sobre cada elemento y asigna el icono correspondiente
-        menuToggles.forEach((toggle) => {
-            const categoria = toggle.getAttribute("data-categoria");
-            const iconElement = toggle.querySelector("i");
-
-            // Verifica si la categoría tiene un icono asignado
-            if (categoriaIconos[categoria]) {
-                iconElement.classList.remove("fa-folder"); // Elimina el icono por defecto
-                iconElement.classList.add(categoriaIconos[categoria]); // Agrega el icono correspondiente
-            }
+        // Hover para desktop
+        const menuContainers = document.querySelectorAll('.menu-toggle-container');
+        menuContainers.forEach(container => {
+            const dropdown = container.querySelector('.grupos-dropdown');
+            
+            container.addEventListener('mouseenter', () => {
+                if (window.innerWidth > 768) {
+                    dropdown.style.display = 'block';
+                }
+            });
+            
+            container.addEventListener('mouseleave', () => {
+                if (window.innerWidth > 768) {
+                    dropdown.style.display = 'none';
+                }
+            });
         });
     });
 </script>
