@@ -5,45 +5,54 @@
             <img src="{{ asset('images/logo_actualizado.png') }}" alt="Logo" class="logo">
         </a>
 
-        <!-- Menú de navegación (Desktop) - Visible solo desde 1120px -->
+        <!-- Menú de navegación (Desktop) -->
         <nav class="desktop-nav">
             <!-- Buscador más ancho -->
             <div class="search-container">
                 @include('partials.search')
             </div>
-            <!-- Iconos en horizontal -->
-            <div class="social-icons">
-            <div class="d-flex align-items-center dolar-container">
-    <div class="dolar-icon">
-        <i class="fas fa-dollar-sign"></i>
-    </div>
-    <div class="dolar-info">
-        <span class="dolar-label">Dólar:</span>
-        <span id="precioDolarHeader" class="dolar-precio">S/ {{ $precio_dolar }}</span>
-    </div>
-</div>
-                <a href="https://facebook.com/tu-pagina" target="_blank" class="nav-link">
-                    <i class="fab fa-facebook"></i>
-                </a>
-                <a href="https://instagram.com/tu-pagina" target="_blank" class="nav-link">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://twitter.com/tu-pagina" target="_blank" class="nav-link">
-                    <i class="fab fa-twitter"></i>
+            
+            <!-- Contenedor de iconos -->
+            <div class="header-icons">
+                <!-- Contenedor del dólar -->
+                <div class="dolar-box">
+                    <div class="dolar-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="dolar-info">
+                        <span class="dolar-label">Dólar:</span>
+                        <span id="precioDolarHeader" class="dolar-precio">S/ {{ $precio_dolar }}</span>
+                    </div>
+                </div>
+                
+                <!-- Icono de inicio movido a la derecha -->
+                <a href="{{ route('home') }}" class="header-icon home-icon" title="Ir al inicio">
+                    <i class="fas fa-home"></i>
                 </a>
                 
+                <!-- Iconos sociales con color negro -->
+                <div class="social-icons">
+                    <a href="https://facebook.com/tu-pagina" target="_blank" class="social-icon">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://instagram.com/tu-pagina" target="_blank" class="social-icon">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://twitter.com/tu-pagina" target="_blank" class="social-icon">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
             </div>
-            
         </nav>
 
-        <!-- Botón de menú para móviles - Visible hasta 1119px -->
+        <!-- Botón de menú móvil -->
         <button class="mobile-menu-toggle" type="button" id="mobileMenuButton">
             <i class="fas fa-bars"></i>
         </button>
     </div>
 </header>
 
-<!-- Menú Responsive (Offcanvas) - Funciona hasta 1119px -->
+<!-- Menú Responsive (Offcanvas) -->
 <div class="mobile-menu" id="mobileMenu">
     <div class="mobile-menu-header">
         <h5 class="mobile-menu-title">Menú</h5>
@@ -59,10 +68,11 @@
             </div>
 
             <!-- Iconos en horizontal -->
-            <div class="social-icons">
-                <a href="https://facebook.com/tu-pagina" target="_blank" class="nav-link"><i class="fab fa-facebook"></i></a>
-                <a href="https://instagram.com/tu-pagina" target="_blank" class="nav-link"><i class="fab fa-instagram"></i></a>
-                <a href="https://twitter.com/tu-pagina" target="_blank" class="nav-link"><i class="fab fa-twitter"></i></a>
+            <div class="mobile-social-icons">
+                <a href="{{ route('home') }}" class="mobile-nav-link"><i class="fas fa-home"></i> Inicio</a>
+                <a href="https://facebook.com/tu-pagina" target="_blank" class="mobile-nav-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://instagram.com/tu-pagina" target="_blank" class="mobile-nav-link"><i class="fab fa-instagram"></i></a>
+                <a href="https://twitter.com/tu-pagina" target="_blank" class="mobile-nav-link"><i class="fab fa-twitter"></i></a>
             </div>
 
             <!-- Botón de contacto -->

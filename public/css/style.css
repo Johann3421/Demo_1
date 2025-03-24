@@ -3,58 +3,75 @@
 
 
 /* ======= ESTILOS DE ESPECIFICACIONES ======= */
-
-/* Estilos para las especificaciones */
-.specs-list {
-    list-style: none;
-    padding: 0;
-}
-
-.specs-list li {
-    margin-bottom: 10px;
-    font-size: 16px;
-    color: #555;
-}
-
-.specs-list li strong {
-    color: #333;
-}
-
-.dynamic-specs {
-    margin-top: 20px;
-}
-
-.dynamic-specs h3 {
-    font-size: 20px;
-    margin-bottom: 15px;
-    color: #333;
-}
-
-.specs-info {
-    margin-top: 30px;
-    background-color: #fff;
-    padding: 15px;
+/* Estilos para la cuadrícula de especificaciones */
+.specs-grid {
     border-radius: 8px;
     border: 1px solid #e0e0e0;
+    overflow: hidden; /* Para mantener los bordes redondeados */
 }
 
-.specs-info h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
+.spec-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Mitad y mitad */
+    min-height: 48px; /* Altura mínima consistente */
+}
+
+.spec-field {
+    font-weight: 600;
     color: #333;
+    padding: 12px 15px;
+    background-color: #f8f9fa; /* Fondo gris claro agradable */
+    border-right: 1px solid #e0e0e0; /* Línea divisoria */
+    display: flex;
+    align-items: center;
 }
 
-.specs-info ul {
-    list-style: none;
-    padding: 0;
-}
-
-.specs-info ul li {
-    margin-bottom: 8px;
-    font-size: 14px;
+.spec-value {
     color: #555;
+    padding: 12px 15px;
+    background-color: #ffffff; /* Fondo blanco */
+    word-break: break-word;
+    display: flex;
+    align-items: center;
 }
 
+/* Efecto hover para mejor interactividad */
+.spec-row:hover .spec-field {
+    background-color: #e9ecef; /* Gris un poco más oscuro al pasar el mouse */
+}
+
+.spec-row:hover .spec-value {
+    background-color: #f8f9fa; /* Gris muy claro al pasar el mouse */
+}
+
+/* Bordes entre filas */
+.spec-row:not(:last-child) .spec-field,
+.spec-row:not(:last-child) .spec-value {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .spec-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .spec-field {
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+        padding: 10px 12px;
+    }
+    
+    .spec-value {
+        padding: 10px 12px 15px;
+    }
+    
+    /* Eliminar el hover en móviles */
+    .spec-row:hover .spec-field,
+    .spec-row:hover .spec-value {
+        background-color: inherit;
+    }
+}
 /* ======= FIN DE ESTILOS DE ESPECIFICACIONES ======= */
 
 /* ======= ESTILOS PARA SCROLL POPUP ======= */
@@ -330,15 +347,18 @@
 /* ======= FIN DE ESTILOS GENERALES ANCHO DEL CONTENIDO ======= */
 
 /* ======= HEADER ======= */
+/* ======= ESTILOS GENERALES HEADER ======= */
 .header {
     background-color: #f8f9fa;
     padding: 15px 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 100%;
+    position: relative;
+    z-index: 100;
 }
 
 .container {
-    max-width: 90%;
+    max-width: 95%;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -365,35 +385,103 @@
 .desktop-nav {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Distribuye los elementos */
+    justify-content: space-between;
     flex-grow: 1;
-    gap: 20px;
+    gap: 30px;
 }
 
+/* Buscador más ancho */
 .search-container {
-    flex: 1; /* Permite que el buscador ocupe el espacio restante */
-    min-width: 250px;
+    flex: 2; /* Ocupa más espacio */
+    min-width: 300px;
+    max-width: 600px;
+    margin-right: auto; /* Empuja los iconos a la derecha */
 }
 
+/* Contenedor de todos los iconos */
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-left: auto; /* Alinea a la derecha */
+}
+
+/* Estilos para todos los iconos */
+.header-icon, .social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: #333; /* Color negro */
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
+
+/* Icono de home específico */
+.home-icon {
+    order: 2; /* Posiciona después del dólar */
+    margin-left: 10px;
+}
+
+.home-icon:hover {
+    color: #0d6efd;
+    background-color: rgba(13, 110, 253, 0.1);
+}
+
+/* Contenedor del dólar */
+.dolar-box {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 6px 15px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    height: 40px;
+    order: 1; /* Primera posición */
+}
+
+.dolar-icon {
+    margin-right: 8px;
+    color: #28a745;
+    font-size: 0.9rem;
+}
+
+.dolar-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.dolar-label {
+    font-size: 0.7rem;
+    color: #6c757d;
+}
+
+.dolar-precio {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Grupo de iconos sociales */
 .social-icons {
     display: flex;
-    gap: 15px;
-    white-space: nowrap; /* Evita el salto de línea */
-    flex-shrink: 0;
+    gap: 10px;
+    order: 3; /* Última posición */
 }
 
-.nav-link {
-    text-decoration: none;
-    color: #000;
-    font-size: 1.5rem;
-    transition: transform 0.3s ease, color 0.3s ease;
+.social-icon {
+    font-size: 0.95rem;
+    color: #333 !important; /* Fuerza color negro */
 }
 
-.nav-link:hover {
-    color: #007bff;
-    transform: translateY(-3px);
+.social-icon:hover {
+    color: white !important;
+    background-color: #0d6efd;
+    transform: scale(1.1);
 }
-
 
 /* ======= MENÚ MÓVIL ======= */
 .mobile-menu-toggle {
@@ -402,9 +490,9 @@
     background: none;
     font-size: 1.8rem;
     cursor: pointer;
+    color: #333;
 }
 
-/* Contenedor principal del menú móvil */
 .mobile-menu {
     position: fixed;
     top: 0;
@@ -412,33 +500,32 @@
     width: 80%;
     max-width: 300px;
     height: 100vh;
-    background-color: #f8f9fa; /* Blanco agradable */
+    background-color: #f8f9fa;
     transition: left 0.3s ease;
     z-index: 1000;
     display: flex;
     flex-direction: column;
-    overflow-y: auto; /* Para pantallas pequeñas */
+    overflow-y: auto;
 }
 
-/* Mostrar el menú cuando está activo */
 .mobile-menu.open {
     left: 0;
 }
 
-/* Encabezado del menú móvil */
 .mobile-menu-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
     border-bottom: 1px solid #ddd;
-    background: #007bff; /* Azul */
+    background: #007bff;
     color: white;
 }
 
 .mobile-menu-title {
     font-size: 1.2rem;
     font-weight: bold;
+    margin: 0;
 }
 
 .mobile-menu-close {
@@ -449,42 +536,47 @@
     color: white;
 }
 
-/* Contenedor del contenido del menú */
 .mobile-menu-body {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 }
 
-/* Buscador ajustado dentro del menú móvil */
 .mobile-nav .search-container {
     width: 100%;
-    max-width: 100%;
-    overflow: hidden;
     padding: 5px 0;
-    display: flex;
-    justify-content: center;
 }
 
-/* Íconos sociales centrados */
-.mobile-nav .social-icons {
+.mobile-social-icons {
     display: flex;
     justify-content: center;
     gap: 15px;
+    flex-wrap: wrap;
 }
 
-.mobile-nav .social-icons a {
-    font-size: 1.5rem;
-    color: #007bff;
-    transition: color 0.3s ease-in-out;
+.mobile-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #333;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 8px 12px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
 }
 
-.mobile-nav .social-icons a:hover {
-    color: #0056b3;
+.mobile-nav-link:hover {
+    background-color: #e9ecef;
+    color: #0d6efd;
 }
 
-/* Botón de contacto en móvil */
+.mobile-nav-link i {
+    font-size: 1.2rem;
+    color: #333; /* Color negro */
+}
+
 .contact-button {
     background-color: #007bff;
     color: white;
@@ -494,9 +586,8 @@
     text-decoration: none;
     font-size: 1rem;
     font-weight: bold;
-    display: block;
-    width: 100%;
-    transition: background 0.3s ease-in-out;
+    transition: background 0.3s ease;
+    margin-top: 10px;
 }
 
 .contact-button:hover {
@@ -512,11 +603,34 @@
     .mobile-menu-toggle {
         display: block;
     }
+    
+    .logo {
+        height: 60px;
+        margin-left: 0;
+    }
 }
 
 @media (min-width: 1120px) {
     .mobile-menu {
         display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        max-width: 98%;
+    }
+    
+    .logo {
+        height: 50px;
+    }
+    
+    .dolar-box {
+        padding: 6px 10px;
+    }
+    
+    .search-container {
+        min-width: 200px;
     }
 }
 

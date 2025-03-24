@@ -58,7 +58,7 @@ number_format($producto->precio_dolares, 2) . ' | S/' . number_format($producto-
         <!-- 📷 Imagen del producto -->
         <div class="product-gallery">
             <div class="product-main-image">
-                <img src="{{ asset('images/' . $producto->imagen_url) }}" alt="{{ $producto->nombre }}">
+                <img src="{{ asset('images/' . $producto->imagen_url) }}" alt="{{ $producto->nombre }}" class="img-fluid">
             </div>
         </div>
 
@@ -73,29 +73,28 @@ number_format($producto->precio_dolares, 2) . ' | S/' . number_format($producto-
 
             <div class="product-details">
                 <p><strong>Marca:</strong> {{ $producto->marca }}</p>
-                <p><strong>Referencia:</strong> </p>
-                <p><strong>Estado:</strong> </p>
-                <p><strong>En stock:</strong> </p>
+                <p><strong>Referencia:</strong> {{ $producto->referencia ?? 'N/A' }}</p>
+                <p><strong>Estado:</strong> {{ $producto->estado ?? 'Disponible' }}</p>
+                <p><strong>En stock:</strong> {{ $producto->stock }}</p>
             </div>
 
             <!-- 💰 Contenedor de precios -->
-            <div id="product-prices">
-                <p id="product-price-red">
-                    <strong></strong> $/ {{ number_format($producto->precio_dolares, 2) }}
+            <div class="product-prices">
+                <p class="price-dollar">
+                    <strong>Precio USD:</strong> ${{ number_format($producto->precio_dolares, 2) }}
                 </p>
-                <p id="product-price-green">
-                    <strong></strong> S/ {{ number_format($producto->precio_soles, 2) }}
+                <p class="price-sol">
+                    <strong>Precio PEN:</strong> S/{{ number_format($producto->precio_soles, 2) }}
                 </p>
             </div>
+            
             <!-- 🛒 Botones de compra -->
             <div class="product-buttons">
-                <!-- Botón de WhatsApp -->
                 <a href="https://wa.me/51933573985?text=Hola,%20estoy%20interesado%20en%20el%20producto%20{{ urlencode($producto->nombre) }}%20-%20Precio:%20${{ number_format((float) $producto->precio_dolares, 2) }}"
                     class="btn btn-success whatsapp-button" target="_blank">
                     <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
                 </a>
 
-                <!-- Botón de Like -->
                 <button class="btn btn-outline-primary like-button" id="likeButton-{{ $producto->id }}" data-id="{{ $producto->id }}">
                     <i class="fas fa-thumbs-up"></i> <span class="like-count">0</span> Likes
                 </button>
@@ -120,47 +119,62 @@ number_format($producto->precio_dolares, 2) . ' | S/' . number_format($producto-
         </ul>
 
         <!-- 🛠 Contenido de las pestañas -->
-        <div class="tab-content" id="specsTabsContent">
+        <div class="tab-content p-3 bg-white" id="specsTabsContent">
             <!-- 🛠 Pestaña de Detalles -->
-            <div class="tab-pane fade show active" id="detalles" role="tabpanel" aria-labelledby="detalles-tab">
-                <ul class="specs-list mt-3">
-                    @if($producto->marca && $producto->marca !== 'NA')
-                    <li><strong>Marca:</strong> {{ $producto->marca }}</li>
-                    @endif
-                    @if($producto->modelo && $producto->modelo !== 'NA')
-                    <li><strong>Modelo:</strong> {{ $producto->modelo }}</li>
-                    @endif
-                    @if($producto->procesador && $producto->procesador !== 'NA')
-                    <li><strong>Procesador:</strong> {{ $producto->procesador }}</li>
-                    @endif
-                    @if($producto->ram && $producto->ram !== 'NA')
-                    <li><strong>Memoria RAM:</strong> {{ $producto->ram }}</li>
-                    @endif
-                </ul>
-            </div>
+<div class="tab-pane fade show active" id="detalles" role="tabpanel" aria-labelledby="detalles-tab">
+    <div class="specs-grid bg-white">
+        @if($producto->marca && $producto->marca !== 'NA')
+        <div class="spec-row">
+            <div class="spec-field">Marca:</div>
+            <div class="spec-value">{{ $producto->marca }}</div>
+        </div>
+        @endif
+        @if($producto->modelo && $producto->modelo !== 'NA')
+        <div class="spec-row">
+            <div class="spec-field">Modelo:</div>
+            <div class="spec-value">{{ $producto->modelo }}</div>
+        </div>
+        @endif
+        @if($producto->procesador && $producto->procesador !== 'NA')
+        <div class="spec-row">
+            <div class="spec-field">Procesador:</div>
+            <div class="spec-value">{{ $producto->procesador }}</div>
+        </div>
+        @endif
+        @if($producto->ram && $producto->ram !== 'NA')
+        <div class="spec-row">
+            <div class="spec-field">Memoria RAM:</div>
+            <div class="spec-value">{{ $producto->ram }}</div>
+        </div>
+        @endif
+    </div>
+</div>
 
             <!-- 🛠 Pestaña de Especificaciones -->
-            <div class="tab-pane fade" id="especificaciones" role="tabpanel" aria-labelledby="especificaciones-tab">
-                @if($producto->especificaciones->count() > 0)
-                <ul class="specs-list mt-3">
-                    @foreach($producto->especificaciones as $especificacion)
-                    <li><strong>{{ $especificacion->campo }}:</strong> {{ $especificacion->descripcion }}</li>
-                    @endforeach
-                </ul>
-                @else
-                <p class="mt-3">No hay especificaciones adicionales para este producto.</p>
-                @endif
-            </div>
+<div class="tab-pane fade" id="especificaciones" role="tabpanel" aria-labelledby="especificaciones-tab">
+    @if($producto->especificaciones->count() > 0)
+    <div class="specs-grid bg-white p-3">
+        @foreach($producto->especificaciones as $especificacion)
+        <div class="spec-row">
+            <div class="spec-field">{{ $especificacion->campo }}:</div>
+            <div class="spec-value">{{ $especificacion->descripcion }}</div>
+        </div>
+        @endforeach
+    </div>
+    @else
+    <p class="mt-3 bg-white p-3">No hay especificaciones adicionales para este producto.</p>
+    @endif
+</div>
         </div>
 
         <!-- 🔹 Información adicional -->
-        <div class="specs-info mt-4">
-            <h3>Importante</h3>
-            <ul>
-                <li>📷 <strong>IMÁGENES DE REFERENCIA</strong></li>
-                <li>💰 <strong>Precio del producto incluye IGV.</strong></li>
-                <li>🚚 <strong>Precio no incluye flete y Delivery por envío.</strong></li>
-                <li>⚠️ <strong>El precio y stock están sujetos a variación sin previo aviso.</strong></li>
+        <div class="additional-info mt-4 p-3 bg-white">
+            <h3 class="mb-3">Importante</h3>
+            <ul class="info-list">
+                <li><i class="fas fa-camera me-2"></i> <strong>IMÁGENES DE REFERENCIA</strong></li>
+                <li><i class="fas fa-money-bill-wave me-2"></i> <strong>Precio del producto incluye IGV.</strong></li>
+                <li><i class="fas fa-truck me-2"></i> <strong>Precio no incluye flete y Delivery por envío.</strong></li>
+                <li><i class="fas fa-exclamation-triangle me-2"></i> <strong>El precio y stock están sujetos a variación sin previo aviso.</strong></li>
             </ul>
         </div>
     </div>
