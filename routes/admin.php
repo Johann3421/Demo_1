@@ -22,6 +22,7 @@ Route::middleware(['auth'])->prefix('panel')->group(function () {
     Route::post('/productos/guardar', [PanelController::class, 'guardarProducto'])->name('panel.productos.guardar');
     Route::get('/productos/editar/{id}', [PanelController::class, 'mostrarFormularioEditar'])->name('panel.productos.editar');
     Route::put('/productos/actualizar/{id}', [PanelController::class, 'actualizarProducto'])->name('panel.productos.actualizar');
+    Route::delete('/productos/eliminar/{id}', [PanelController::class, 'eliminarProducto'])->name('panel.productos.eliminar');
 
     // Rutas de categorías en el panel
     Route::get('/categorias', [CategoriaController::class, 'panelIndex'])->name('panel.categorias');

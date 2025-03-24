@@ -81,7 +81,7 @@
                 var(--accent-400) 180deg,
                 transparent 200deg
             );
-            animation: rotate-border 8s linear infinite;
+            animation: rotate-border 18s linear infinite;
             z-index: -1;
         }
 

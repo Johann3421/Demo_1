@@ -21,22 +21,45 @@ class PanelController extends Controller
 
     // Método para la página de productos
     public function productos(Request $request)
+{
+    $perPage = $request->input('perPage', 10);
+    $search = $request->input('search');
+
+    $query = Producto::query();
+
+    if ($search) {
+        $query->where('nombre', 'LIKE', "%{$search}%")
+              ->orWhere('descripcion', 'LIKE', "%{$search}%")
+              ->orWhere('marca', 'LIKE', "%{$search}%");
+    }
+
+    $productos = $query->paginate($perPage);
+    $perPageOptions = [10, 20, 50, 100];
+
+    return view('panel.productos', [
+        'productos' => $productos,
+        'perPage' => $perPage,
+        'perPageOptions' => $perPageOptions,
+        'search' => $search
+    ]);
+}
+public function eliminarProducto(Request $request, $id)
     {
-        // Obtener el número de elementos por página (por defecto 10)
-        $perPage = $request->input('perPage', 10);
+        try {
+            $producto = Producto::findOrFail($id);
+            $producto->delete();
 
-        // Obtener los productos con paginación
-        $productos = Producto::paginate($perPage);
+            return response()->json([
+                'success' => true,
+                'message' => 'Producto eliminado correctamente'
+            ]);
 
-        // Opciones de paginación
-        $perPageOptions = [10, 20, 50, 100];
-
-        // Pasar los productos y las opciones de paginación a la vista
-        return view('panel.productos', [
-            'productos' => $productos,
-            'perPage' => $perPage, // Pasar el valor actual de $perPage
-            'perPageOptions' => $perPageOptions, // Pasar las opciones de paginación
-        ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al eliminar el producto: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     // Método para la página de categorías

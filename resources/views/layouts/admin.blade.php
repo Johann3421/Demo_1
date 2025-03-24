@@ -12,6 +12,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <!-- Estilos personalizados -->
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
+    <!-- En el head -->
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+<!-- Antes de cerrar el body -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <!-- Header -->
