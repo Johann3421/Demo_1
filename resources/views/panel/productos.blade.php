@@ -37,7 +37,6 @@
                             <th>Nombre</th>
                             <th>Precio (USD)</th>
                             <th>Precio (PEN)</th>
-                            <th>En Tienda</th>
                             <th>Stock</th>
                             <th>Acciones</th>
                         </tr>
@@ -48,15 +47,6 @@
                             <td>{{ $producto->nombre }}</td>
                             <td>${{ number_format($producto->precio_dolares, 2) }}</td>
                             <td>S/{{ number_format($producto->precio_soles, 2) }}</td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <label class="switch">
-                                        <input type="checkbox" class="toggle-tienda" data-id="{{ $producto->id }}" {{ $producto->en_tienda ? 'checked' : '' }}>
-                                        <span class="slider round"></span>
-                                    </label>
-                                    <span class="estado-tienda ms-2">{{ $producto->en_tienda ? 'Sí' : 'No' }}</span>
-                                </div>
-                            </td>
                             <td>{{ $producto->stock }}</td>
                             <td>
                                 <!-- Botón de editar -->
@@ -82,38 +72,5 @@
     </div>
 </div>
 
-<!-- Scripts -->
-<script>
-    // Cambiar el estado de "En tienda"
-    document.addEventListener('click', function(event) {
-        if (event.target.classList.contains('toggle-tienda')) {
-            const productId = event.target.dataset.id;
-            const isChecked = event.target.checked;
-            const estadoSpan = event.target.closest('td').querySelector('.estado-tienda');
-
-            // Cambiar el texto del estado
-            estadoSpan.innerText = isChecked ? 'Sí' : 'No';
-
-            // Aquí puedes hacer una solicitud AJAX para actualizar el estado en la base de datos
-            console.log(`Cambiando estado "En tienda" del producto ${productId} a ${isChecked ? 'Sí' : 'No'}`);
-        }
-    });
-
-    // Eliminar producto (confirmación y solicitud AJAX)
-    document.querySelectorAll('.btn-eliminar').forEach(button => {
-        button.addEventListener('click', function() {
-            const productId = this.dataset.id;
-
-            // Confirmar antes de eliminar
-            if (confirm('¿Estás seguro de eliminar este producto?')) {
-                // Aquí puedes hacer una solicitud AJAX para eliminar el producto
-                console.log(`Eliminar producto ${productId}`);
-
-                // Redirigir o recargar la página después de eliminar
-                window.location.href = "{{ route('panel.productos') }}";
-            }
-        });
-    });
-</script>
 
 @endsection
