@@ -45,7 +45,23 @@
 <section class="offers-section">
     <h2 class="section-title">Ofertas y Descuentos Especiales</h2>
     <div class="sekai-banner">
-        <img src="{{ asset('images/AUDIFONO.png') }}" alt="Promoción de Audífonos - SEKAITECH" class="img-fluid w-100">
+        @php
+            $banner = App\Models\ImagenMedio::latest()->first();
+            
+            if($banner) {
+                $bannerUrl = $banner->url;
+                $bannerAlt = $banner->texto_alternativo ?? 'Promoción Especial - SEKAITECH';
+        @endphp
+                <img src="{{ $bannerUrl }}" alt="{{ $bannerAlt }}" class="img-fluid w-100"
+                     onerror="this.onerror=null;this.src='{{ asset('images/AUDIFONO.png') }}'">
+        @php
+            } else {
+                // Mostrar imagen por defecto si no hay banner configurado
+        @endphp
+                <img src="{{ asset('images/AUDIFONO.png') }}" alt="Promoción por defecto - SEKAITECH" class="img-fluid w-100">
+        @php
+            }
+        @endphp
     </div>
 </section>
 

@@ -133,3 +133,7 @@ Route::get('/configuracion', [ConfiguracionController::class, 'index'])->name('c
 Route::get('/actualizar-dolar', [ConfiguracionController::class, 'actualizarDolar'])->name('actualizar.dolar');
 
 //////////////////////////////////DOLAR////////////////////////////////////
+
+
+Route::post('/configuracion/guardar-banner', [ConfiguracionController::class, 'guardarBanner'])
+    ->name('guardar.banner');
