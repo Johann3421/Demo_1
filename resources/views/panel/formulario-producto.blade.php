@@ -256,4 +256,39 @@
         }
     });
 </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const precioDolares = document.getElementById('precio_dolares');
+    const precioSoles = document.getElementById('precio_soles');
+    const tasaCambio = 3.70;
+    
+    function esNumeroValido(valor) {
+        return !isNaN(parseFloat(valor)) && isFinite(valor) && valor !== '';
+    }
+    
+    function convertirDolaresASoles() {
+        if (esNumeroValido(precioDolares.value) && !precioDolares.dataset.converting) {
+            precioSoles.dataset.converting = true;
+            precioSoles.value = (parseFloat(precioDolares.value) * tasaCambio).toFixed(2);
+            setTimeout(() => precioSoles.dataset.converting = false, 100);
+        }
+    }
+    
+    function convertirSolesADolares() {
+        if (esNumeroValido(precioSoles.value) && !precioSoles.dataset.converting) {
+            precioDolares.dataset.converting = true;
+            precioDolares.value = (parseFloat(precioSoles.value) / tasaCambio).toFixed(2);
+            setTimeout(() => precioDolares.dataset.converting = false, 100);
+        }
+    }
+    
+    precioDolares.addEventListener('input', convertirDolaresASoles);
+    precioSoles.addEventListener('input', convertirSolesADolares);
+    
+    // Convertir al cargar si hay valores
+    if (esNumeroValido(precioDolares.value)) convertirDolaresASoles();
+    if (esNumeroValido(precioSoles.value)) convertirSolesADolares();
+});
+</script>
 @endsection
