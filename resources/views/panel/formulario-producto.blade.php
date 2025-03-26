@@ -263,32 +263,56 @@ document.addEventListener("DOMContentLoaded", function() {
     const precioSoles = document.getElementById('precio_soles');
     const tasaCambio = 3.70;
     
+    // Flag para evitar bucles infinitos
+    let isConverting = false;
+    
     function esNumeroValido(valor) {
         return !isNaN(parseFloat(valor)) && isFinite(valor) && valor !== '';
     }
     
     function convertirDolaresASoles() {
-        if (esNumeroValido(precioDolares.value) && !precioDolares.dataset.converting) {
-            precioSoles.dataset.converting = true;
+        if (isConverting) return;
+        
+        if (esNumeroValido(precioDolares.value)) {
+            isConverting = true;
             precioSoles.value = (parseFloat(precioDolares.value) * tasaCambio).toFixed(2);
-            setTimeout(() => precioSoles.dataset.converting = false, 100);
+            setTimeout(() => isConverting = false, 100);
         }
     }
     
     function convertirSolesADolares() {
-        if (esNumeroValido(precioSoles.value) && !precioSoles.dataset.converting) {
-            precioDolares.dataset.converting = true;
+        if (isConverting) return;
+        
+        if (esNumeroValido(precioSoles.value)) {
+            isConverting = true;
             precioDolares.value = (parseFloat(precioSoles.value) / tasaCambio).toFixed(2);
-            setTimeout(() => precioDolares.dataset.converting = false, 100);
+            setTimeout(() => isConverting = false, 100);
         }
     }
     
-    precioDolares.addEventListener('input', convertirDolaresASoles);
-    precioSoles.addEventListener('input', convertirSolesADolares);
+    // Eventos mejorados
+    precioDolares.addEventListener('input', function() {
+        if (!isConverting && this === document.activeElement) {
+            convertirDolaresASoles();
+        }
+    });
+    
+    precioSoles.addEventListener('input', function() {
+        if (!isConverting && this === document.activeElement) {
+            convertirSolesADolares();
+        }
+    });
+    
+    // Eventos para cuando pierden el foco
+    precioDolares.addEventListener('blur', convertirDolaresASoles);
+    precioSoles.addEventListener('blur', convertirSolesADolares);
     
     // Convertir al cargar si hay valores
-    if (esNumeroValido(precioDolares.value)) convertirDolaresASoles();
-    if (esNumeroValido(precioSoles.value)) convertirSolesADolares();
+    if (esNumeroValido(precioDolares.value)) {
+        convertirDolaresASoles();
+    } else if (esNumeroValido(precioSoles.value)) {
+        convertirSolesADolares();
+    }
 });
 </script>
 @endsection
