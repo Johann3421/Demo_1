@@ -2380,52 +2380,88 @@ main {
 }
 
 /* Estilos de las tarjetas */
-.categoria-card {
-    position: relative;
-    overflow: hidden;
-    border-radius: 12px;
-    transition: transform 0.3s ease-in-out;
-    cursor: pointer;
-}
-
-.categoria-card:hover {
-    transform: scale(1.05);
-}
-
-.categoria-card .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+/* Contenedor principal */
+.categorias-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: white;
-}
-
-.categoria-card:hover .overlay {
-    opacity: 1;
-}
-
-.categoria-card .category-name {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
     width: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    font-weight: bold;
-    font-size: 1.3rem;
-    text-align: center;
-    padding: 10px 0;
-    font-family: 'Poppins', sans-serif;
+    padding: 40px 0;
 }
+
+/* Título centrado */
+.categorias-titulo-container {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.categorias-titulo {
+    font-size: 36px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #222; /* Color más profesional */
+}
+
+/* Grid de categorías bien distribuido */
+.categorias-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    width: 90%;
+}
+
+/* Tarjeta individual más ancha y alta */
+.categoria-item {
+    flex: 1 1 calc(30% - 30px); /* Más ancho */
+    max-width: 320px; /* Aumentado */
+}
+
+/* Diseño del contenedor de cada categoría */
+.categoria-card {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    overflow: hidden;
+    width: 320px; /* Más ancho */
+    height: 350px; /* Más alto */
+}
+
+/* Efecto al pasar el cursor */
+.categoria-card:hover {
+    transform: scale(1.08);
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Imagen dentro de la tarjeta - Se adapta sin distorsión */
+.categoria-imagen {
+    width: 100%;
+    height: 220px; /* Ajustado a mayor altura */
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+/* Nombre de la categoría - Sin subrayado y con estilo más elegante */
+.categoria-nombre {
+    margin-top: 15px;
+    font-weight: 600;
+    font-size: 20px;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none; /* Quita la línea debajo del texto */
+}
+.categoria-link {
+    text-decoration: none !important;
+    color: inherit !important;
+    display: block; /* Asegura que toda la tarjeta es clickeable */
+}
+
 
 /* Estilo para la sección del banner */
 .sekai-banner-placeholder {

@@ -21,26 +21,27 @@
     <h1 class="main-title">Explora Nuestras Categorías de Tecnología en SEKAITECH</h1>
 </div>
 
-<section class="categories-section">
-    <h2 class="section-title">Categorías Más Populares</h2>
-    <div class="row mt-4">
+<section class="categorias-container">
+    <!-- Contenedor del título 100% centrado sin afectar otros estilos -->
+    <div class="categorias-titulo-container">
+        <h2 class="categorias-titulo">CATEGORÍAS</h2>
+    </div>
+    
+    <!-- Grid de Categorías -->
+    <div class="categorias-grid">
         @foreach($categorias as $categoria)
-            @php
-                $totalProductos = $categoria->productos_count; // Usa el conteo real
-            @endphp
-            <div class="col-md-4 mb-4">
-                <!-- Cambia a la ruta correcta -->
-                <a href="{{ route('products.by.categoria', ['categoria' => $categoria->nombre]) }}" class="text-decoration-none">
-                    <div class="categoria-card shadow-lg" 
-                         style="background: url('{{ asset('images/' . $categoria->imagen_url) }}') center/cover no-repeat; height: 250px;">
-                        <div class="category-name">{{ $categoria->nombre }}</div>
-                        <div class="overlay">Productos: {{ $totalProductos }}</div>
+            <div class="categoria-item">
+                <a href="{{ route('products.by.categoria', ['categoria' => $categoria->nombre]) }}" class="categoria-link">
+                    <div class="categoria-card">
+                        <img src="{{ asset('images/' . $categoria->imagen_url) }}" alt="{{ $categoria->nombre }}" class="categoria-imagen">
+                        <div class="categoria-nombre">{{ strtoupper($categoria->nombre) }}</div>
                     </div>
                 </a>
             </div>
         @endforeach
     </div>
 </section>
+
 
 <section class="offers-section">
     <h2 class="section-title">Ofertas y Descuentos Especiales</h2>

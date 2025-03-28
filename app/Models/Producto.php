@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\VisibleScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,6 +31,7 @@ class Producto extends Model
         'categoria_id',
         'grupo_id', // Asegúrate de que esté incluido
         'subgrupo_id', // Asegúrate de que esté incluido
+        'visible',
     ];
 
     public $timestamps = false;
@@ -65,8 +67,12 @@ public function subFiltros()
     return $this->belongsToMany(Opcion::class, 'producto_opcion');
 }
 
-public function especificaciones()
+protected static function booted()
     {
-        return $this->hasMany(Especificacion::class);
+        static::addGlobalScope(new VisibleScope);
     }
+    public function especificaciones()
+{
+    return $this->hasMany(Especificacion::class);
+}
 }

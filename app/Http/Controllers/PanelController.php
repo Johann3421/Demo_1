@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Scopes\VisibleScope;
 use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Models\Categoria;
@@ -22,6 +23,7 @@ class PanelController extends Controller
     // Método para la página de productos
     public function productos(Request $request)
 {
+    $productos = Producto::withoutGlobalScope(VisibleScope::class)->get();
     $perPage = $request->input('perPage', 10);
     $search = $request->input('search');
 
@@ -107,7 +109,7 @@ public function eliminarProducto(Request $request, $id)
             'caracteristicas' => 'nullable|string',
             'precio_dolares' => 'required|numeric|min:0',
             'precio_soles' => 'required|numeric|min:0',
-            'imagen_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'imagen_url' => 'nullable|image|max:4096', // Cambiado aquí
             'marca' => 'nullable|string|max:255',
             'modelo' => 'nullable|string|max:255',
             'procesador' => 'nullable|string|max:255',
@@ -118,8 +120,8 @@ public function eliminarProducto(Request $request, $id)
             'stock' => 'required|integer|min:0',
             'descuento' => 'nullable|integer|min:0|max:100',
             'categoria_id' => 'required|exists:categorias,id',
-            'grupo_id' => 'nullable|exists:grupos,id', // Validar grupo_id
-            'subgrupo_id' => 'nullable|exists:subgrupos,id', // Validar subgrupo_id
+            'grupo_id' => 'nullable|exists:grupos,id',
+            'subgrupo_id' => 'nullable|exists:subgrupos,id',
         ]);
 
         $producto = new Producto($request->except('imagen_url'));
@@ -163,7 +165,7 @@ public function eliminarProducto(Request $request, $id)
             'caracteristicas' => 'nullable|string',
             'precio_dolares' => 'required|numeric|min:0',
             'precio_soles' => 'required|numeric|min:0',
-            'imagen_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'imagen_url' => 'nullable|image|max:4096', // Cambiado aquí
             'marca' => 'nullable|string|max:255',
             'modelo' => 'nullable|string|max:255',
             'procesador' => 'nullable|string|max:255',
@@ -174,8 +176,8 @@ public function eliminarProducto(Request $request, $id)
             'stock' => 'required|integer|min:0',
             'descuento' => 'nullable|integer|min:0|max:100',
             'categoria_id' => 'required|exists:categorias,id',
-            'grupo_id' => 'nullable|exists:grupos,id', // Validar grupo_id
-            'subgrupo_id' => 'nullable|exists:subgrupos,id', // Validar subgrupo_id
+            'grupo_id' => 'nullable|exists:grupos,id',
+            'subgrupo_id' => 'nullable|exists:subgrupos,id',
         ]);
 
         $producto = Producto::findOrFail($id);
@@ -221,5 +223,24 @@ public function proveedores()
     // Aquí puedes obtener la lista de proveedores desde la base de datos
     $proveedores = []; // Reemplaza esto con la lógica para obtener proveedores
     return view('panel.proveedores', compact('proveedores'));
+}
+
+public function toggleVisibility(Producto $producto, Request $request)
+{
+    try {
+        $visible = !$producto->visible;
+        $producto->update(['visible' => $visible]);
+        
+        return response()->json([
+            'success' => true,
+            'visible' => $visible,
+            'message' => 'Visibilidad actualizada'
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Error al actualizar'
+        ], 500);
+    }
 }
 }

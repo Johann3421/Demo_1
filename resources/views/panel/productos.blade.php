@@ -37,53 +37,68 @@
     </div>
 
     <!-- Tabla de productos optimizada -->
-    <div class="card shadow">
-        <div class="card-header bg-primary text-white">
-            <h5 class="card-title mb-0">Lista de Productos</h5>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover" id="productsTable">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Precio (USD)</th>
-                            <th>Precio (PEN)</th>
-                            <th>Stock</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="productsTableBody">
-                        @foreach ($productos as $producto)
-                        <tr class="product-row" data-id="{{ $producto->id }}">
-                            <td class="searchable">{{ $producto->nombre }}</td>
-                            <td>${{ number_format($producto->precio_dolares, 2) }}</td>
-                            <td>S/{{ number_format($producto->precio_soles, 2) }}</td>
-                            <td>{{ $producto->stock }}</td>
-                            <td>
-                                <a href="{{ route('panel.productos.editar', $producto->id) }}" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-edit"></i> Editar
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h5 class="card-title mb-0">Lista de Productos</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="productsTable">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Precio (USD)</th>
+                        <th>Precio (PEN)</th>
+                        <th>Stock</th>
+                        <th class="text-center">Visible</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="productsTableBody">
+                    @foreach ($productos as $producto)
+                    <tr class="product-row" data-id="{{ $producto->id }}">
+                        <td class="searchable">{{ $producto->nombre }}</td>
+                        <td>${{ number_format($producto->precio_dolares, 2) }}</td>
+                        <td>S/{{ number_format($producto->precio_soles, 2) }}</td>
+                        <td>{{ $producto->stock }}</td>
+                        <td class="text-center align-middle">
+                            <div class="form-check form-switch d-inline-block">
+                                <input type="checkbox" 
+                                       class="form-check-input visibility-toggle" 
+                                       data-id="{{ $producto->id }}"
+                                       {{ $producto->visible ? 'checked' : '' }}
+                                       style="width: 3em; height: 1.5em;">
+                            </div>
+                            <span class="badge bg-{{ $producto->visible ? 'success' : 'danger' }} ms-2">
+                                {{ $producto->visible ? 'Sí' : 'No' }}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a href="{{ route('panel.productos.editar', $producto->id) }}" class="btn btn-sm btn-primary me-1">
+                                    <i class="fas fa-edit"></i>
                                 </a>
                                 <button class="btn btn-sm btn-danger btn-eliminar" 
                                         data-id="{{ $producto->id }}"
                                         data-url="{{ route('panel.productos.eliminar', $producto->id) }}">
-                                    <i class="fas fa-trash"></i> Eliminar
+                                    <i class="fas fa-trash"></i>
                                 </button>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
 
-            <div class="d-flex justify-content-center mt-4">
-                {{ $productos->appends([
-                    'search' => request('search'),
-                    'perPage' => request('perPage')
-                ])->links('pagination::bootstrap-5') }}
-            </div>
+        <div class="d-flex justify-content-center mt-4">
+            {{ $productos->appends([
+                'search' => request('search'),
+                'perPage' => request('perPage')
+            ])->links('pagination::bootstrap-5') }}
         </div>
     </div>
+</div>
 </div>
 
 <style>
@@ -218,5 +233,41 @@
         // Configurar event listeners
         setupEventListeners();
     });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.visibility-toggle').forEach(toggle => {
+        toggle.addEventListener('change', function() {
+            const productId = this.dataset.id;
+            const isVisible = this.checked;
+            
+            fetch(`/panel/productos/${productId}/visibility`, {
+                method: 'PATCH',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ visible: isVisible })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    const badge = this.closest('td').querySelector('.badge');
+                    badge.className = `badge bg-${data.visible ? 'success' : 'danger'} ms-2`;
+                    badge.textContent = data.visible ? 'Sí' : 'No';
+                } else {
+                    this.checked = !isVisible; // Revertir cambio
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                this.checked = !isVisible; // Revertir cambio
+            });
+        });
+    });
+});
 </script>
 @endsection

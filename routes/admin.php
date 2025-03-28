@@ -37,7 +37,9 @@ Route::middleware(['auth'])->prefix('panel')->group(function () {
     Route::get('/banners', [PanelController::class, 'banners'])->name('panel.banners');
     Route::get('/configuracion', [PanelController::class, 'configuracion'])->name('panel.configuracion');
     // Nueva ruta para Proveedores
-    Route::get('/proveedores', [PanelController::class, 'proveedores'])->name('panel.proveedores');
+
+    Route::patch('/productos/{producto}/visibility', [PanelController::class, 'toggleVisibility'])
+         ->name('panel.productos.visibility');
 });
 
 // Rutas de autenticación
