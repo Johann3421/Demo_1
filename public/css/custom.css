@@ -3,10 +3,694 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+/* ESTILO DE SIDEBAR */
+.sidebar-container {
+    width: 100%;
+    max-width: 350px; /* Sidebar más ancho */
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Espaciado entre elementos */
+.sidebar-container > div {
+    margin-bottom: 20px;
+}
+
+/* Títulos del Sidebar */
+.sidebar-container h2 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+/* Barra de Precio */
+.price-container {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: bold;
+    color: #444;
+}
+
+.price-range {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(to right, #3b82f6, #2563eb);
+    border-radius: 5px;
+    outline: none;
+    transition: background 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.price-range:hover {
+    background: linear-gradient(to right, #2563eb, #1e40af);
+}
+
+/* Color dinámico en el slider */
+.price-range::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 5px;
+}
+
+.price-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #3b82f6;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    margin-top: -7px; /* Centra la bolita */
+}
+
+/* Espaciado entre checkboxes */
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Select de Categoría */
+.category-select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 20px;
+}
+
+.category-select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 6px rgba(59, 130, 246, 0.5);
+}
+
+/* Botón de Filtrar */
+.filter-button {
+    width: 100%;
+    padding: 14px;
+    background-color: #3b82f6;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.filter-button:hover {
+    background-color: #2563eb;
+    box-shadow: 0px 5px 8px rgba(59, 130, 246, 0.3);
+}
+
+/* Contenedor de Productos */
+.products-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+/* Tarjeta de Producto */
+.product-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.product-card:hover {
+    transform: translateY(-6px);
+}
+
+/* Imagen del Producto */
+.product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* Título del Producto */
+.product-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #333;
+    margin-top: 12px;
+}
+
+/* Precio del Producto */
+.product-price {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #3b82f6;
+}
+
+/* Botón Ver Detalles */
+.detail-button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #3b82f6;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-top: 12px;
+    transition: all 0.3s ease-in-out;
+}
+
+.detail-button:hover {
+    background-color: #2563eb;
+    box-shadow: 0px 5px 8px rgba(59, 130, 246, 0.3);
+}
+
+/* Estilos para "Top de Ventas" */
+.top-sales {
+    padding-top: 20px;
+    border-top: 2px solid #ddd;
+}
+
+.top-sales h2 {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.top-sales-list {
+    list-style: none;
+    padding: 0;
+}
+
+/* Imagen del producto adaptada */
+.top-sales-img {
+    width: 50px; /* Tamaño fijo más pequeño */
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* Contenedor del texto */
+.top-sales-info {
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Nombre del producto con tamaño controlado */
+.top-sales-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+}
+
+/* Precio del producto */
+.top-sales-price {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #3b82f6;
+}
+
+/*FIN DE ESTILO DE SIDEBAR */
+
+
+/* ESTILOS DEL FILTER VIEW */
+
+/* Contenedor principal */
+.flex.items-center {
+    display: flex;
+    justify-content: center; /* Distribuye los elementos */
+    align-items: center;
+}
+
+/* Breadcrumb (categoría alineada a la izquierda) */
+.category-container {
+    flex-grow: 1; /* Ocupa todo el espacio disponible a la izquierda */
+}
+
+/* Contenedor de los controles de vista (alineados a la derecha) */
+.controls-container {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Espacio entre los elementos */
+}
+
+/* Separación específica después de "Show:" */
+.show-label {
+    margin-right: 8px;
+    font-weight: 500;
+}
+
+/* Contenedor de filtros */
+#filters-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    opacity: 0;
+}
+
+/* Mostrar menú de filtros cuando está activo */
+#filters-menu.active {
+    max-height: 300px;
+    opacity: 1;
+    padding: 1rem;
+}
+
+/* Iconos de vista */
+.view-mode {
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.view-mode:hover {
+    color: #2563eb;
+    transform: scale(1.1);
+}
+
+/* Enlaces de cantidad de productos */
+.items-per-page {
+    cursor: pointer;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.items-per-page:hover {
+    color: #2563eb;
+    background-color: rgba(59, 130, 246, 0.1);
+    text-decoration: none;
+}
+
+/* Botón de filtros */
+.filter-toggle {
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.filter-toggle:hover {
+    color: #2563eb;
+}
+
+/* Estilos del select y slider de filtros */
+#advanced-filters select,
+#advanced-filters input {
+    transition: all 0.2s ease-in-out;
+}
+
+#advanced-filters select:focus,
+#advanced-filters input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+}
+
+/* FIN DE ESTILOS DEL FILTER VIEW */
+
+/* 🎡 Estilos generales del Product Slider */
+.product-slider-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* 🏷 Asegurar que el slider mantenga una alineación uniforme */
+.product-slider-inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    will-change: transform;
+    gap: 10px;
+    align-items: stretch; /* 🔹 Asegura que todas las tarjetas tengan la misma altura */
+}
+
+/* 🎯 Establecer 4 productos por fila en PC */
+.product-slider-item {
+    flex: 0 0 calc(25% - 10px); /* 4 productos en PC */
+    box-sizing: border-box;
+    display: flex; /* 🔹 Hace que las tarjetas sean del mismo tamaño */
+    align-items: stretch;
+}
+
+/* 📦 Tarjetas de productos alineadas y con altura uniforme */
+.product-card {
+    text-align: center;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    min-height: 380px; /* 🔹 Ajusta esto según tu diseño */
+}
+
+/* 🔹 Todas las imágenes tendrán el mismo tamaño sin deformarse */
+.product-image {
+    width: 100%;
+    max-width: 250px; /* 🔹 Tamaño máximo uniforme */
+    height: 200px; /* 🔹 Tamaño fijo */
+    object-fit: contain; /* 🔹 Mantiene la proporción sin recortar */
+    border-radius: 8px;
+    background: #f8f8f8; /* 🔹 Fondo para imágenes más pequeñas */
+    padding: 10px; /* 🔹 Espaciado para imágenes más pequeñas */
+}
+
+/* 📄 Nombre del producto con altura fija */
+.product-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+    min-height: 55px; /* 🔹 Mantener el mismo tamaño en todas las tarjetas */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* 💰 Precio del producto */
+.product-price {
+    font-size: 1.1rem;
+    color: #28a745;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* 🎯 Botones de navegación con mejor visibilidad */
+.product-slider-prev, .product-slider-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.3s ease, transform 0.2s ease;
+    z-index: 10;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-slider-prev:hover, .product-slider-next:hover {
+    background: rgba(0, 0, 0, 1);
+    transform: scale(1.1);
+}
+
+.product-slider-prev {
+    left: 10px;
+}
+
+.product-slider-next {
+    right: 10px;
+}
+
+/* Iconos de navegación */
+.product-slider-prev::before,
+.product-slider-next::before {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.product-slider-prev::before {
+    content: '❮'; /* Icono de flecha izquierda */
+}
+
+.product-slider-next::before {
+    content: '❯'; /* Icono de flecha derecha */
+}
+
+/* 📱 RESPONSIVE DESIGN */
+
+/* 🟢 Tablets (2 productos por fila) */
+@media (max-width: 991px) {
+    .product-slider-item {
+        flex: 0 0 calc(50% - 10px);
+    }
+}
+
+/* 🔵 Móviles (1 producto por fila) */
+@media (max-width: 767px) {
+    .product-slider-item {
+        flex: 0 0 100%;
+    }
+
+    .product-slider-prev, .product-slider-next {
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+    }
+
+    .product-slider-prev::before,
+    .product-slider-next::before {
+        font-size: 20px;
+    }
+}
+
+
+
+/* FIN DE ESTILOS DEL PRODUCT SLIDER */
+
+/* ======= ESTILOS GENERALES ANCHO DEL CONTENIDO ======= */
+/* Estilos generales */
+.selectors-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.per-page-selector, .view-selector {
+    display: flex;
+    align-items: center;
+}
+
+.per-page-selector label, .view-selector label {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+select:hover {
+    border-color: #007bff;
+}
+
+select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* Contenedor de productos filtrados */
+.products-container {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Estilos para cada producto */
+.product-card-specific {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card-specific:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.product-image-specific {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+
+.product-title-specific {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #333;
+}
+
+.product-text-specific {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.product-price-specific {
+    margin: 10px 0;
+}
+
+.price-usd, .price-pen {
+    display: block;
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* ======= ESTILOS PARA LA VISTA DE LISTA ======= */
+.product-list-specific {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.product-list-specific .product-card-specific {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-list-specific .product-card-specific:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.product-list-specific .product-image-link {
+    flex: 0 0 120px; /* Ancho fijo para la imagen */
+    height: 120px; /* Altura fija para la imagen */
+    overflow: hidden;
+    border-radius: 0.5rem;
+}
+
+.product-list-specific .product-image-specific {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajustar la imagen al contenedor */
+}
+
+.product-list-specific .product-body-specific {
+    flex: 1;
+}
+
+.product-list-specific .product-title-specific {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #2d3748;
+}
+
+.product-list-specific .product-text-specific {
+    font-size: 0.875rem;
+    color: #4a5568;
+    margin-bottom: 0.5rem;
+}
+
+.product-list-specific .product-price-specific {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 1rem;
+    color: #2d3748;
+}
+
+.product-list-specific .price-usd, .product-list-specific .price-pen {
+    display: inline-block;
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.product-list-specific .btn-primary {
+    align-self: flex-start;
+    padding: 0.5rem 1rem;
+    background-color: #3b82f6;
+    color: #fff;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.product-list-specific .btn-primary:hover {
+    background-color: #2563eb;
+}
+
+/* Paginación */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination a, .pagination span {
+    padding: 8px 16px;
+    margin: 0 4px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #007bff;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #f8f9fa;
+}
+
+.pagination .current {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+/* Fuente Global */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
 /* ======= ESTILOS DEL SLIDER DE HOME ======= */
 .sekai-slider-wrapper {
     position: relative;
-    max-width: 1440px;
+
     margin: 0 auto;
     padding: 0 2rem;
     overflow: hidden;

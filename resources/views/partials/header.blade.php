@@ -1,5 +1,5 @@
 <header class="header shadow-sm py-3" style="background-color: #f8f9fa !important;">
-    <div class="container">
+    <div class="custom-container">
         <!-- Logo -->
         <a href="{{ route('home') }}" class="logo-link">
             <img src="{{ asset('images/logo_actualizado.png') }}" alt="Logo" class="logo">
@@ -11,7 +11,7 @@
             <div class="search-container">
                 @include('partials.search')
             </div>
-            
+
             <!-- Contenedor de iconos -->
             <div class="header-icons">
                 <!-- Contenedor del dólar -->
@@ -24,12 +24,12 @@
                         <span id="precioDolarHeader" class="dolar-precio">S/ {{ $precio_dolar }}</span>
                     </div>
                 </div>
-                
+
                 <!-- Icono de inicio movido a la derecha -->
                 <a href="{{ route('home') }}" class="header-icon home-icon" title="Ir al inicio">
                     <i class="fas fa-home"></i>
                 </a>
-                
+
                 <!-- Iconos sociales con color negro -->
                 <div class="social-icons">
                     <a href="https://facebook.com/tu-pagina" target="_blank" class="social-icon">

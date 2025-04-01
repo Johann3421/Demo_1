@@ -87,7 +87,7 @@ number_format($producto->precio_dolares, 2) . ' | S/' . number_format($producto-
                     <strong>Precio PEN:</strong> S/{{ number_format($producto->precio_soles, 2) }}
                 </p>
             </div>
-            
+
             <!-- 🛒 Botones de compra -->
             <div class="product-buttons">
                 <a href="https://wa.me/51933573985?text=Hola,%20estoy%20interesado%20en%20el%20producto%20{{ urlencode($producto->nombre) }}%20-%20Precio:%20${{ number_format((float) $producto->precio_dolares, 2) }}"
@@ -265,34 +265,6 @@ number_format($producto->precio_dolares, 2) . ' | S/' . number_format($producto-
         gap: 10px;
         /* Espacio entre los botones */
         margin-top: 15px;
-    }
-
-    /* Estilos para el botón de WhatsApp */
-    .whatsapp-button {
-        background-color: #25D366;
-        /* Color de WhatsApp */
-        border: none;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 5px;
-        font-size: 14px;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-
-    .whatsapp-button:hover {
-        background-color: #128C7E;
-        /* Color más oscuro al hacer hover */
-        transform: translateY(-2px);
-        /* Efecto de levantamiento */
-    }
-
-    .whatsapp-button:active {
-        transform: translateY(0);
-        /* Restablece la posición al hacer clic */
     }
 
     /* Estilos para el botón de Like */

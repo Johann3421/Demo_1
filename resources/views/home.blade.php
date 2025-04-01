@@ -26,7 +26,7 @@
     <div class="categorias-titulo-container">
         <h2 class="categorias-titulo">CATEGORÍAS</h2>
     </div>
-    
+
     <!-- Grid de Categorías -->
     <div class="categorias-grid">
         @foreach($categorias as $categoria)
@@ -48,7 +48,7 @@
     <div class="sekai-banner">
         @php
             $banner = App\Models\ImagenMedio::latest()->first();
-            
+
             if($banner) {
                 $bannerUrl = $banner->url;
                 $bannerAlt = $banner->texto_alternativo ?? 'Promoción Especial - SEKAITECH';
@@ -68,5 +68,7 @@
 
 @include('partials.product-slider', ['productos' => \App\Models\Producto::inRandomOrder()->take(50)->get()])
 
+<style>
 
+</style>
 @endsection

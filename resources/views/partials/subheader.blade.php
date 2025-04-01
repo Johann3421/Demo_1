@@ -1,5 +1,5 @@
 <div class="header-row sticky-header">
-    <div class="container">
+    <div class="custom-container">
         <div class="header-inner">
             <div class="menu-wrapper">
                 <!-- Botón de Categorías (SIEMPRE visible) -->
@@ -176,13 +176,13 @@
         const menuContainers = document.querySelectorAll('.menu-toggle-container');
         menuContainers.forEach(container => {
             const dropdown = container.querySelector('.grupos-dropdown');
-            
+
             container.addEventListener('mouseenter', () => {
                 if (window.innerWidth > 768) {
                     dropdown.style.display = 'block';
                 }
             });
-            
+
             container.addEventListener('mouseleave', () => {
                 if (window.innerWidth > 768) {
                     dropdown.style.display = 'none';

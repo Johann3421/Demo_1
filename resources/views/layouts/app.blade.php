@@ -130,7 +130,7 @@
                 @yield('content')
             </main>
         </div>
-        
+
         @include('components.proveedores')
     </div>
 
@@ -138,7 +138,7 @@
 
     <!-- Defer non-critical JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
-    
+
     <!-- Inline scripts for critical functionality -->
     <script>
         // Cookies check
@@ -159,7 +159,7 @@
                 warningDiv.style.textAlign = "center";
                 warningDiv.style.fontSize = "16px";
                 warningDiv.style.zIndex = "10000";
-                
+
                 document.body.appendChild(warningDiv);
             }
         })();
@@ -192,16 +192,35 @@
                 let timing = performance.timing;
                 let loadTime = timing.loadEventEnd - timing.navigationStart;
                 console.log('Page fully loaded in: '+loadTime+'ms');
-                
+
                 if (loadTime > 3000) {
                     console.warn('Load time is longer than 3 seconds');
                 }
             }, 0);
         });
     </script>
-    
-    <div id="scrollToTop" class="scroll-to-top">
-        <i class="fas fa-chevron-up"></i>
+
+    <div class="floating-buttons-container">
+        <!-- Botón de WhatsApp -->
+        <div id="sekai-whatsapp-float" class="floating-button whatsapp-button">
+            <a href="https://wa.me/51933573985?text=Quisiera%20contactarme%20con%20un%20Asesor"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Contactar por WhatsApp"
+               class="floating-button-link">
+                <i class="fab fa-whatsapp"></i>
+                <span class="floating-tooltip">¡Contáctanos!</span>
+                <span class="floating-badge">En línea</span>
+            </a>
+        </div>
+
+        <!-- Botón de Scroll to Top -->
+        <div id="scrollToTop" class="floating-button scroll-top-button">
+            <a href="#" aria-label="Volver arriba" class="floating-button-link">
+                <i class="fas fa-chevron-up"></i>
+                <span class="floating-tooltip">Volver arriba</span>
+            </a>
+        </div>
     </div>
 </body>
 </html>
