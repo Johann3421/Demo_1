@@ -44,7 +44,6 @@
 
 
 <section class="offers-section">
-    <h2 class="section-title">Ofertas y Descuentos Especiales</h2>
     <div class="sekai-banner">
         @php
             $banner = App\Models\ImagenMedio::latest()->first();
