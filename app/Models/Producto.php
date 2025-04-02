@@ -32,6 +32,7 @@ class Producto extends Model
         'grupo_id', // Asegúrate de que esté incluido
         'subgrupo_id', // Asegúrate de que esté incluido
         'visible',
+        'sku',
     ];
 
     public $timestamps = false;

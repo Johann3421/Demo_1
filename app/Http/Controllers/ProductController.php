@@ -13,6 +13,12 @@ class ProductController extends Controller
     // Método para mostrar todos los productos
     public function index(Request $request)
 {
+    $producto = Producto::find(1);
+$sku = $producto->sku; // Acceder al campo SKU
+
+// Buscar producto por SKU
+$producto = Producto::where('sku', 'SKU-123456')->first();
+
     // Obtener todas las categorías
     $categorias = Categoria::all();
 
