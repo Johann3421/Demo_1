@@ -214,8 +214,7 @@
                                 <path fill="currentColor"
                                     d="M12,2L4,5V11.09C4,16.14 7.41,20.85 12,22C16.59,20.85 20,16.14 20,11.09V5L12,2M12,7C13.66,7 15,8.34 15,10C15,11.66 13.66,13 12,13C10.34,13 9,11.66 9,10C9,8.34 10.34,7 12,7M12,15.5C14.33,15.5 18,16.56 18,17.5V18.5H6V17.5C6,16.56 9.67,15.5 12,15.5Z" />
                             </svg>
-                            <span class="feature-text">Pago con tarjeta <strong class="highlight">¡¡Sin
-                                    recargos!!</strong></span>
+                            <span class="feature-text">Compra Segura <strong class="highlight">¡¡Con Garantía!!</strong></span>
                         </li>
                         <li class="purchase-feature">
                             <svg class="feature-icon" viewBox="0 0 24 24">
@@ -562,4 +561,60 @@
             });
         });
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Seleccionar todos los botones de like
+        const likeButtons = document.querySelectorAll('.like-button');
+
+        likeButtons.forEach(button => {
+            const productId = button.dataset.id;
+            const likeCountSpan = button.querySelector('.like-count');
+
+            // Clave única para almacenar en localStorage
+            const storageKey = `product_like_${productId}`;
+
+            // Obtener likes guardados o inicializar a 0
+            let likes = parseInt(localStorage.getItem(storageKey)) || 0;
+            likeCountSpan.textContent = likes;
+
+            // Verificar si el usuario ya dio like (para cambiar el estilo)
+            const userLikeKey = `user_like_${productId}`;
+            const userLiked = localStorage.getItem(userLikeKey) === 'true';
+
+            if (userLiked) {
+                button.classList.add('liked');
+                button.querySelector('i').classList.replace('fa-thumbs-up', 'fa-thumbs-up');
+            }
+
+            // Evento click
+            button.addEventListener('click', function() {
+                const alreadyLiked = localStorage.getItem(userLikeKey) === 'true';
+
+                if (alreadyLiked) {
+                    // Quitar like
+                    likes = Math.max(0, likes - 1);
+                    localStorage.setItem(userLikeKey, 'false');
+                    button.classList.remove('liked');
+                    button.querySelector('i').classList.replace('fa-thumbs-up', 'fa-thumbs-up');
+                } else {
+                    // Añadir like
+                    likes += 1;
+                    localStorage.setItem(userLikeKey, 'true');
+                    button.classList.add('liked');
+                    button.querySelector('i').classList.replace('fa-thumbs-up', 'fa-thumbs-up');
+                }
+
+                // Actualizar contador y almacenamiento
+                likeCountSpan.textContent = likes;
+                localStorage.setItem(storageKey, likes.toString());
+
+                // Efecto visual
+                button.classList.add('animate-like');
+                setTimeout(() => {
+                    button.classList.remove('animate-like');
+                }, 300);
+            });
+        });
+    });
+    </script>
 @endsection

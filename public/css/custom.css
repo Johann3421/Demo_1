@@ -690,16 +690,14 @@ body {
 /* ======= ESTILOS DEL SLIDER DE HOME ======= */
 .sekai-slider-wrapper {
     position: relative;
-
     margin: 0 auto;
-    padding: 0 2rem;
     overflow: hidden;
 }
 
 .sekai-slider-track {
     display: flex;
-    gap: 1.5rem;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    gap: 1.7rem;
+    will-change: transform;
     align-items: stretch; /* Asegura que todas las tarjetas tengan la misma altura */
 }
 
@@ -938,7 +936,6 @@ body {
         font-size: 1rem;
     }
 }
-
 /* ======= FIN DE ESTILOS DEL SLIDER DE HOME ======= */
 
 /* ======= ESTILOS DE PRODUCTOS ======= */
