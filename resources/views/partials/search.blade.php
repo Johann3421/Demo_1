@@ -1,7 +1,7 @@
 {{-- resources/views/partials/search.blade.php --}}
-<form action="#" method="GET" class="search-form" id="search-form">
+<form action="{{ route('productos.search') }}" method="GET" class="search-form" id="search-form">
     <input type="text" name="query" placeholder="Buscar productos..." class="search-input" id="search-input" required>
-    <div id="search-results" class="search-results"></div> <!-- Contenedor de resultados dentro del formulario -->
+    <div id="search-results" class="search-results"></div>
 </form>
 
 <script>
@@ -10,6 +10,7 @@
         const searchResults = document.getElementById('search-results');
         const searchForm = document.getElementById('search-form');
 
+        // Evento para el autocompletado
         searchInput.addEventListener('input', function () {
             const query = searchInput.value.trim();
 
@@ -19,12 +20,22 @@
                 return;
             }
 
-            fetch(`/buscar-productos?query=${query}`)
+            fetch(`/buscar-productos?query=${encodeURIComponent(query)}`)
                 .then(response => response.json())
                 .then(data => {
                     displayResults(data);
                 })
                 .catch(error => console.error("Error al obtener los productos:", error));
+        });
+
+        // Evento para el submit del formulario
+        searchForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const query = searchInput.value.trim();
+
+            if (query.length > 0) {
+                window.location.href = `/productos?query=${encodeURIComponent(query)}`;
+            }
         });
 
         function displayResults(results) {

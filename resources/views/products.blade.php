@@ -117,13 +117,17 @@
                             </a>
                             <div class="product-body-specific">
                                 <h2 class="product-title-specific">{{ $producto->nombre }}</h2>
-                                <p class="product-text-specific">{{ $producto->descripcion }}</p>
                                 <div class="product-price-specific">
                                     <span class="price-usd">${{ number_format($producto->precio_dolares, 2) }}</span>
                                     <span class="price-pen">S/. {{ number_format($producto->precio_soles, 2) }}</span>
                                 </div>
-                                <a href="{{ route('producto.detalles', ['id' => $producto->id, 'slug' => $producto->slug]) }}"
-                                    class="btn btn-primary">Ver Detalles</a>
+                                <div class="product-card__actions">
+                                    <a href="{{ route('producto.detalles', ['id' => $producto->id, 'slug' => $producto->slug]) }}"
+                                       class="btn-product-details">
+                                       <span class="btn-product-details__text">Ver detalles</span>
+                                       <span class="btn-product-details__icon">→</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     @endforeach

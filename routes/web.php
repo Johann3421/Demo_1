@@ -29,7 +29,7 @@ Route::get('/carrito', function () {
 Route::post('/carrito/agregar', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/carrito', [CartController::class, 'viewCart'])->name('cart.view');
 Route::post('/favoritos/agregar', [FavoriteController::class, 'addToFavorites'])->name('favorites.add');
-Route::get('/favoritos', [FavoriteController::class, 'viewFavorites'])->name('favorites.view'); 
+Route::get('/favoritos', [FavoriteController::class, 'viewFavorites'])->name('favorites.view');
 
 Route::get('/producto/{id}/{slug}', [ProductController::class, 'show'])->name('producto.detalles');
 Route::get('/productos', [ProductController::class, 'index'])->name('products');
@@ -101,7 +101,8 @@ Route::fallback(function () {
 
 //////////////////////////////////BUSCADOR/////////////////////////////////////
 
-Route::get('/buscar-productos', [ProductController::class, 'buscar'])->name('productos.buscar');
+Route::get('/productos', [ProductController::class, 'index'])->name('productos.search');
+Route::get('/buscar-productos', [ProductController::class, 'buscar']);
 
 //////////////////////////////////BUSCADOR/////////////////////////////////////
 
