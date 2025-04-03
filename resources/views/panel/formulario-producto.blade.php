@@ -11,7 +11,7 @@
 
         <div class="card shadow-lg">
             <div class="card-body">
-                <form action="{{ isset($producto) ? route('panel.productos.actualizar', $producto->id) : route('panel.productos.guardar') }}" 
+                <form action="{{ isset($producto) ? route('panel.productos.actualizar', $producto->id) : route('panel.productos.guardar') }}"
                       method="POST" enctype="multipart/form-data">
                     @csrf
                     @if (isset($producto)) @method('PUT') @endif
@@ -20,12 +20,12 @@
                         <!-- Nombre y Slug -->
                         <div class="col">
                             <label for="nombre" class="form-label fw-bold">Nombre del Producto</label>
-                            <input type="text" name="nombre" id="nombre" class="form-control" 
+                            <input type="text" name="nombre" id="nombre" class="form-control"
                                    value="{{ old('nombre', $producto->nombre ?? '') }}" required>
                         </div>
                         <div class="col">
                             <label for="slug" class="form-label fw-bold">Slug</label>
-                            <input type="text" name="slug" id="slug" class="form-control" 
+                            <input type="text" name="slug" id="slug" class="form-control"
                                    value="{{ old('slug', $producto->slug ?? '') }}" required>
                         </div>
 
@@ -35,8 +35,8 @@
                             <div id="drop-zone" class="border rounded p-4 bg-light text-center cursor-pointer">
                                 <p class="mb-0">Arrastra una imagen aquí o haz clic para seleccionar</p>
                                 <input type="file" name="imagen_url" id="imagen_url" class="form-control d-none" accept="image/*">
-                                <img id="vista_previa" 
-                                    src="{{ isset($producto) && $producto->imagen_url ? asset('images/' . $producto->imagen_url) : asset('images/default.png') }}" 
+                                <img id="vista_previa"
+                                    src="{{ isset($producto) && $producto->imagen_url ? asset('images/' . $producto->imagen_url) : asset('images/default.png') }}"
                                     class="img-thumbnail mt-3" style="max-width: 200px; height: auto;">
                             </div>
                         </div>
@@ -89,7 +89,7 @@
                             <select name="categoria_id" id="categoria_id" class="form-control" required>
                                 <option value="">Seleccione una categoría</option>
                                 @foreach ($categorias as $categoria)
-                                    <option value="{{ $categoria->id }}" 
+                                    <option value="{{ $categoria->id }}"
                                         {{ (isset($producto) && $producto->categoria_id == $categoria->id) ? 'selected' : '' }}>
                                         {{ $categoria->nombre }}
                                     </option>
@@ -103,7 +103,7 @@
                             <select name="grupo_id" id="grupo_id" class="form-control">
                                 <option value="">Seleccione un grupo</option>
                                 @foreach ($grupos as $grupo)
-                                    <option value="{{ $grupo->id }}" 
+                                    <option value="{{ $grupo->id }}"
                                         {{ (isset($producto) && $producto->grupo_id == $grupo->id) ? 'selected' : '' }}>
                                         {{ $grupo->nombre }}
                                     </option>
@@ -117,7 +117,7 @@
                             <select name="subgrupo_id" id="subgrupo_id" class="form-control">
                                 <option value="">Seleccione un subgrupo</option>
                                 @foreach ($subgrupos as $subgrupo)
-                                    <option value="{{ $subgrupo->id }}" 
+                                    <option value="{{ $subgrupo->id }}"
                                         {{ (isset($producto) && $producto->subgrupo_id == $subgrupo->id) ? 'selected' : '' }}>
                                         {{ $subgrupo->nombre }}
                                     </option>
@@ -128,9 +128,6 @@
 
                     <!-- Botón para añadir especificaciones -->
                     <div class="d-flex justify-content-end mt-4">
-                        <button type="button" id="btn-especificaciones" class="btn btn-outline-primary me-3">
-                            <i class="fas fa-plus me-2"></i>Añadir Especificaciones
-                        </button>
                         <button type="submit" class="btn btn-primary btn-lg">
                             <i class="fas fa-save me-2"></i>{{ isset($producto) ? 'Actualizar Producto' : 'Crear Producto' }}
                         </button>
@@ -262,51 +259,51 @@ document.addEventListener("DOMContentLoaded", function() {
     const precioDolares = document.getElementById('precio_dolares');
     const precioSoles = document.getElementById('precio_soles');
     const tasaCambio = 3.70;
-    
+
     // Flag para evitar bucles infinitos
     let isConverting = false;
-    
+
     function esNumeroValido(valor) {
         return !isNaN(parseFloat(valor)) && isFinite(valor) && valor !== '';
     }
-    
+
     function convertirDolaresASoles() {
         if (isConverting) return;
-        
+
         if (esNumeroValido(precioDolares.value)) {
             isConverting = true;
             precioSoles.value = (parseFloat(precioDolares.value) * tasaCambio).toFixed(2);
             setTimeout(() => isConverting = false, 100);
         }
     }
-    
+
     function convertirSolesADolares() {
         if (isConverting) return;
-        
+
         if (esNumeroValido(precioSoles.value)) {
             isConverting = true;
             precioDolares.value = (parseFloat(precioSoles.value) / tasaCambio).toFixed(2);
             setTimeout(() => isConverting = false, 100);
         }
     }
-    
+
     // Eventos mejorados
     precioDolares.addEventListener('input', function() {
         if (!isConverting && this === document.activeElement) {
             convertirDolaresASoles();
         }
     });
-    
+
     precioSoles.addEventListener('input', function() {
         if (!isConverting && this === document.activeElement) {
             convertirSolesADolares();
         }
     });
-    
+
     // Eventos para cuando pierden el foco
     precioDolares.addEventListener('blur', convertirDolaresASoles);
     precioSoles.addEventListener('blur', convertirSolesADolares);
-    
+
     // Convertir al cargar si hay valores
     if (esNumeroValido(precioDolares.value)) {
         convertirDolaresASoles();

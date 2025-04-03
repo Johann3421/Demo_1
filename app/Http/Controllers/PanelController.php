@@ -11,6 +11,7 @@ use App\Models\Grupo;
 use App\Models\Subgrupo;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class PanelController extends Controller
 {
@@ -22,30 +23,32 @@ class PanelController extends Controller
 
     // Método para la página de productos
     public function productos(Request $request)
-{
-    $productos = Producto::withoutGlobalScope(VisibleScope::class)->get();
-    $perPage = $request->input('perPage', 10);
-    $search = $request->input('search');
+    {
+        $productos = Producto::withoutGlobalScope(VisibleScope::class)->get();
+        $perPage = $request->input('perPage', 10);
+        $search = $request->input('search');
 
-    $query = Producto::query();
+        $query = Producto::query();
 
-    if ($search) {
-        $query->where('nombre', 'LIKE', "%{$search}%")
-              ->orWhere('descripcion', 'LIKE', "%{$search}%")
-              ->orWhere('marca', 'LIKE', "%{$search}%");
+        if ($search) {
+            $query->where('nombre', 'LIKE', "%{$search}%")
+                  ->orWhere('descripcion', 'LIKE', "%{$search}%")
+                  ->orWhere('marca', 'LIKE', "%{$search}%")
+                  ->orWhere('sku', 'LIKE', "%{$search}%");
+        }
+
+        $productos = $query->paginate($perPage);
+        $perPageOptions = [10, 20, 50, 100];
+
+        return view('panel.productos', [
+            'productos' => $productos,
+            'perPage' => $perPage,
+            'perPageOptions' => $perPageOptions,
+            'search' => $search
+        ]);
     }
 
-    $productos = $query->paginate($perPage);
-    $perPageOptions = [10, 20, 50, 100];
-
-    return view('panel.productos', [
-        'productos' => $productos,
-        'perPage' => $perPage,
-        'perPageOptions' => $perPageOptions,
-        'search' => $search
-    ]);
-}
-public function eliminarProducto(Request $request, $id)
+    public function eliminarProducto(Request $request, $id)
     {
         try {
             $producto = Producto::findOrFail($id);
@@ -91,7 +94,6 @@ public function eliminarProducto(Request $request, $id)
     // Método para mostrar el formulario de creación de productos
     public function mostrarFormularioCrear()
     {
-        // Obtener todas las categorías, grupos y subgrupos para los selects
         $categorias = Categoria::all();
         $grupos = Grupo::all();
         $subgrupos = Subgrupo::all();
@@ -99,17 +101,17 @@ public function eliminarProducto(Request $request, $id)
         return view('panel.formulario-producto', compact('categorias', 'grupos', 'subgrupos'));
     }
 
-    // Método para guardar un nuevo producto
+    // Método para guardar un nuevo producto con SKU automático
     public function guardarProducto(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:productos',
             'descripcion' => 'nullable|string',
             'caracteristicas' => 'nullable|string',
             'precio_dolares' => 'required|numeric|min:0',
             'precio_soles' => 'required|numeric|min:0',
-            'imagen_url' => 'nullable|image|max:4096', // Cambiado aquí
+            'imagen_url' => 'nullable|image|max:4096',
             'marca' => 'nullable|string|max:255',
             'modelo' => 'nullable|string|max:255',
             'procesador' => 'nullable|string|max:255',
@@ -124,48 +126,58 @@ public function eliminarProducto(Request $request, $id)
             'subgrupo_id' => 'nullable|exists:subgrupos,id',
         ]);
 
-        $producto = new Producto($request->except('imagen_url'));
+        // Iniciar transacción para manejar posibles errores
+        DB::beginTransaction();
 
-        // Guardar imagen si se sube un archivo
-        if ($request->hasFile('imagen_url')) {
-            $imagen = $request->file('imagen_url');
-            $nombreArchivo = Str::slug($request->nombre) . '.' . $imagen->getClientOriginalExtension();
-            $rutaImagen = 'images/' . $nombreArchivo;
-            $imagen->move(public_path('images'), $nombreArchivo);
-            $producto->imagen_url = $nombreArchivo;
+        try {
+            // Crear el producto (el SKU se generará automáticamente en el modelo)
+            $producto = new Producto($validatedData);
+
+            // Guardar imagen si se sube un archivo
+            if ($request->hasFile('imagen_url')) {
+                $imagen = $request->file('imagen_url');
+                $nombreArchivo = Str::slug($request->nombre) . '.' . $imagen->getClientOriginalExtension();
+                $rutaImagen = 'images/' . $nombreArchivo;
+                $imagen->move(public_path('images'), $nombreArchivo);
+                $producto->imagen_url = $nombreArchivo;
+            }
+
+            $producto->save();
+
+            DB::commit();
+
+            return redirect()->route('panel.productos')
+                   ->with('success', 'Producto creado exitosamente. SKU: ' . $producto->sku);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withInput()
+                   ->with('error', 'Error al crear el producto: ' . $e->getMessage());
         }
-
-        $producto->save();
-
-        return redirect()->route('panel.productos')->with('success', 'Producto creado exitosamente.');
     }
 
     // Método para mostrar el formulario de edición de productos
     public function mostrarFormularioEditar($id)
     {
-        // Obtener el producto a editar
         $producto = Producto::findOrFail($id);
-
-        // Obtener todas las categorías, grupos y subgrupos para los selects
         $categorias = Categoria::all();
         $grupos = Grupo::all();
         $subgrupos = Subgrupo::all();
 
-        // Pasar el producto, categorías, grupos y subgrupos a la vista
         return view('panel.formulario-producto', compact('producto', 'categorias', 'grupos', 'subgrupos'));
     }
 
     // Método para actualizar un producto existente
     public function actualizarProducto(Request $request, $id)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:productos,slug,' . $id,
             'descripcion' => 'nullable|string',
             'caracteristicas' => 'nullable|string',
             'precio_dolares' => 'required|numeric|min:0',
             'precio_soles' => 'required|numeric|min:0',
-            'imagen_url' => 'nullable|image|max:4096', // Cambiado aquí
+            'imagen_url' => 'nullable|image|max:4096',
             'marca' => 'nullable|string|max:255',
             'modelo' => 'nullable|string|max:255',
             'procesador' => 'nullable|string|max:255',
@@ -180,67 +192,87 @@ public function eliminarProducto(Request $request, $id)
             'subgrupo_id' => 'nullable|exists:subgrupos,id',
         ]);
 
-        $producto = Producto::findOrFail($id);
-        $producto->fill($request->except('imagen_url'));
+        DB::beginTransaction();
 
-        // Si se sube una nueva imagen, eliminar la anterior y guardar la nueva
-        if ($request->hasFile('imagen_url')) {
-            // Eliminar la imagen anterior si existe
-            if ($producto->imagen_url && File::exists(public_path($producto->imagen_url))) {
-                File::delete(public_path($producto->imagen_url));
+        try {
+            $producto = Producto::findOrFail($id);
+            $producto->fill($validatedData);
+
+            // Si se sube una nueva imagen
+            if ($request->hasFile('imagen_url')) {
+                // Eliminar la imagen anterior si existe
+                if ($producto->imagen_url && File::exists(public_path($producto->imagen_url))) {
+                    File::delete(public_path($producto->imagen_url));
+                }
+
+                // Guardar nueva imagen
+                $imagen = $request->file('imagen_url');
+                $nombreArchivo = Str::slug($request->nombre) . '.' . $imagen->getClientOriginalExtension();
+                $rutaImagen = 'images/' . $nombreArchivo;
+                $imagen->move(public_path('images'), $nombreArchivo);
+                $producto->imagen_url = $nombreArchivo;
             }
 
-            // Guardar nueva imagen con el nuevo nombre
-            $imagen = $request->file('imagen_url');
-            $nombreArchivo = Str::slug($request->nombre) . '.' . $imagen->getClientOriginalExtension();
-            $rutaImagen = 'images/' . $nombreArchivo;
-            $imagen->move(public_path('images'), $nombreArchivo);
+            $producto->save();
 
-            // Actualizar `imagen_url` en la base de datos con el nuevo nombre
-            $producto->imagen_url = $nombreArchivo;
+            DB::commit();
+
+            return redirect()->route('panel.productos')
+                   ->with('success', 'Producto actualizado exitosamente.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withInput()
+                   ->with('error', 'Error al actualizar el producto: ' . $e->getMessage());
         }
-
-        $producto->save();
-
-        return redirect()->route('panel.productos')->with('success', 'Producto actualizado exitosamente.');
     }
+
     // Método para obtener grupos por categoría
-public function obtenerGruposPorCategoria($categoria_id)
-{
-    $grupos = Grupo::where('categoria_id', $categoria_id)->get();
-    return response()->json($grupos);
-}
-
-// Método para obtener subgrupos por grupo
-public function obtenerSubgruposPorGrupo($grupo_id)
-{
-    $subgrupos = Subgrupo::where('grupo_id', $grupo_id)->get();
-    return response()->json($subgrupos);
-}
-// Método para la página de proveedores
-public function proveedores()
-{
-    // Aquí puedes obtener la lista de proveedores desde la base de datos
-    $proveedores = []; // Reemplaza esto con la lógica para obtener proveedores
-    return view('panel.proveedores', compact('proveedores'));
-}
-
-public function toggleVisibility(Producto $producto, Request $request)
-{
-    try {
-        $visible = !$producto->visible;
-        $producto->update(['visible' => $visible]);
-        
-        return response()->json([
-            'success' => true,
-            'visible' => $visible,
-            'message' => 'Visibilidad actualizada'
-        ]);
-    } catch (\Exception $e) {
-        return response()->json([
-            'success' => false,
-            'message' => 'Error al actualizar'
-        ], 500);
+    public function obtenerGruposPorCategoria($categoria_id)
+    {
+        $grupos = Grupo::where('categoria_id', $categoria_id)->get();
+        return response()->json($grupos);
     }
-}
+
+    // Método para obtener subgrupos por grupo
+    public function obtenerSubgruposPorGrupo($grupo_id)
+    {
+        $subgrupos = Subgrupo::where('grupo_id', $grupo_id)->get();
+        return response()->json($subgrupos);
+    }
+
+    // Método para la página de proveedores
+    public function proveedores()
+    {
+        $proveedores = []; // Reemplaza esto con la lógica para obtener proveedores
+        return view('panel.proveedores', compact('proveedores'));
+    }
+
+    // Método para cambiar visibilidad del producto
+    public function toggleVisibility(Producto $producto, Request $request)
+    {
+        try {
+            $visible = !$producto->visible;
+            $producto->update(['visible' => $visible]);
+
+            return response()->json([
+                'success' => true,
+                'visible' => $visible,
+                'message' => 'Visibilidad actualizada'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al actualizar'
+            ], 500);
+        }
+    }
+
+    // Método para generar SKU (opcional, si quieres una ruta API)
+    public function generarSku()
+    {
+        return response()->json([
+            'sku' => Producto::generateUniqueSku()
+        ]);
+    }
 }

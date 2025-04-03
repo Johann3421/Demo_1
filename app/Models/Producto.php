@@ -34,6 +34,30 @@ class Producto extends Model
         'visible',
         'sku',
     ];
+    protected static function boot()
+{
+    parent::boot();
+
+    static::creating(function ($producto) {
+        if (empty($producto->sku)) {
+            $producto->sku = self::generateUniqueSku();
+        }
+    });
+}
+
+public static function generateUniqueSku($attempts = 0)
+{
+    $sku = 'SKU-' . str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+
+    if (self::where('sku', $sku)->exists()) {
+        if ($attempts >= 10) {
+            return 'SKU-' . str_pad(time() % 1000000, 6, '0', STR_PAD_LEFT);
+        }
+        return self::generateUniqueSku($attempts + 1);
+    }
+
+    return $sku;
+}
 
     public $timestamps = false;
 
