@@ -18,7 +18,6 @@ $sku = $producto->sku; // Acceder al campo SKU
 
 // Buscar producto por SKU
 $producto = Producto::where('sku', 'SKU-123456')->first();
-
     // Obtener todas las categorías
     $categorias = Categoria::all();
 
@@ -158,7 +157,6 @@ public function getLatestProducts()
     $productos = Producto::inRandomOrder()->take(12)->get();
     return view('partials.product-slider', compact('productos'));
 }
-
 // app/Http/Controllers/ProductoController.php
 public function filtrarPorCategoria($categoria)
 {

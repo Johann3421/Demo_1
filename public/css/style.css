@@ -1,5 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
+/* Estructura base */
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+/* Específico para página de producto */
+.product-page {
+    padding-bottom: 2rem;
+}
+
+.product-container {
+    min-height: 60vh;
+}
+
 
 .floating-buttons-container {
             position: fixed;
@@ -921,10 +944,6 @@
 
 
 
-
-.p-4 {
-    padding: 1rem;
-}
 
 .mb-8 {
     margin-bottom: 2rem;
@@ -2623,7 +2642,7 @@ h1 {
 main {
     flex-grow: 1;
     overflow-y: auto;
-    padding: 20px;
+
 }
 /* Ajustes para móviles */
 @media (max-width: 768px) {

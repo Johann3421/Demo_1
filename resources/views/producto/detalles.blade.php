@@ -362,8 +362,13 @@
     </div>
 
     @include('partials.product-slider', [
-        'productos' => \App\Models\Producto::inRandomOrder()->take(24)->get(),
-    ])
+    'productos' => \App\Models\Producto::where('categoria_id', $producto->categoria_id)
+        ->where('id', '!=', $producto->id) // Excluir el producto actual
+        ->inRandomOrder()
+        ->take(24)
+        ->get(),
+])
+
 
     <!-- Schema Markup para SEO -->
 <script type="application/ld+json">
