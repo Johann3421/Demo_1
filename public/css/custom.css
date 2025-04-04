@@ -692,6 +692,7 @@ body {
     position: relative;
     margin: 0 auto;
     overflow: hidden;
+    padding-bottom: 3rem;
 }
 
 .sekai-slider-track {

@@ -3186,89 +3186,490 @@ main {
     margin-bottom: 8px;
 }
 
-/* Estilos de las tarjetas */
-/* Contenedor principal */
-.categorias-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* ===== CONTENEDOR DE CATEGORIAS ===== */
+/* ===== ESTILOS GENERALES ===== */
+.sekai-categorias-container {
     width: 100%;
-    padding: 40px 0;
+    margin: 0 auto;
+    padding: 0rem 0rem 3rem;
 }
 
-/* Título centrado */
-.categorias-titulo-container {
+/* ===== TÍTULO ===== */
+.sekai-categorias-titulo-container {
     width: 100%;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 3rem;
 }
 
-.categorias-titulo {
-    font-size: 36px;
-    font-weight: 700;
+.sekai-categorias-titulo {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: #222; /* Color más profesional */
+    color: #222;
+    position: relative;
+    padding-bottom: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(90deg, #3b82f6, #10b981);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
-/* Grid de categorías bien distribuido */
-.categorias-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 100px;
-    width: 90%;
+.sekai-categorias-titulo::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, #3b82f6, #10b981);
+    border-radius: 2px;
 }
 
-/* Tarjeta individual más ancha y alta */
-.categoria-item {
-    flex: 1 1 calc(30% - 30px); /* Más ancho */
-    max-width: 320px; /* Aumentado */
-}
-
-/* Diseño del contenedor de cada categoría */
-.categoria-card {
-    background: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
-    text-align: center;
-    padding: 20px;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    overflow: hidden;
-    width: 320px; /* Más ancho */
-    height: 350px; /* Más alto */
-}
-
-/* Efecto al pasar el cursor */
-.categoria-card:hover {
-    transform: scale(1.08);
-    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.25);
-}
-
-/* Imagen dentro de la tarjeta - Se adapta sin distorsión */
-.categoria-imagen {
+/* ===== GRID PARA DESKTOP/TABLET ===== */
+.sekai-categorias-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1.25rem;
     width: 100%;
-    height: 220px; /* Ajustado a mayor altura */
+}
+
+.sekai-categoria-item {
+    display: block;
+}
+
+.sekai-categoria-card {
+    background: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 3/4;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.sekai-categoria-imagen-container {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.sekai-categoria-imagen {
+    width: 100%;
     object-fit: cover;
-    border-radius: 15px;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Nombre de la categoría - Sin subrayado y con estilo más elegante */
-.categoria-nombre {
-    margin-top: 15px;
-    font-weight: 600;
-    font-size: 20px;
-    color: #333;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-decoration: none; /* Quita la línea debajo del texto */
+.sekai-categoria-card:hover .sekai-categoria-imagen {
+    transform: scale(1.08);
 }
-.categoria-link {
+
+/* ===== ELIMINAR SUBRAYADO DE LINKS ===== */
+a.sekai-categoria-link,
+a.sekai-categoria-link:hover,
+a.sekai-categoria-link:focus {
     text-decoration: none !important;
-    color: inherit !important;
-    display: block; /* Asegura que toda la tarjeta es clickeable */
+    color: inherit;
+    outline: none;
 }
 
+/* ===== CONTENEDOR DEL NOMBRE ===== */
+.sekai-categoria-contenido {
+    padding: 1rem 0.8rem;
+    flex-shrink: 0;
+    background: linear-gradient(
+        90deg,
+        #0037ff 0%,
+        #0055ff 25%,
+        #0072ff 50%,
+        #0090ff 75%,
+        #00adff 100%
+    );
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    box-shadow: 0 -4px 12px rgba(0, 55, 255, 0.3);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: hidden;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: 200% 100%;
+    animation: gradientFlow 8s ease infinite alternate;
+}
+
+/* Animación sutil del degradado */
+@keyframes gradientFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Mejora para mantener legibilidad del texto */
+.sekai-categoria-nombre {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 2;
+}
+
+/* Capa para mejorar contraste */
+.sekai-categoria-contenido::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(0,0,0,0.1) 0%,
+        rgba(0,0,0,0) 50%,
+        rgba(0,0,0,0.1) 100%
+    );
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ===== ESTILO DEL TEXTO ===== */
+.sekai-categoria-nombre {
+    margin: 0;
+    font-weight: 700; /* Más delgado */
+    font-size: clamp(0.9rem, 1.3vw, 1.1rem); /* Tamaño ajustado */
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.3;
+    position: relative;
+    display: block;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    padding: 0.3rem 0;
+    transition: all 0.3s ease;
+
+    /* Control de texto largo */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90%; /* Permite puntos suspensivos */
+}
+
+/* ===== EFECTOS VISUALES ===== */
+/* Brillo al hover (más sutil) */
+.sekai-categoria-contenido::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(255, 255, 255, 0) 60%
+    );
+    transform: rotate(30deg);
+    transition: all 0.6s ease;
+    opacity: 0;
+}
+
+.sekai-categoria-card:hover .sekai-categoria-contenido::before {
+    opacity: 0.6; /* Más transparente */
+    top: -30%;
+    left: -30%;
+}
+
+/* Barra decorativa inferior (más fina) */
+.sekai-categoria-nombre::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 50%;
+    height: 1px; /* Más delgada */
+    background: white;
+    border-radius: 1px;
+    transition: transform 0.4s ease;
+    transform-origin: center;
+}
+
+.sekai-categoria-card:hover .sekai-categoria-nombre::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+/* Efecto de onda (más sutil) */
+.sekai-categoria-contenido::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px; /* Más delgada */
+    background: rgba(255, 255, 255, 0.3);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s ease;
+}
+
+/* ===== CARRUSEL EXCLUSIVO PARA MÓVILES ===== */
+.sekai-mobile-carrusel {
+    display: none;
+    width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 0 1rem 2rem;
+    position: relative;
+}
+
+.sekai-mobile-carrusel::-webkit-scrollbar {
+    display: none;
+}
+
+.sekai-mobile-categoria-slide {
+    flex: 0 0 calc(100% - 2rem);
+    scroll-snap-align: center;
+    margin: 0 1rem;
+    padding: 0;
+}
+
+/* ===== TARJETA MÓVIL CON ESTILO UNIFICADO ===== */
+.sekai-mobile-categoria-card {
+    background: linear-gradient(
+        90deg,
+        #0037ff 0%,
+        #0055ff 25%,
+        #0072ff 50%,
+        #0090ff 75%,
+        #00adff 100%
+    );
+    border-radius: 1.25rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 3/4;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    position: relative;
+    background-size: 200% 100%;
+    animation: gradientFlow 8s ease infinite alternate;
+}
+
+/* Contenedor de imagen */
+.sekai-mobile-imagen-container {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    position: relative;
+    background: #ffffff;
+}
+
+/* Imagen con efecto hover */
+.sekai-mobile-categoria-imagen {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.sekai-mobile-categoria-card:hover .sekai-mobile-categoria-imagen {
+    transform: scale(1.05);
+}
+
+/* Contenedor de texto unificado */
+.sekai-mobile-categoria-contenido {
+    padding: 1rem 0.8rem;
+    flex-shrink: 0;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none; /* Eliminamos el fondo anterior */
+}
+
+/* Texto con estilo unificado */
+.sekai-mobile-categoria-nombre {
+    margin: 0;
+    font-weight: 700;
+    font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.3;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    padding: 0.3rem 0;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90%;
+}
+
+/* ===== EFECTOS UNIFICADOS ===== */
+/* Animación del degradado */
+@keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Brillo al hover */
+.sekai-mobile-categoria-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(255, 255, 255, 0) 60%
+    );
+    transform: rotate(30deg);
+    transition: all 0.6s ease;
+    opacity: 0;
+}
+
+.sekai-mobile-categoria-card:hover::before {
+    opacity: 0.6;
+    top: -30%;
+    left: -30%;
+}
+
+/* Barra decorativa inferior */
+.sekai-mobile-categoria-nombre::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 50%;
+    height: 1px;
+    background: white;
+    border-radius: 1px;
+    transition: transform 0.4s ease;
+    transform-origin: center;
+}
+
+.sekai-mobile-categoria-card:hover .sekai-mobile-categoria-nombre::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+/* Efecto de onda */
+.sekai-mobile-categoria-contenido::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s ease;
+}
+
+.sekai-mobile-categoria-card:hover .sekai-mobile-categoria-contenido::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.sekai-mobile-categoria-link,
+.sekai-mobile-categoria-link:hover {
+    text-decoration: none !important;
+}
+
+/* ===== INDICADORES DEL CARRUSEL (OCULTOS EN WEB) ===== */
+.sekai-carrusel-indicadores {
+    display: none; /* Oculto por defecto para web */
+}
+
+/* ===== FLECHAS (SIEMPRE OCULTAS) ===== */
+.sekai-carrusel-flecha {
+    display: none !important;
+}
+
+/* ===== MEDIA QUERIES ===== */
+@media (max-width: 768px) {
+    /* Mostrar carrusel en móvil */
+    .sekai-categorias-grid {
+        display: none;
+    }
+
+    .sekai-mobile-carrusel {
+        display: flex;
+    }
+
+    /* Mostrar indicadores solo en móvil */
+    .sekai-carrusel-indicadores {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 1rem 0;
+    }
+
+    .sekai-carrusel-indicador {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #cbd5e0;
+        transition: all 0.3s ease;
+    }
+
+    .sekai-carrusel-indicador.active {
+        background: #3b82f6;
+        width: 20px;
+        border-radius: 4px;
+    }
+
+    /* Ajustes de contenedor */
+    .sekai-categorias-container {
+        padding: 0 0 2rem;
+    }
+
+    .sekai-categorias-titulo {
+        font-size: 1.5rem;
+        padding-bottom: 0.75rem;
+    }
+
+    .sekai-categorias-titulo::after {
+        width: 80px;
+        height: 3px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sekai-mobile-categoria-slide {
+        flex: 0 0 calc(100% - 1.5rem);
+        margin: 0 0.75rem;
+    }
+
+    .sekai-mobile-categoria-nombre {
+        font-size: 1.1rem;
+    }
+}
+/* ================ FIN DE ESTILOS DE CATEGORÍAS ================ */
 
 /* Estilo para la sección del banner */
 .sekai-banner-placeholder {
