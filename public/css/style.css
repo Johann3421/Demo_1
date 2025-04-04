@@ -535,7 +535,7 @@ main {
 }
 
 .dolar-icon {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgb(255, 255, 255);
     border-radius: 50%;
     width: 35px;
     height: 35px;
@@ -544,7 +544,9 @@ main {
     justify-content: center;
     color: white;
     font-size: 20px;
-    margin-right: 10px;
+    margin-right: 16px;
+    margin-right: 8px;
+    color: #000000;
 }
 
 .dolar-info {
@@ -691,28 +693,8 @@ main {
 }
 
 /* ======= BUSCADOR RESPONSIVO ======= */
-.search-container {
-    flex: 1;
-    min-width: 200px;
-    margin: 0 20px;
-    position: relative;
-}
 
-.search-form {
-    display: flex;
-    width: 100%;
-}
 
-.search-input {
-    width: 100%;
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    border-radius: 25px;
-    font-size: 0.9rem;
-    outline: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
 
 .search-input:focus {
     border-color: #0d6efd;
@@ -809,18 +791,15 @@ main {
 .dolar-box {
     display: flex;
     align-items: center;
-    background-color: white;
-    padding: 6px 15px;
+    background-color: #28a745;
+    padding: 9px 6px;
     border-radius: 20px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     height: 40px;
     order: 1;
-}
-
-.dolar-icon {
-    margin-right: 8px;
-    color: #28a745;
-    font-size: 0.9rem;
+    transform: scaleX(1.1); /* Escala solo horizontalmente */
+    transform-origin: left; /* Ancla el escalado al lado izquierdo */
+    width: auto; /* Permite que el ancho sea flexible */
 }
 
 .dolar-info {
@@ -831,13 +810,14 @@ main {
 
 .dolar-label {
     font-size: 0.7rem;
-    color: #6c757d;
+    color: #ffffff;
 }
 
 .dolar-precio {
     font-size: 0.85rem;
     font-weight: 600;
-    color: #333;
+    color: #ffffff;
+    margin-right: 4px;
 }
 
 /* Grupo de iconos sociales */
@@ -2433,36 +2413,104 @@ h1 {
 
 /* fin de estilos para el footer */
 
-/* estilos para el Buscador */
+/* Estilos profesionales para el Buscador */
+.search-container {
+    flex: 1;
+    min-width: 200px;
+    margin: 0 20px;
+    position: relative;
+}
 
-/* public/css/style.css */
 .search-form {
-    position: relative; /* Asegura que el contenedor de resultados sea relativo al formulario */
+    position: relative;
     display: flex;
-    align-items: center; /* Asegura que el formulario ocupe el ancho disponible */
-    max-width: 800px; /* Hace la barra de búsqueda más ancha */
-    margin: 0 auto; /* Centra el buscador */
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+    transition: transform 0.3s ease;
+}
+
+.search-form:hover {
+    transform: translateY(-1px);
+}
+
+.search-input-wrapper {
+    position: relative;
+    width: 100%;
+    margin-left: 20px;
 }
 
 .search-input {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    margin-left: 20px;
+    padding: 14px 48px 14px 20px;
+    border: 2px solid #e5e7eb;
+    border-radius: 50px; /* Forma ovalada */
+    font-size: 15px;
+    font-weight: 500;
+    color: #1f2937;
+    background-color: #f9fafb;
+    outline: none;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.05),
+        inset 0 1px 2px rgba(255, 255, 255, 0.1);
 }
 
-.search-button {
-    padding: 12px 24px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    margin-left: 10px;
-    cursor: pointer;
+.search-input:focus {
+    border-color: #3b82f6;
+    background-color: #ffffff;
+    box-shadow:
+        0 0 0 3px rgba(59, 130, 246, 0.2),
+        0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
+/* Estilos para el icono de lupa negro */
+.search-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: #111827; /* Negro bonito */
+    opacity: 0.8;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus + .search-icon {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.05);
+}
+
+/* Contenedor de resultados */
+.search-results {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 20px;
+    right: 0;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    z-index: 50;
+    max-height: 400px;
+    overflow-y: auto;
+    display: none;
+    border: 1px solid #e5e7eb;
+}
+
+/* Efecto de transición para el contenedor */
+.search-container {
+    transition: all 0.3s ease;
+}
+
+/* Micro-interacción al hacer hover en el contenedor */
+.search-container:hover {
+    transform: translateY(-1px);
+}
 .search-results {
     position: absolute;
     top: 100%; /* Coloca el contenedor de resultados justo debajo del input */

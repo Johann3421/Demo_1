@@ -18,13 +18,12 @@
 @section('content')
 
 <div class="text-center">
-    <h1 class="main-title">Explora Nuestras Categorías de Tecnología en SEKAITECH</h1>
+    <h1 class="main-title">Explora Nuestras Categorías</h1>
 </div>
 
 <section class="sekai-categorias-container">
     <!-- Contenedor del título -->
     <div class="sekai-categorias-titulo-container">
-        <h2 class="sekai-categorias-titulo">CATEGORÍAS</h2>
     </div>
 
     <!-- Grid para Desktop/Tablet -->
@@ -203,16 +202,22 @@
 <style>
 /* Estilo para el título principal h1 */
 .main-title {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-    font-size: 2.5rem;
-    line-height: 1.2;
-    color: #2d3748;
-    margin: 2rem 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 3rem;
+    line-height: 1.15;
+    color: #1a202c;
+    margin-bottom: 1.5rem;
     position: relative;
     display: inline-block;
+    background: linear-gradient(90deg, #4f46e5, #10b981);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 10px rgba(79, 70, 229, 0.15);
+    letter-spacing: -0.5px;
     padding-bottom: 1rem;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding-top: 3rem
 }
 
 .main-title::after {
