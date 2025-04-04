@@ -736,7 +736,7 @@ main {
     color: #0d6efd;
 }
 
-/* Contenedor de todos los iconos */
+/* ===== CONTENEDOR PRINCIPAL ===== */
 .header-icons {
     display: flex;
     align-items: center;
@@ -745,28 +745,64 @@ main {
     margin-left: auto;
 }
 
-/* Estilos para todos los iconos */
-.header-icon, .social-icon {
+/* ===== ESTILOS BASE PARA ICONOS ===== */
+.header-icon,
+.social-icon {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 40px;
     height: 40px;
     color: #333;
+    background-color: transparent;
     border-radius: 50%;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-size: 1.1rem;
+    text-decoration: none !important; /* Elimina subrayado */
+    border: 1px solid #333; /* Borde negro delgado */
+    position: relative;
+    overflow: hidden;
 }
 
-/* Icono de home específico */
+/* ===== EFECTO HOVER PARA TODOS LOS ICONOS ===== */
+.header-icon:hover,
+.social-icon:hover {
+    color: #fff;
+    background-color: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== ICONO DE HOME ESPECÍFICO ===== */
 .home-icon {
     order: 2;
     margin-left: 10px;
 }
 
 .home-icon:hover {
-    color: #0d6efd;
-    background-color: rgba(13, 110, 253, 0.1);
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+/* ===== EFECTO ADICIONAL PARA ICONOS ===== */
+.header-icon::after,
+.social-icon::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(0);
+    transition: transform 0.3s ease;
+}
+
+.header-icon:hover::after,
+.social-icon:hover::after {
+    transform: scale(1);
 }
 
 /* Contenedor del dólar */
@@ -2069,6 +2105,8 @@ main {
 .img-fluid {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+    transition: none !important;
+    transform: none !important;
 }
 
 .img-fluid:hover {
@@ -2539,12 +2577,14 @@ h1 {
     overflow: hidden;
 }
 
-/* Imagen dentro del slider */
+/* Imagen estática sin efectos */
 .slider-image {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Asegura que la imagen llene el contenedor sin deformarse */
+    object-fit: cover;
     display: block;
+    transition: none !important;
+    transform: none !important;
 }
 
 /* Oculta el texto "SLIDER" si hay imagen */
