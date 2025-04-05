@@ -2178,6 +2178,7 @@ h1 {
     height: 40px;
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.1);
+    text-decoration: none;
 }
 
 .footer-social-icon:hover {
@@ -2209,7 +2210,6 @@ h1 {
     flex-wrap: wrap;
     gap: 15px;
     padding: 25px 0;
-    background-color: rgba(0, 0, 0, 0.2);
     margin-top: 20px;
 }
 
@@ -2340,13 +2340,30 @@ h1 {
     background-color: #0025b4; /* Azul más oscuro */
 }
 
-/* Copyright */
+/* Estilos originales (sin cambios) */
 .footer-bottom {
-    width: 100%;
-    background-color: #0d0d0d;
-    text-align: center;
+    align-items: center;
     padding: 15px 0;
     margin-top: 20px;
+    display: flex;
+    margin-left: 5.8cm;
+    margin-right: 5.4cm;
+    justify-content: space-between;
+}
+
+/* Solo media query para móvil */
+@media (max-width: 768px) {
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 15px 20px;
+    }
+
+    .footer-social {
+        order: -1; /* Mover redes sociales arriba */
+    }
 }
 @media (max-width: 992px) {
     .footer-content {

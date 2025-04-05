@@ -12,6 +12,7 @@ use App\Models\Proveedor;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoriaController;
+use Maatwebsite\Excel\Row;
 
 Route::get('/', function () {
     $proveedores = Proveedor::all(); // Obtener los proveedores
@@ -136,5 +137,42 @@ Route::prefix('panel/especificaciones')->group(function () {
 });
 
 //////////////////////////////////ESPECIFICACIONES/////////////////////////////////////
+
+
+//////////////////////////////////FOOTER/////////////////////////////////////
+
+Route::get('/metodos-pago', function () {
+    return view('footer.informacion.metodos-pago');
+})->name('footer.metodos-pago');
+
+Route::get('/mision-vision', function () {
+    return view('footer.informacion.mision-vision');
+})->name('footer.mision-vision');
+
+Route::get('/politicas-privacidad', function () {
+    return view('footer.informacion.politicas-privacidad');
+})->name('footer.politicas-privacidad');
+
+Route::get('/preguntas-frecuentes', function () {
+    return view('footer.informacion.preguntas-frecuentes');
+})->name('footer.preguntas-frecuentes');
+
+Route::get('/quienes-somos', function () {
+    return view('footer.informacion.quienes-somos');
+})->name('footer.quienes-somos');
+
+Route::get('/politica-envio-recojo', function () {
+    return view('footer.atencion-cliente.politica-envio-recojo');
+})->name('footer.politica-envio-recojo');
+
+Route::get('/terminos-condiciones-garantia', function () {
+    return view('footer.atencion-cliente.terminos-condiciones-garantia');
+})->name('footer.terminos-condiciones');
+
+Route::get('/terminos-garantia', function () {
+    return view('footer.atencion-cliente.terminos-garantia');
+})->name('footer.terminos-garantia');
+
+/////////////////////////////////////////////FOOTER/////////////////////////////////////
 
 require __DIR__ . '/admin.php';

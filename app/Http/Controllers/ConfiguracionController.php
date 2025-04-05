@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use App\Models\Configuracion;
 use Illuminate\Support\Facades\Storage;
+use DOMDocument;
+use DOMXPath;
 
 class ConfiguracionController extends Controller
 {
@@ -19,36 +21,106 @@ class ConfiguracionController extends Controller
         return view('panel.configuracion', compact('precio_dolar'));
     }
 
-    public function actualizarDolar()
-    {
-        try {
-            $response = Http::retry(3, 100)->get('https://api.exchangerate-api.com/v4/latest/USD');
+    public function actualizarDolarDeltron()
+{
+    try {
+        $response = Http::retry(2, 100)
+            ->withHeaders([
+                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            ])
+            ->get('https://www.deltron.com.pe/index_2.php');
 
-            if ($response->successful()) {
-                $data = $response->json();
-                $tasa = $data['rates']['PEN'] ?? null;
+        if ($response->successful()) {
+            $html = $response->body();
+            $dom = new DOMDocument();
+            @$dom->loadHTML($html);
+            $xpath = new DOMXPath($dom);
 
-                if ($tasa) {
-                    $config = Configuracion::firstOrCreate([]);
-                    $config->precio_dolar = $tasa;
-                    $config->save();
+            $elementos = $xpath->query("//li[contains(@class, 'address') and contains(., 'Tipo de cambio')]");
 
-                    return response()->json([
-                        'success' => true,
-                        'precio' => number_format($tasa, 2)
-                    ]);
+            if ($elementos->length > 0) {
+                $texto = trim($elementos->item(0)->nodeValue);
+                if (preg_match('/\d+\.\d+/', $texto, $matches)) {
+                    return $this->guardarTipoCambio($matches[0], 'Deltron');
                 }
             }
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'No se encontró el tipo de cambio en Deltron'
+        ], 400);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Error al obtener de Deltron: ' . $e->getMessage()
+        ], 500);
+    }
+}
+
+public function actualizarDolarGoogle()
+{
+    try {
+        $response = Http::retry(3, 100)
+            ->withHeaders([
+                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            ])
+            ->get('https://www.google.com/finance/quote/USD-PEN');
+
+        if ($response->successful()) {
+            $html = $response->body();
+            if (preg_match('/data-last-price="([\d.]+)"/', $html, $matches)) {
+                return $this->guardarTipoCambio($matches[1], 'Google Finance');
+            }
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'No se pudo obtener la tasa de Google'
+        ], 400);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Error al obtener de Google: ' . $e->getMessage()
+        ], 500);
+    }
+}
+
+    private function guardarTipoCambio($tasa, $fuente)
+    {
+        $config = Configuracion::firstOrCreate([]);
+        $config->precio_dolar = $tasa;
+        $config->save();
+
+        return response()->json([
+            'success' => true,
+            'precio' => number_format($tasa, 2),
+            'fuente' => $fuente
+        ]);
+    }
+
+    public function actualizarManual(Request $request)
+    {
+        $request->validate([
+            'nuevo_precio' => 'required|numeric|min:0.01'
+        ]);
+
+        try {
+            $config = Configuracion::firstOrCreate([]);
+            $config->precio_dolar = $request->nuevo_precio;
+            $config->save();
 
             return response()->json([
-                'success' => false,
-                'message' => 'No se pudo obtener la tasa de cambio actual'
-            ], 400);
+                'success' => true,
+                'precio' => number_format($request->nuevo_precio, 2)
+            ]);
 
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error en el servidor: ' . $e->getMessage()
+                'message' => 'Error al guardar: ' . $e->getMessage()
             ], 500);
         }
     }

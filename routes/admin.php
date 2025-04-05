@@ -132,7 +132,14 @@ Route::get('/panel/subfiltros/buscar', [SubFiltroController::class, 'buscarSubFi
 
 //////////////////////////////////DOLAR////////////////////////////////////
 Route::get('/configuracion', [ConfiguracionController::class, 'index'])->name('configuracion.index');
-Route::get('/actualizar-dolar', [ConfiguracionController::class, 'actualizarDolar'])->name('actualizar.dolar');
+Route::post('/actualizar-dolar-manual', [ConfiguracionController::class, 'actualizarManual'])
+    ->name('actualizar.dolar.manual');
+
+// Rutas para las fuentes específicas (cambiar a POST)
+Route::post('/actualizar-dolar/deltron', [ConfiguracionController::class, 'actualizarDolarDeltron'])
+    ->name('actualizar.dolar.deltron');
+Route::post('/actualizar-dolar/google', [ConfiguracionController::class, 'actualizarDolarGoogle'])
+    ->name('actualizar.dolar.google');
 
 //////////////////////////////////DOLAR////////////////////////////////////
 
