@@ -44,8 +44,8 @@
     <meta name="twitter:image" content="@yield('twitter:image', asset('images/logo.png'))">
 
     <!-- Favicon con preload -->
-    <link rel="preload" href="{{ asset('images/LOGO-SEKAITECH-2 (1).ico') }}" as="image" type="image/x-icon">
-    <link rel="icon" href="{{ asset('images/LOGO-SEKAITECH-2 (1).ico') }}" type="image/x-icon">
+    <link rel="preload" href="{{ asset('images/icono_circulo.png') }}" as="image" type="image/x-icon">
+    <link rel="icon" href="{{ asset('images/icono_circulo.png') }}" type="image/x-icon">
 
     <!-- Preload critical resources -->
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">

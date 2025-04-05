@@ -1572,7 +1572,6 @@ main {
     background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
     color: white;
     position: relative;
-    overflow: hidden;
 }
 
 .whatsapp-button::after {
@@ -1582,11 +1581,6 @@ main {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(
-        to bottom right,
-        rgba(255, 255, 255, 0.3),
-        rgba(255, 255, 255, 0)
-    );
     transform: rotate(30deg);
     transition: all 0.3s ease;
 }
@@ -2304,7 +2298,6 @@ h1 {
     width: 20px; /* Tamaño igual al resto de iconos */
     height: 20px;
     vertical-align: middle; /* Alineación con el texto */
-    margin-right: 5px;
 }
 
 /* 📞 Enlace de WhatsApp */
@@ -2858,7 +2851,6 @@ main {
 /* ======= SUBHEADER ======= */
 .header-row {
     background-color: #0037FF; /* Azul intenso agradable */
-    padding: 15px 0;
     align-items: center;
 }
 
@@ -2968,19 +2960,18 @@ main {
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: center;
-    background: #ffffff; /* Blanco */
-    color: #0056b3; /* Azul */
+    color: #ffffff;
     padding: 12px 18px;
     font-size: 16px;
     font-weight: bold;
     border: none;
     border-radius: 5px;
     transition: background 0.3s ease-in-out, transform 0.2s, color 0.3s;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    gap: 8px; /* Espacio entre icono y texto */
-    white-space: nowrap; /* Evita saltos de línea */
+    gap: 8px;
+    white-space: nowrap;
+    text-decoration: none; /* ← Esto elimina el subrayado */
 }
+
 
 /* Efecto hover en botones */
 .menu-toggle:hover {
@@ -2994,10 +2985,33 @@ main {
     font-size: 18px;
 }
 
-/* Botón de categorías */
+/* Versión Desktop (≥ 768px) */
 .menu-toggle.categorias {
-    background: #272424; /* Negro suave */
+    background: #363232;
     color: white;
+    width: 240px;
+    min-height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+}
+
+/* Flecha hacia abajo (CSS puro) */
+.menu-toggle.categorias::after {
+    content: "";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid white;
+    transition: transform 0.3s ease;
 }
 
 .menu-toggle.categorias:hover {
@@ -3011,8 +3025,7 @@ main {
     top: 100%;
     left: 0;
     background: #ffffff; /* Fondo blanco */
-    border-radius: 5px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
     z-index: 1001;
     padding: 10px 0;
     opacity: 0;

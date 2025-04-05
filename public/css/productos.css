@@ -711,6 +711,7 @@
     .w-full.md\:w-1\/4 {
         width: 25%;
         min-width: 280px; /* Ancho mínimo para sidebar */
+        padding-top: 1.6rem;
     }
 }
 

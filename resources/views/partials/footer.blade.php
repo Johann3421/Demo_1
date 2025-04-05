@@ -6,9 +6,9 @@
             <h3>Contáctanos</h3>
             <p>📧 ventas@sekaitech.com.pe</p>
             <p>
-                <img src="https://img.icons8.com/?size=100&id=13800&format=png&color=000000"
+            <img src="https://img.icons8.com/?size=100&id=13800&format=png&color=000000"
             alt="WhatsApp Icon" class="whatsapp-icon">
-            Ubícanos: JR. SAN MARTIN NRO 1458 - Huánuco</p>
+                JR. SAN MARTIN NRO 1458 - Huánuco</p>
             <p>📱 WhatsApp: 933 573 985</p>
             <p>
                 <img src="https://img.icons8.com/?size=100&id=uZWiLUyryScN&format=png&color=000000"
@@ -33,7 +33,6 @@
         <div class="footer-section">
             <h3>Atención al Cliente</h3>
             <ul>
-                <li><a href="#">Soporte técnico</a></li>
                 <li><a href="#">Términos y condiciones de garantía</a></li>
             </ul>
         </div>

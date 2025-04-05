@@ -22,7 +22,7 @@
                     <form id="filter-form" method="GET">
                         <!-- Filtro de Precio -->
                         <div>
-                            <h2>FILTER BY PRICE</h2>
+                            <h2>FILTRO POR PRECIO</h2>
                             <div class="price-container">
                                 <span id="price-label">${{ request('max_price', 0) }}</span>
                                 <span>$5000</span>
@@ -33,9 +33,9 @@
 
                         <!-- Filtro de Categoría -->
                         <div class="mb-6">
-                            <h2>CATEGORY</h2>
+                            <h2>CATEGORIA</h2>
                             <select id="categoria-select" name="categoria_id" class="category-select">
-                                <option value="">All Categories</option>
+                                <option value="">TODAS LAS CATEGORIAS</option>
                                 @foreach ($categorias as $categoria)
                                     <option value="{{ $categoria->id }}"
                                         {{ request('categoria_id') == $categoria->id ? 'selected' : '' }}>
@@ -47,7 +47,7 @@
 
                         <!-- Sub-Filtros dinámicos -->
                         <div id="subfiltros-container" class="mb-6 hidden">
-                            <h2>ADDITIONAL FILTERS</h2>
+                            <h2>FILTROS ADICIONALES</h2>
                             <div id="subfiltros-list" class="space-y-2"></div>
                         </div>
 
