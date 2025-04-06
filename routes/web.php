@@ -12,6 +12,7 @@ use App\Models\Proveedor;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ProductoController;
 use Maatwebsite\Excel\Row;
 
 Route::get('/', function () {
@@ -78,6 +79,17 @@ Route::get('/productos/subgrupo/{subgrupo}', [ProductController::class, 'filtrar
 
 //////////////////////////////////API/////////////////////////////////////
 Route::get('/api/subfiltros/{categoria_id}', [SubFiltroController::class, 'getSubFiltrosPorCategoria']);
+// API-style para productos
+Route::get('/api/productos', [ProductoController::class, 'getProductosBasicos']);
+Route::get('/api/productos/{param}', function($param) {
+    $controller = app(ProductoController::class);
+
+    // Detectar si es ID numérico o slug
+    if (is_numeric($param)) {
+        return $controller->getProductoPorId($param);
+    }
+    return $controller->getProductoPorSlug($param);
+});
 //////////////////////////////////API/////////////////////////////////////
 
 

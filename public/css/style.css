@@ -2210,7 +2210,6 @@ h1 {
     flex-wrap: wrap;
     gap: 15px;
     padding: 25px 0;
-    margin-top: 20px;
 }
 
 .footer-social span {
@@ -2289,10 +2288,6 @@ h1 {
 }
 
 /* Redes Sociales */
-.footer-social {
-    text-align: center;
-    padding: 20px 0;
-}
 
 .whatsapp-icon {
     width: 20px; /* Tamaño igual al resto de iconos */
@@ -2349,6 +2344,11 @@ h1 {
     margin-left: 5.8cm;
     margin-right: 5.4cm;
     justify-content: space-between;
+    text-align: center;
+}
+/* En tu archivo CSS personalizado (debe cargarse después de reebot.scss) */
+p {
+    margin-bottom: 0 !important; /* El !important asegura que prevalezca */
 }
 
 /* Solo media query para móvil */
@@ -3156,12 +3156,6 @@ main {
 
 /* ======= ESTILOS RESPONSIVE ======= */
 @media screen and (max-width: 768px) {
-    .header-row {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 15px;
-        min-height: 60px; /* Evita que el header se haga muy delgado */
-    }
 
     .menu-wrapper {
         flex-direction: column;

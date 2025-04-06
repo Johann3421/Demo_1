@@ -586,6 +586,7 @@
             /* Clase para mostrar el sidebar */
             .filters-wrapper.show {
                 left: 0;
+                z-index: 1000;
             }
 
             /* Fondo oscuro al abrir el sidebar */
