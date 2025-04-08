@@ -162,116 +162,137 @@
 @section('content')
     <div class="container product-page">
         <div class="product-container">
-            <!-- 📷 Imagen del producto -->
+            <!-- 📷 Galería optimizada -->
             <div class="product-gallery">
-                <!-- Imagen principal -->
+                <!-- Imagen principal con lazy loading -->
                 <div class="product-main-image">
-                    <img src="{{ asset('images/' . $producto->imagen_url) }}" alt="{{ $producto->nombre }}"
-                        class="img-fluid main-img">
+                    <img src="{{ asset('images/' . $producto->imagen_url) }}"
+                         alt="{{ $producto->nombre }}"
+                         class="img-fluid main-img"
+                         loading="lazy"
+                         width="600"
+                         height="600"
+                         onload="this.style.opacity=1">
                 </div>
 
-                <!-- Miniaturas (4 veces la misma imagen) -->
+                <!-- Miniaturas optimizadas (solo si son necesarias) -->
                 <div class="product-thumbnails">
-                    @for ($i = 0; $i < 4; $i++)
-                        <img src="{{ asset('images/' . $producto->imagen_url) }}"
-                            alt="{{ $producto->nombre }} - Vista {{ $i + 1 }}" class="thumbnail">
-                    @endfor
+                    @foreach(range(1, min(4, $producto->imagenes_count)) as $i)
+                        <img src="{{ $i === 1 ? asset('images/' . $producto->imagen_url) : 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==' }}"
+                             data-src="{{ asset('images/' . $producto->imagen_url) }}"
+                             alt="{{ $producto->nombre }} - Vista {{ $i }}"
+                             class="thumbnail lazy"
+                             width="100"
+                             height="100"
+                             @if($i === 1) loading="eager" @endif>
+                    @endforeach
                 </div>
 
-                <!-- Modal para pantalla completa -->
-                <div class="image-modal">
-                    <span class="close-modal">&times;</span>
-                    <img class="modal-content">
+                <!-- Modal optimizado -->
+                <div class="image-modal" aria-hidden="true" role="dialog">
+                    <button class="close-modal" aria-label="Cerrar vista ampliada">&times;</button>
+                    <img class="modal-content" alt="Vista ampliada">
                 </div>
             </div>
 
-            <!-- 📄 Información del producto -->
+            <!-- 📄 Información optimizada -->
             <div class="product-info">
                 <h1 class="product-title">{{ ucwords($producto->nombre) }} | SEKAITECH</h1>
-                <div class="product-details">
+
+                <!-- Detalles del producto con microdatos -->
+                <div class="product-details" itemscope itemtype="http://schema.org/Product">
                     <div class="detail-row">
-                        <strong>Marca:</strong>
+                        <strong itemprop="brand">Marca:</strong>
                         <span>{{ $producto->marca }}</span>
                     </div>
                     <div class="detail-row">
                         <strong>Código Interno:</strong>
-                        <span>{{ $producto->sku ?? 'N/A' }}</span>
+                        <span itemprop="sku">{{ $producto->sku ?? 'N/A' }}</span>
                     </div>
                     <div class="detail-row">
                         <strong>Estado:</strong>
-                        <span>{{ $producto->estado ?? 'Disponible' }}</span>
+                        <span itemprop="availability">{{ $producto->estado ?? 'Disponible' }}</span>
                     </div>
                     <div class="detail-row">
                         <strong>En stock:</strong>
-                        <span>{{ $producto->stock }}</span>
+                        <span itemprop="inventoryLevel">{{ $producto->stock }}</span>
                     </div>
                 </div>
 
+                <!-- Características de compra optimizadas -->
                 <div class="purchase-details">
                     <ul class="purchase-features">
+                        @php
+                            $features = [
+                                [
+                                    'icon' => 'M12,2L4,5V11.09C4,16.14 7.41,20.85 12,22C16.59,20.85 20,16.14 20,11.09V5L12,2M12,7C13.66,7 15,8.34 15,10C15,11.66 13.66,13 12,13C10.34,13 9,11.66 9,10C9,8.34 10.34,7 12,7M12,15.5C14.33,15.5 18,16.56 18,17.5V18.5H6V17.5C6,16.56 9.67,15.5 12,15.5Z',
+                                    'text' => 'Compra Segura <strong class="highlight">¡¡Con Garantía!!</strong>'
+                                ],
+                                [
+                                    'icon' => 'M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.1 14.8,9.5V11C15.4,11 16,11.6 16,12.2V15.7C16,16.4 15.4,17 14.7,17H9.2C8.6,17 8,16.4 8,15.8V12.2C8,11.6 8.6,11 9.2,11V9.5C9.2,8.1 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,9.5V11H13.5V9.5C13.5,8.7 12.8,8.2 12,8.2Z',
+                                    'text' => 'Precio incluye el <strong class="highlight">I.G.V</strong>'
+                                ],
+                                [
+                                    'icon' => 'M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M13,17H11V15H13V17M13,13H11V7H13V13Z',
+                                    'text' => 'Precio sujeto a cambios sin previo aviso'
+                                ],
+                                [
+                                    'icon' => 'M19,15H18A3,3 0 0,1 15,18V19A3,3 0 0,1 12,22A3,3 0 0,1 9,19V18A3,3 0 0,1 6,15H5A3,3 0 0,1 2,12A3,3 0 0,1 5,9H6A3,3 0 0,1 9,6V5A3,3 0 0,1 12,2A3,3 0 0,1 15,5V6A3,3 0 0,1 18,9H19A3,3 0 0,1 22,12A3,3 0 0,1 19,15M12,4A1,1 0 0,0 11,5V6A1,1 0 0,0 12,7A1,1 0 0,0 13,6V5A1,1 0 0,0 12,4M12,20A1,1 0 0,0 13,19V18A1,1 0 0,0 12,17A1,1 0 0,0 11,18V19A1,1 0 0,0 12,20M5,11A1,1 0 0,0 6,12A1,1 0 0,0 5,13A1,1 0 0,0 4,12A1,1 0 0,0 5,11M19,11A1,1 0 0,0 20,12A1,1 0 0,0 19,13A1,1 0 0,0 18,12A1,1 0 0,0 19,11Z',
+                                    'text' => 'Precio no incluye flete por envío'
+                                ]
+                            ];
+                        @endphp
+
+                        @foreach($features as $feature)
                         <li class="purchase-feature">
-                            <svg class="feature-icon" viewBox="0 0 24 24">
-                                <path fill="currentColor"
-                                    d="M12,2L4,5V11.09C4,16.14 7.41,20.85 12,22C16.59,20.85 20,16.14 20,11.09V5L12,2M12,7C13.66,7 15,8.34 15,10C15,11.66 13.66,13 12,13C10.34,13 9,11.66 9,10C9,8.34 10.34,7 12,7M12,15.5C14.33,15.5 18,16.56 18,17.5V18.5H6V17.5C6,16.56 9.67,15.5 12,15.5Z" />
+                            <svg class="feature-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill="currentColor" d="{{ $feature['icon'] }}" />
                             </svg>
-                            <span class="feature-text">Compra Segura <strong class="highlight">¡¡Con Garantía!!</strong></span>
+                            <span class="feature-text">{!! $feature['text'] !!}</span>
                         </li>
-                        <li class="purchase-feature">
-                            <svg class="feature-icon" viewBox="0 0 24 24">
-                                <path fill="currentColor"
-                                    d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.1 14.8,9.5V11C15.4,11 16,11.6 16,12.2V15.7C16,16.4 15.4,17 14.7,17H9.2C8.6,17 8,16.4 8,15.8V12.2C8,11.6 8.6,11 9.2,11V9.5C9.2,8.1 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,9.5V11H13.5V9.5C13.5,8.7 12.8,8.2 12,8.2Z" />
-                            </svg>
-                            <span class="feature-text">Precio incluye el <strong class="highlight">I.G.V</strong></span>
-                        </li>
-                        <li class="purchase-feature">
-                            <svg class="feature-icon" viewBox="0 0 24 24">
-                                <path fill="currentColor"
-                                    d="M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M13,17H11V15H13V17M13,13H11V7H13V13Z" />
-                            </svg>
-                            <span class="feature-text">Precio sujeto a cambios sin previo aviso</span>
-                        </li>
-                        <li class="purchase-feature">
-                            <svg class="feature-icon" viewBox="0 0 24 24">
-                                <path fill="currentColor"
-                                    d="M19,15H18A3,3 0 0,1 15,18V19A3,3 0 0,1 12,22A3,3 0 0,1 9,19V18A3,3 0 0,1 6,15H5A3,3 0 0,1 2,12A3,3 0 0,1 5,9H6A3,3 0 0,1 9,6V5A3,3 0 0,1 12,2A3,3 0 0,1 15,5V6A3,3 0 0,1 18,9H19A3,3 0 0,1 22,12A3,3 0 0,1 19,15M12,4A1,1 0 0,0 11,5V6A1,1 0 0,0 12,7A1,1 0 0,0 13,6V5A1,1 0 0,0 12,4M12,20A1,1 0 0,0 13,19V18A1,1 0 0,0 12,17A1,1 0 0,0 11,18V19A1,1 0 0,0 12,20M5,11A1,1 0 0,0 6,12A1,1 0 0,0 5,13A1,1 0 0,0 4,12A1,1 0 0,0 5,11M19,11A1,1 0 0,0 20,12A1,1 0 0,0 19,13A1,1 0 0,0 18,12A1,1 0 0,0 19,11Z" />
-                            </svg>
-                            <span class="feature-text">Precio no incluye flete por envío</span>
-                        </li>
+                        @endforeach
                     </ul>
                 </div>
 
-
-
+                <!-- Precios optimizados -->
                 <div class="product-prices-container">
-                    <div class="price-card dollar">
+                    <div class="price-card dollar" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                        <meta itemprop="priceCurrency" content="USD">
                         <div class="price-flag">USD</div>
                         <div class="price-content">
                             <span class="price-currency">$</span>
-                            <span class="price-value">{{ number_format($producto->precio_dolares, 2) }}</span>
+                            <span class="price-value" itemprop="price">{{ number_format($producto->precio_dolares, 2) }}</span>
                         </div>
                         <div class="price-label">Precio en Dólares</div>
                     </div>
 
-                    <div class="price-card sol">
+                    <div class="price-card sol" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                        <meta itemprop="priceCurrency" content="PEN">
                         <div class="price-flag">PEN</div>
                         <div class="price-content">
                             <span class="price-currency">S/</span>
-                            <span class="price-value">{{ number_format($producto->precio_soles, 2) }}</span>
+                            <span class="price-value" itemprop="price">{{ number_format($producto->precio_soles, 2) }}</span>
                         </div>
                         <div class="price-label">Precio en Soles</div>
                     </div>
                 </div>
 
-                <!-- 🛒 Botones de compra -->
+                <!-- 🛒 Botones optimizados -->
                 <div class="product-buttons">
                     <a href="https://wa.me/51933573985?text=Hola,%20estoy%20interesado%20en%20el%20producto:%20{{ urlencode($producto->nombre) }}%0A%0APrecio:%20${{ number_format($producto->precio_dolares, 2) }}%20|%20S/{{ number_format($producto->precio_soles, 2) }}%0A%0AVer%20producto:%20{{ urlencode($productUrl) }}"
-                        class="btn btn-success whatsapp-button" target="_blank">
-                        <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
+                        class="btn btn-success whatsapp-button"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Contactar por WhatsApp sobre {{ $producto->nombre }}">
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i> Contactar por WhatsApp
                     </a>
 
-                    <button class="btn btn-outline-primary like-button" id="likeButton-{{ $producto->id }}"
-                        data-id="{{ $producto->id }}">
-                        <i class="fas fa-thumbs-up"></i> <span class="like-count">0</span> Likes
+                    <button class="btn btn-outline-primary like-button"
+                            id="likeButton-{{ $producto->id }}"
+                            data-id="{{ $producto->id }}"
+                            aria-label="Dar like a {{ $producto->nombre }}">
+                        <i class="fas fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="like-count">0</span> Likes
                     </button>
                 </div>
             </div>
@@ -444,177 +465,5 @@
         }
     }
 </script>
-<script>
-        // ✅ Scroll automático al cuadro del producto si hay un parámetro en la URL
-        document.addEventListener("DOMContentLoaded", function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has("producto")) {
-                document.getElementById("product-detail").scrollIntoView({
-                    behavior: "smooth"
-                });
-            }
-        });
-
-        // ✅ Cambio de imagen principal al hacer clic en una miniatura
-        document.querySelectorAll('.thumb').forEach(thumb => {
-            thumb.addEventListener('click', function() {
-                document.querySelector('.product-main-image img').src = this.src;
-            });
-        });
-
-        // ✅ Funcionalidad de Likes
-        document.querySelector('.like-button').addEventListener('click', function() {
-            const productId = this.dataset.id;
-            const likeCountElement = this.querySelector('.like-count');
-            let likeCount = parseInt(likeCountElement.textContent);
-
-            // Simular la acción de dar like (puedes implementar una llamada AJAX aquí)
-            likeCount += 1;
-            likeCountElement.textContent = likeCount;
-
-            // Deshabilitar el botón después de dar like
-            this.disabled = true;
-            this.classList.add('disabled');
-        });
-        document.querySelectorAll('.detail-row span').forEach(span => {
-            span.addEventListener('mouseover', function() {
-                this.setAttribute('title', this.textContent);
-            });
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-            const mainImg = document.querySelector('.main-img');
-            const thumbnails = document.querySelectorAll('.thumbnail');
-            const modal = document.querySelector('.image-modal');
-            const modalImg = document.querySelector('.modal-content');
-            const closeModal = document.querySelector('.close-modal');
-
-            // 1. Modal pantalla completa
-            mainImg.addEventListener('click', () => {
-                modal.style.display = 'flex';
-                modalImg.src = mainImg.src;
-            });
-
-            closeModal.addEventListener('click', () => {
-                modal.style.display = 'none';
-            });
-
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) modal.style.display = 'none';
-            });
-
-            // 2. Zoom con lupa (fluido)
-            const lens = document.createElement('div');
-            lens.className = 'zoom-lens';
-            document.body.appendChild(lens); // Se añade al body para evitar overflow
-
-            mainImg.addEventListener('mousemove', (e) => {
-                const imgRect = mainImg.getBoundingClientRect();
-                const scale = 2; // Nivel de zoom
-
-                // Posición del mouse relativa a la imagen
-                let x = e.clientX - imgRect.left;
-                let y = e.clientY - imgRect.top;
-
-                // Ajustar para que la lupa no salga de la imagen
-                x = Math.max(75, Math.min(x, imgRect.width - 75));
-                y = Math.max(75, Math.min(y, imgRect.height - 75));
-
-                // Mover la lupa
-                lens.style.left = `${e.clientX}px`;
-                lens.style.top = `${e.clientY}px`;
-                lens.style.opacity = '1';
-
-                // Efecto de zoom (simulado)
-                lens.style.backgroundImage = `url(${mainImg.src})`;
-                lens.style.backgroundSize = `${imgRect.width * scale}px ${imgRect.height * scale}px`;
-                lens.style.backgroundPosition = `-${(x - 75) * scale}px -${(y - 75) * scale}px`;
-            });
-
-            mainImg.addEventListener('mouseleave', () => {
-                lens.style.opacity = '0';
-            });
-
-            // 3. Miniaturas (cambiar imagen principal)
-            thumbnails.forEach(thumb => {
-                thumb.addEventListener('click', () => {
-                    mainImg.src = thumb.src;
-                });
-            });
-        });
-</script>
-<script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Selecciona todos los botones de Like
-            const likeButtons = document.querySelectorAll('.like-button');
-
-            likeButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Alternar la clase 'liked' para cambiar el estilo
-                    this.classList.toggle('liked');
-
-                    // Simular un incremento en el contador de likes (puedes ajustar esto según tu lógica)
-                    const likeCount = this.querySelector('.like-count');
-                    let count = parseInt(likeCount.textContent);
-                    likeCount.textContent = this.classList.contains('liked') ? count + 1 : count -
-                        1;
-                });
-            });
-        });
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Seleccionar todos los botones de like
-        const likeButtons = document.querySelectorAll('.like-button');
-
-        likeButtons.forEach(button => {
-            const productId = button.dataset.id;
-            const likeCountSpan = button.querySelector('.like-count');
-
-            // Clave única para almacenar en localStorage
-            const storageKey = `product_like_${productId}`;
-
-            // Obtener likes guardados o inicializar a 0
-            let likes = parseInt(localStorage.getItem(storageKey)) || 0;
-            likeCountSpan.textContent = likes;
-
-            // Verificar si el usuario ya dio like (para cambiar el estilo)
-            const userLikeKey = `user_like_${productId}`;
-            const userLiked = localStorage.getItem(userLikeKey) === 'true';
-
-            if (userLiked) {
-                button.classList.add('liked');
-                button.querySelector('i').classList.replace('fa-thumbs-up', 'fa-thumbs-up');
-            }
-
-            // Evento click
-            button.addEventListener('click', function() {
-                const alreadyLiked = localStorage.getItem(userLikeKey) === 'true';
-
-                if (alreadyLiked) {
-                    // Quitar like
-                    likes = Math.max(0, likes - 1);
-                    localStorage.setItem(userLikeKey, 'false');
-                    button.classList.remove('liked');
-                    button.querySelector('i').classList.replace('fa-thumbs-up', 'fa-thumbs-up');
-                } else {
-                    // Añadir like
-                    likes += 1;
-                    localStorage.setItem(userLikeKey, 'true');
-                    button.classList.add('liked');
-                    button.querySelector('i').classList.replace('fa-thumbs-up', 'fa-thumbs-up');
-                }
-
-                // Actualizar contador y almacenamiento
-                likeCountSpan.textContent = likes;
-                localStorage.setItem(storageKey, likes.toString());
-
-                // Efecto visual
-                button.classList.add('animate-like');
-                setTimeout(() => {
-                    button.classList.remove('animate-like');
-                }, 300);
-            });
-        });
-    });
-    </script>
+<script src="{{ asset('js/detalles.js') }}"></script>
 @endsection

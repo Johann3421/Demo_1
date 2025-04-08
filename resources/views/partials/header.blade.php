@@ -1,22 +1,28 @@
-<header class="header shadow-sm py-3" style="background-color: #f8f9fa !important;">
+<header class="header shadow-sm py-3 bg-light-custom">
     <div class="custom-container">
-        <!-- Logo -->
-        <a href="{{ route('home') }}" class="logo-link">
-            <img src="{{ asset('images/logo_actualizado.png') }}" alt="Logo" class="logo">
+        <!-- Logo con preload -->
+        <a href="{{ route('home') }}" class="logo-link" aria-label="Inicio">
+            <img src="{{ asset('images/logo_actualizado.png') }}"
+                 alt="Logo"
+                 class="logo"
+                 loading="lazy"
+                 width="150"
+                 height="50"
+                 onload="this.style.opacity=1">
         </a>
 
         <!-- Menú de navegación (Desktop) -->
-        <nav class="desktop-nav">
-            <!-- Buscador más ancho -->
+        <nav class="desktop-nav" aria-label="Navegación principal">
+            <!-- Buscador -->
             <div class="search-container">
                 @include('partials.search')
             </div>
 
             <!-- Contenedor de iconos -->
             <div class="header-icons">
-                <!-- Contenedor del dólar -->
-                <div class="dolar-box">
-                    <div class="dolar-icon">
+                <!-- Dólar -->
+                <div class="dolar-box" aria-label="Tipo de cambio">
+                    <div class="dolar-icon" aria-hidden="true">
                         <i class="fas fa-dollar-sign"></i>
                     </div>
                     <div class="dolar-info">
@@ -25,74 +31,119 @@
                     </div>
                 </div>
 
-                <!-- Icono de inicio movido a la derecha -->
-                <a href="{{ route('home') }}" class="header-icon home-icon" title="Ir al inicio">
-                    <i class="fas fa-home"></i>
+                <!-- Inicio -->
+                <a href="{{ route('home') }}" class="header-icon home-icon" title="Ir al inicio" aria-label="Inicio">
+                    <i class="fas fa-home" aria-hidden="true"></i>
                 </a>
 
-                <!-- Iconos sociales con color negro -->
+                <!-- Redes sociales -->
                 <div class="social-icons">
-                    <a href="https://facebook.com/tu-pagina" target="_blank" class="social-icon">
-                        <i class="fab fa-facebook-f"></i>
+                    <a href="https://facebook.com/tu-pagina"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="social-icon"
+                       aria-label="Facebook">
+                        <i class="fab fa-facebook-f" aria-hidden="true"></i>
                     </a>
-                    <a href="https://instagram.com/tu-pagina" target="_blank" class="social-icon">
-                        <i class="fab fa-instagram"></i>
+                    <a href="https://instagram.com/tu-pagina"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="social-icon"
+                       aria-label="Instagram">
+                        <i class="fab fa-instagram" aria-hidden="true"></i>
                     </a>
-                    <a href="https://twitter.com/tu-pagina" target="_blank" class="social-icon">
-                        <i class="fab fa-twitter"></i>
+                    <a href="https://twitter.com/tu-pagina"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="social-icon"
+                       aria-label="Twitter">
+                        <i class="fab fa-twitter" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>
         </nav>
 
-        <!-- Botón de menú móvil -->
-        <button class="mobile-menu-toggle" type="button" id="mobileMenuButton">
-            <i class="fas fa-bars"></i>
+        <!-- Botón móvil optimizado -->
+        <button class="mobile-menu-toggle"
+                type="button"
+                id="mobileMenuButton"
+                aria-label="Abrir menú"
+                aria-expanded="false"
+                aria-controls="mobileMenu">
+            <i class="fas fa-bars" aria-hidden="true"></i>
         </button>
     </div>
 </header>
 
-<!-- Menú Responsive (Offcanvas) -->
-<div class="mobile-menu" id="mobileMenu">
+<!-- Menú móvil optimizado -->
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
     <div class="mobile-menu-header">
         <h5 class="mobile-menu-title">Menú</h5>
-        <button type="button" class="mobile-menu-close" id="mobileMenuClose">
-            <i class="fas fa-times"></i>
+        <button type="button"
+                class="mobile-menu-close"
+                id="mobileMenuClose"
+                aria-label="Cerrar menú">
+            <i class="fas fa-times" aria-hidden="true"></i>
         </button>
     </div>
     <div class="mobile-menu-body">
-        <nav class="mobile-nav">
-            <!-- Buscador en móvil -->
+        <nav class="mobile-nav" aria-label="Navegación móvil">
+            <!-- Buscador -->
             <div class="search-container">
                 @include('partials.search')
             </div>
 
-            <!-- Iconos en horizontal -->
+            <!-- Iconos -->
             <div class="mobile-social-icons">
-                <a href="{{ route('home') }}" class="mobile-nav-link"><i class="fas fa-home"></i> Inicio</a>
-                <a href="https://facebook.com/tu-pagina" target="_blank" class="mobile-nav-link"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://instagram.com/tu-pagina" target="_blank" class="mobile-nav-link"><i class="fab fa-instagram"></i></a>
-                <a href="https://twitter.com/tu-pagina" target="_blank" class="mobile-nav-link"><i class="fab fa-twitter"></i></a>
+                <a href="{{ route('home') }}" class="mobile-nav-link" aria-label="Inicio">
+                    <i class="fas fa-home" aria-hidden="true"></i> Inicio
+                </a>
+                <a href="https://facebook.com/tu-pagina"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="mobile-nav-link"
+                   aria-label="Facebook">
+                    <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                </a>
+                <a href="https://instagram.com/tu-pagina"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="mobile-nav-link"
+                   aria-label="Instagram">
+                    <i class="fab fa-instagram" aria-hidden="true"></i>
+                </a>
+                <a href="https://twitter.com/tu-pagina"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="mobile-nav-link"
+                   aria-label="Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
             </div>
 
-            <!-- Botón de contacto -->
-            <a href="https://wa.me/+51987654321?text=Quisiera%20consultar%20sus%20productos" class="contact-button">Contacto</a>
+            <!-- Contacto -->
+            <a href="https://wa.me/+51987654321?text=Quisiera%20consultar%20sus%20productos"
+               class="contact-button"
+               aria-label="Contactar por WhatsApp">
+                Contacto
+            </a>
         </nav>
     </div>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-    const mobileMenuButton = document.getElementById('mobileMenuButton');
-    const mobileMenuClose = document.getElementById('mobileMenuClose');
-    const mobileMenu = document.getElementById('mobileMenu');
+<script defer>
+    // Control del menú móvil optimizado
+    const menuToggle = () => {
+        const menu = document.getElementById('mobileMenu');
+        if (!menu) return;
 
-    mobileMenuButton.addEventListener('click', function() {
-        mobileMenu.classList.add('open');
-    });
+        const isOpen = menu.getAttribute('aria-hidden') === 'false';
+        menu.setAttribute('aria-hidden', isOpen);
+        document.getElementById('mobileMenuButton')?.setAttribute('aria-expanded', !isOpen);
+        menu.classList.toggle('open', !isOpen);
+        document.body.style.overflow = isOpen ? '' : 'hidden';
+    };
 
-    mobileMenuClose.addEventListener('click', function() {
-        mobileMenu.classList.remove('open');
-    });
-});
+    document.getElementById('mobileMenuButton')?.addEventListener('click', menuToggle);
+    document.getElementById('mobileMenuClose')?.addEventListener('click', menuToggle);
 </script>
