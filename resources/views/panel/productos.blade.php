@@ -2,32 +2,37 @@
 
 @section('content')
 <div class="container-fluid">
+    <!-- Encabezado optimizado -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Gestión de Productos</h1>
-        <a href="{{ route('panel.productos.crear') }}" class="btn btn-primary">
-            <i class="fas fa-plus me-2"></i> Crear nuevo producto
+        <h1 class="h3 mb-0 text-gray-800">Gestión de Productos</h1>
+        <a href="{{ route('panel.productos.crear') }}" class="btn btn-primary" aria-label="Crear nuevo producto">
+            <i class="fas fa-plus me-2" aria-hidden="true"></i> Nuevo producto
         </a>
     </div>
 
-    <!-- Filtros y controles optimizados -->
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <form method="GET" action="{{ route('panel.productos') }}" class="d-flex align-items-center gap-3" id="searchForm">
-            <div class="input-group" style="max-width: 300px;">
-                <input type="text" 
-                       name="search" 
+    <!-- Filtros optimizados con accesibilidad -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 gap-3">
+        <form method="GET" action="{{ route('panel.productos') }}" class="d-flex flex-column flex-md-row align-items-center gap-3 w-100" id="searchForm">
+            <div class="input-group flex-grow-1" style="max-width: 400px;">
+                <span class="input-group-text bg-white">
+                    <i class="fas fa-search text-muted" aria-hidden="true"></i>
+                </span>
+                <input type="text"
+                       name="search"
                        id="searchInput"
                        class="form-control"
                        placeholder="Buscar productos..."
                        value="{{ $search ?? '' }}"
-                       autocomplete="off">
-                <button type="button" class="btn btn-secondary" id="clearSearch">
-                    <i class="fas fa-times"></i>
+                       autocomplete="off"
+                       aria-label="Buscar productos">
+                <button type="button" class="btn btn-outline-secondary" id="clearSearch" aria-label="Limpiar búsqueda">
+                    <i class="fas fa-times" aria-hidden="true"></i>
                 </button>
             </div>
-            
+
             <div class="d-flex align-items-center">
-                <label for="perPage" class="me-2">Mostrar:</label>
-                <select name="perPage" id="perPage" class="form-select form-select-sm">
+                <label for="perPage" class="me-2 mb-0">Mostrar:</label>
+                <select name="perPage" id="perPage" class="form-select form-select-sm" aria-label="Elementos por página">
                     @foreach ($perPageOptions as $option)
                     <option value="{{ $option }}" {{ $perPage == $option ? 'selected' : '' }}>{{ $option }}</option>
                     @endforeach
@@ -36,238 +41,105 @@
         </form>
     </div>
 
-    <!-- Tabla de productos optimizada -->
-<div class="card shadow">
-    <div class="card-header bg-primary text-white">
-        <h5 class="card-title mb-0">Lista de Productos</h5>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover" id="productsTable">
-                <thead class="thead-light">
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Precio (USD)</th>
-                        <th>Precio (PEN)</th>
-                        <th>Stock</th>
-                        <th class="text-center">Visible</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="productsTableBody">
-                    @foreach ($productos as $producto)
-                    <tr class="product-row" data-id="{{ $producto->id }}">
-                        <td class="searchable">{{ $producto->nombre }}</td>
-                        <td>${{ number_format($producto->precio_dolares, 2) }}</td>
-                        <td>S/{{ number_format($producto->precio_soles, 2) }}</td>
-                        <td>{{ $producto->stock }}</td>
-                        <td class="text-center align-middle">
-                            <div class="form-check form-switch d-inline-block">
-                                <input type="checkbox" 
-                                       class="form-check-input visibility-toggle" 
-                                       data-id="{{ $producto->id }}"
-                                       {{ $producto->visible ? 'checked' : '' }}
-                                       style="width: 3em; height: 1.5em;">
-                            </div>
-                            <span class="badge bg-{{ $producto->visible ? 'success' : 'danger' }} ms-2">
-                                {{ $producto->visible ? 'Sí' : 'No' }}
-                            </span>
-                        </td>
-                        <td>
-                            <div class="btn-group" role="group">
-                                <a href="{{ route('panel.productos.editar', $producto->id) }}" class="btn btn-sm btn-primary me-1">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <button class="btn btn-sm btn-danger btn-eliminar" 
-                                        data-id="{{ $producto->id }}"
-                                        data-url="{{ route('panel.productos.eliminar', $producto->id) }}">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+    <!-- Tabla optimizada con responsive y accesibilidad -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white py-3">
+            <h2 class="h5 mb-0">Lista de Productos</h2>
         </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover mb-0" id="productsTable" aria-describedby="productsTableDesc">
+                    <caption id="productsTableDesc" class="visually-hidden">Tabla de productos con sus precios, stock y acciones</caption>
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" class="w-30">Nombre</th>
+                            <th scope="col">Precio (USD)</th>
+                            <th scope="col">Precio (PEN)</th>
+                            <th scope="col">Stock</th>
+                            <th scope="col" class="text-center">Visible</th>
+                            <th scope="col" class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsTableBody">
+                        @forelse ($productos as $producto)
+                        <tr class="product-row align-middle" data-id="{{ $producto->id }}">
+                            <td class="searchable" data-label="Nombre">{{ $producto->nombre }}</td>
+                            <td data-label="Precio USD">${{ number_format($producto->precio_dolares, 2) }}</td>
+                            <td data-label="Precio PEN">S/{{ number_format($producto->precio_soles, 2) }}</td>
+                            <td data-label="Stock">{{ $producto->stock }}</td>
+                            <td class="text-center" data-label="Visible">
+                                <div class="form-check form-switch d-inline-block">
+                                    <input type="checkbox"
+                                           class="form-check-input visibility-toggle"
+                                           data-id="{{ $producto->id }}"
+                                           id="visibility-{{ $producto->id }}"
+                                           {{ $producto->visible ? 'checked' : '' }}
+                                           style="width: 3em; height: 1.5em;">
+                                    <label for="visibility-{{ $producto->id }}" class="visually-hidden">Visibilidad del producto</label>
+                                </div>
+                                <span class="badge bg-{{ $producto->visible ? 'success' : 'danger' }} ms-2">
+                                    {{ $producto->visible ? 'Sí' : 'No' }}
+                                </span>
+                            </td>
+                            <td class="text-center" data-label="Acciones">
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Acciones del producto">
+                                    <a href="{{ route('panel.productos.editar', $producto->id) }}"
+                                       class="btn btn-primary"
+                                       aria-label="Editar producto"
+                                       title="Editar">
+                                        <i class="fas fa-edit" aria-hidden="true"></i>
+                                    </a>
+                                    <button class="btn btn-danger btn-eliminar"
+                                            data-id="{{ $producto->id }}"
+                                            data-url="{{ route('panel.productos.eliminar', $producto->id) }}"
+                                            aria-label="Eliminar producto"
+                                            title="Eliminar">
+                                        <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="6" class="text-center py-4">No se encontraron productos</td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
 
-        <div class="d-flex justify-content-center mt-4">
-            {{ $productos->appends([
-                'search' => request('search'),
-                'perPage' => request('perPage')
-            ])->links('pagination::bootstrap-5') }}
+            <!-- Paginación optimizada -->
+            @if($productos->hasPages())
+            <div class="d-flex justify-content-center p-3">
+                {{ $productos->appends([
+                    'search' => request('search'),
+                    'perPage' => request('perPage')
+                ])->onEachSide(1)->links('pagination::bootstrap-5') }}
+            </div>
+            @endif
         </div>
     </div>
 </div>
-</div>
+
 
 <style>
     /* Estilos optimizados */
     #searchInput {
         transition: all 0.3s ease;
     }
-    
+
     #searchInput:focus {
         box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
     }
-    
+
     #clearSearch {
         transition: opacity 0.3s ease;
         opacity: 0.7;
     }
-    
+
     #clearSearch:hover {
         opacity: 1;
     }
 </style>
-
-<script>
-    // Cache de elementos DOM
-    const domCache = {
-        searchInput: document.getElementById('searchInput'),
-        clearSearch: document.getElementById('clearSearch'),
-        perPage: document.getElementById('perPage'),
-        searchForm: document.getElementById('searchForm'),
-        productsTableBody: document.getElementById('productsTableBody')
-    };
-
-    // Función optimizada para aplicar filtro local
-    function applyLocalFilter(searchTerm) {
-        const rows = domCache.productsTableBody.querySelectorAll('.product-row');
-        const term = searchTerm.toLowerCase();
-        
-        // Usamos requestAnimationFrame para mejor rendimiento
-        requestAnimationFrame(() => {
-            rows.forEach(row => {
-                const text = row.querySelector('.searchable').textContent.toLowerCase();
-                row.style.display = text.includes(term) ? '' : 'none';
-            });
-        });
-    }
-
-    // Delegación de eventos para mejor performance
-    function setupEventListeners() {
-        // Búsqueda en tiempo real con debounce
-        let searchTimeout;
-        domCache.searchInput.addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            applyLocalFilter(searchTerm);
-            
-            clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(() => {
-                domCache.searchForm.submit();
-            }, 800);
-        });
-
-        // Limpiar búsqueda
-        domCache.clearSearch.addEventListener('click', function() {
-            domCache.searchInput.value = '';
-            domCache.searchForm.submit();
-        });
-
-        // Cambiar elementos por página
-        domCache.perPage.addEventListener('change', function() {
-            domCache.searchForm.submit();
-        });
-
-        // Delegación de eventos para los botones de eliminar
-        domCache.productsTableBody.addEventListener('click', function(e) {
-            if (e.target.closest('.btn-eliminar')) {
-                e.preventDefault();
-                const button = e.target.closest('.btn-eliminar');
-                const productId = button.getAttribute('data-id');
-                const deleteUrl = button.getAttribute('data-url');
-                
-                handleDeleteProduct(productId, deleteUrl);
-            }
-        });
-    }
-
-    // Función optimizada para manejar eliminación
-    async function handleDeleteProduct(productId, deleteUrl) {
-        try {
-            const result = await Swal.fire({
-                title: '¿Estás seguro?',
-                text: "¡No podrás revertir esto!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Sí, eliminar!',
-                cancelButtonText: 'Cancelar'
-            });
-
-            if (result.isConfirmed) {
-                const response = await fetch(deleteUrl, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                });
-
-                const data = await response.json();
-
-                if (data.success) {
-                    await Swal.fire('Eliminado!', data.message, 'success');
-                    // Eliminar la fila directamente sin recargar la página
-                    document.querySelector(`.product-row[data-id="${productId}"]`).remove();
-                } else {
-                    await Swal.fire('Error!', data.message, 'error');
-                }
-            }
-        } catch (error) {
-            await Swal.fire('Error!', 'Ocurrió un error al intentar eliminar el producto.', 'error');
-            console.error('Error al eliminar producto:', error);
-        }
-    }
-
-    // Inicialización cuando el DOM está listo
-    document.addEventListener('DOMContentLoaded', function() {
-        // Aplicar filtro inicial si existe
-        if (domCache.searchInput.value) {
-            applyLocalFilter(domCache.searchInput.value.toLowerCase());
-        }
-        
-        // Configurar event listeners
-        setupEventListeners();
-    });
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.visibility-toggle').forEach(toggle => {
-        toggle.addEventListener('change', function() {
-            const productId = this.dataset.id;
-            const isVisible = this.checked;
-            
-            fetch(`/panel/productos/${productId}/visibility`, {
-                method: 'PATCH',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ visible: isVisible })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if(data.success) {
-                    const badge = this.closest('td').querySelector('.badge');
-                    badge.className = `badge bg-${data.visible ? 'success' : 'danger'} ms-2`;
-                    badge.textContent = data.visible ? 'Sí' : 'No';
-                } else {
-                    this.checked = !isVisible; // Revertir cambio
-                    alert('Error: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                this.checked = !isVisible; // Revertir cambio
-            });
-        });
-    });
-});
-</script>
+<script src="{{ asset('js/admin-productos-view.js') }}"></script>
 @endsection
