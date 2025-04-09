@@ -10,6 +10,7 @@ use App\Models\Configuracion;
 use Illuminate\Support\Facades\Storage;
 use DOMDocument;
 use DOMXPath;
+use Illuminate\Support\Facades\Log;
 
 class ConfiguracionController extends Controller
 {

@@ -100,8 +100,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="bannerImage" class="form-label">Imagen del Banner</label>
-                            <input type="file" class="form-control" id="bannerImage" name="banner_image" accept="image/*"
-                                required>
+                            <input type="file" class="form-control" id="bannerImage" name="banner_image"
+                                accept="image/*" required>
                             <div class="form-text">Recomendado: 1200x400px, formato JPG/PNG (Máx. 5MB)</div>
                         </div>
                         <div class="text-center">

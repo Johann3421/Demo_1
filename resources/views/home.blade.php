@@ -75,10 +75,18 @@
     <div class="sekai-banner">
         @php $banner = App\Models\ImagenMedio::latest()->first(); @endphp
 
+        @if($banner && $banner->enlace)
+            <a href="{{ $banner->enlace }}" target="_blank" title="{{ $banner->texto_alternativo ?? 'Promoción Especial' }}">
+        @endif
+
         <img src="{{ $banner->url ?? asset('images/AUDIFONO.png') }}"
              alt="{{ $banner->texto_alternativo ?? 'Promoción Especial - SEKAITECH' }}"
              class="img-fluid w-100"
              onerror="this.onerror=null;this.src='{{ asset('images/AUDIFONO.png') }}'">
+
+        @if($banner && $banner->enlace)
+            </a>
+        @endif
     </div>
 </section>
 
