@@ -62,38 +62,38 @@ class SliderController extends Controller
 
     // Actualizar un slider existente
     public function actualizar(Request $request, $id)
-    {
-        // Validar los datos del formulario
-        $request->validate([
-            'imagen_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'enlace' => 'nullable|url',
-        ]);
+{
+    $slider = Slider::findOrFail($id);
 
-        $slider = Slider::findOrFail($id);
-
-        // Actualizar la imagen si se proporciona una nueva
-        if ($request->hasFile('imagen_url')) {
-            // Eliminar la imagen anterior si existe
-            if (file_exists(public_path($slider->imagen_url))) {
-                unlink(public_path($slider->imagen_url));
-            }
-
-            // Guardar la nueva imagen
-            $imagen = $request->file('imagen_url');
-            $nombreArchivo = Str::slug(pathinfo($imagen->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $imagen->getClientOriginalExtension();
-            $rutaImagen = 'images/sliders/' . $nombreArchivo;
-            $imagen->move(public_path('images/sliders'), $nombreArchivo);
-
-            $slider->imagen_url = $rutaImagen;
+    if ($request->hasFile('imagen_url')) {
+        // Eliminar imagen anterior si existe
+        if ($slider->imagen_url && file_exists(public_path($slider->imagen_url))) {
+            unlink(public_path($slider->imagen_url));
         }
 
-        // Actualizar el enlace
-        $slider->enlace = $request->enlace;
-        $slider->save();
+        // Preparar nombre único
+        $imagen = $request->file('imagen_url');
+        $nombreArchivo = 'banner_' . uniqid() . '.' . $imagen->getClientOriginalExtension();
+        $rutaPublica = 'images/sliders/' . $nombreArchivo;
 
-        // Redirigir con un mensaje de éxito
-        return redirect()->route('panel.banners')->with('success', 'Slider actualizado exitosamente.');
+        // Asegurar carpeta
+        if (!file_exists(public_path('images/sliders'))) {
+            mkdir(public_path('images/sliders'), 0777, true);
+        }
+
+        // Mover a public/images/sliders
+        $imagen->move(public_path('images/sliders'), $nombreArchivo);
+
+        // Guardar ruta relativa
+        $slider->imagen_url = $rutaPublica;
     }
+
+    $slider->enlace = $request->enlace;
+    $slider->save();
+
+    return redirect()->route('panel.banners')->with('success', 'Banner actualizado correctamente.');
+}
+
 
     // Eliminar un slider
     public function eliminar($id)

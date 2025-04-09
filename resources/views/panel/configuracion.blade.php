@@ -23,7 +23,8 @@
                             <button id="actualizarDolarGoogle" class="btn btn-info">
                                 <i class="fab fa-google"></i> Actualizar (Google)
                             </button>
-                            <button id="manualDolarBtn" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#manualDolarModal">
+                            <button id="manualDolarBtn" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                                data-bs-target="#manualDolarModal">
                                 <i class="fas fa-edit"></i> Editar Manual
                             </button>
                         </div>
@@ -86,14 +87,9 @@
                 <div class="modal-body">
                     <form id="bannerForm" enctype="multipart/form-data">
                         @csrf
+
                         <div class="mb-3">
-                            <label for="bannerImage" class="form-label">Imagen del Banner</label>
-                            <input type="file" class="form-control" id="bannerImage" name="banner_image" accept="image/*"
-                                required>
-                            <div class="form-text">Recomendado: 1200x400px, formato JPG/PNG (Máx. 2MB)</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="bannerLink" class="form-label">Enlace de Destino (Opcional)</label>
+                            <label for="bannerLink" class="form-label">Enlace de Destino</label>
                             <input type="url" class="form-control" id="bannerLink" name="banner_link"
                                 placeholder="https://...">
                         </div>
@@ -101,6 +97,12 @@
                             <label for="bannerAlt" class="form-label">Texto Alternativo</label>
                             <input type="text" class="form-control" id="bannerAlt" name="banner_alt"
                                 placeholder="Descripción de la imagen">
+                        </div>
+                        <div class="mb-3">
+                            <label for="bannerImage" class="form-label">Imagen del Banner</label>
+                            <input type="file" class="form-control" id="bannerImage" name="banner_image" accept="image/*"
+                                required>
+                            <div class="form-text">Recomendado: 1200x400px, formato JPG/PNG (Máx. 5MB)</div>
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">
@@ -146,8 +148,8 @@
             const bannerMessage = document.getElementById('bannerMessage');
 
             // Tipos de archivo permitidos
-            const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
-            const maxFileSize = 2 * 1024 * 1024; // 2MB
+            const validImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+            const maxFileSize = 5 * 1024 * 1024; // 5MB (actualizado)
 
             // Mostrar modal de configuración
             cambiarBannerBtn.addEventListener('click', () => {
@@ -179,12 +181,12 @@
 
                 // Validaciones
                 if (!validImageTypes.includes(file.type)) {
-                    showBannerError('Formato de imagen no válido. Use JPG, PNG o GIF.');
+                    showBannerError('Formato de imagen no válido. Use JPG, PNG, GIF o WEBP.');
                     return;
                 }
 
                 if (file.size > maxFileSize) {
-                    showBannerError('La imagen es demasiado grande (máximo 2MB).');
+                    showBannerError('La imagen es demasiado grande (máximo 5MB).');
                     return;
                 }
 
@@ -253,6 +255,9 @@
                     const timestamp = new Date().getTime();
                     document.querySelectorAll('.sekai-banner img').forEach(banner => {
                         banner.src = `${bannerUrl}?t=${timestamp}`;
+                        banner.onerror = function() {
+                            this.src = '/images/default-banner.jpg'; // Fallback
+                        };
                     });
                 }
             }
@@ -276,8 +281,6 @@
             // Función para mostrar mensaje de éxito
             function showBannerSuccess(message) {
                 bannerMessage.innerHTML = createAlertMessage(message, 'success');
-
-                // Cerrar automáticamente después de 5 segundos
                 setTimeout(() => {
                     const alert = bannerMessage.querySelector('.alert');
                     if (alert) {
@@ -294,12 +297,10 @@
             // Función para crear mensajes de alerta
             function createAlertMessage(message, type) {
                 const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
-                return `
-            <div class="alert alert-${type} alert-dismissible fade show">
-                <i class="fas ${icon} me-2"></i>${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        `;
+                return `<div class="alert alert-${type} alert-dismissible fade show">
+            <i class="fas ${icon} me-2"></i>${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>`;
             }
 
             // Función para alternar estado del botón
@@ -312,125 +313,127 @@
         });
     </script>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const btnDeltron = document.getElementById('actualizarDolarDeltron');
-    const btnGoogle = document.getElementById('actualizarDolarGoogle');
-    const btnManual = document.getElementById('manualDolarBtn');
-    const btnConfirmarManual = document.getElementById('confirmarManualBtn');
-    const precioDolarElement = document.getElementById('precioDolar');
-    const messageElement = document.getElementById('dolarMessage');
-    const fuenteElement = document.getElementById('fuenteDolar');
-    const modal = new bootstrap.Modal(document.getElementById('manualDolarModal'));
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const btnDeltron = document.getElementById('actualizarDolarDeltron');
+            const btnGoogle = document.getElementById('actualizarDolarGoogle');
+            const btnManual = document.getElementById('manualDolarBtn');
+            const btnConfirmarManual = document.getElementById('confirmarManualBtn');
+            const precioDolarElement = document.getElementById('precioDolar');
+            const messageElement = document.getElementById('dolarMessage');
+            const fuenteElement = document.getElementById('fuenteDolar');
+            const modal = new bootstrap.Modal(document.getElementById('manualDolarModal'));
 
-    // Función para manejar actualizaciones
-    function handleUpdate(button, route) {
-        const originalHtml = button.innerHTML;
-        button.disabled = true;
-        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Actualizando...';
-        messageElement.textContent = '';
-        messageElement.className = 'mt-2';
-        fuenteElement.textContent = '';
+            // Función para manejar actualizaciones
+            function handleUpdate(button, route) {
+                const originalHtml = button.innerHTML;
+                button.disabled = true;
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Actualizando...';
+                messageElement.textContent = '';
+                messageElement.className = 'mt-2';
+                fuenteElement.textContent = '';
 
-        fetch(route, {
-            method: 'POST',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                fetch(route, {
+                        method: 'POST',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.json().then(err => {
+                                throw new Error(err.message || `Error HTTP: ${response.status}`);
+                            });
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            precioDolarElement.textContent = "S/ " + data.precio;
+                            messageElement.textContent = 'Precio actualizado correctamente';
+                            messageElement.classList.add('text-success');
+                            fuenteElement.textContent = 'Fuente: ' + data.fuente;
+                        } else {
+                            throw new Error(data.message || 'Error al obtener el precio');
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        messageElement.textContent = error.message;
+                        messageElement.classList.add('text-danger');
+                    })
+                    .finally(() => {
+                        button.disabled = false;
+                        button.innerHTML = originalHtml;
+                    });
             }
-        })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(err => {
-                    throw new Error(err.message || `Error HTTP: ${response.status}`);
-                });
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                precioDolarElement.textContent = "S/ " + data.precio;
-                messageElement.textContent = 'Precio actualizado correctamente';
-                messageElement.classList.add('text-success');
-                fuenteElement.textContent = 'Fuente: ' + data.fuente;
-            } else {
-                throw new Error(data.message || 'Error al obtener el precio');
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            messageElement.textContent = error.message;
-            messageElement.classList.add('text-danger');
-        })
-        .finally(() => {
-            button.disabled = false;
-            button.innerHTML = originalHtml;
+
+            // Event listeners
+            btnDeltron.addEventListener('click', function() {
+                handleUpdate(btnDeltron, "{{ route('actualizar.dolar.deltron') }}");
+            });
+
+            btnGoogle.addEventListener('click', function() {
+                handleUpdate(btnGoogle, "{{ route('actualizar.dolar.google') }}");
+            });
+
+            // Actualización manual (se mantiene igual)
+            btnConfirmarManual.addEventListener('click', function() {
+                const nuevoPrecio = document.getElementById('nuevoPrecioInput').value;
+
+                if (!nuevoPrecio || parseFloat(nuevoPrecio) <= 0) {
+                    alert('Ingrese un valor válido');
+                    return;
+                }
+
+                btnConfirmarManual.disabled = true;
+                btnConfirmarManual.innerHTML =
+                    '<span class="spinner-border spinner-border-sm"></span> Guardando...';
+
+                fetch("{{ route('actualizar.dolar.manual') }}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            nuevo_precio: nuevoPrecio
+                        })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.json().then(err => {
+                                throw new Error(err.message ||
+                                    `Error HTTP: ${response.status}`);
+                            });
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            precioDolarElement.textContent = "S/ " + data.precio;
+                            modal.hide();
+                            messageElement.textContent = 'Precio actualizado manualmente';
+                            messageElement.classList.add('text-success');
+                            fuenteElement.textContent = 'Fuente: Manual';
+                        } else {
+                            throw new Error(data.message || 'Error al guardar');
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert(error.message);
+                    })
+                    .finally(() => {
+                        btnConfirmarManual.disabled = false;
+                        btnConfirmarManual.textContent = 'Guardar Cambios';
+                    });
+            });
         });
-    }
-
-    // Event listeners
-    btnDeltron.addEventListener('click', function() {
-        handleUpdate(btnDeltron, "{{ route('actualizar.dolar.deltron') }}");
-    });
-
-    btnGoogle.addEventListener('click', function() {
-        handleUpdate(btnGoogle, "{{ route('actualizar.dolar.google') }}");
-    });
-
-    // Actualización manual (se mantiene igual)
-    btnConfirmarManual.addEventListener('click', function() {
-        const nuevoPrecio = document.getElementById('nuevoPrecioInput').value;
-
-        if (!nuevoPrecio || parseFloat(nuevoPrecio) <= 0) {
-            alert('Ingrese un valor válido');
-            return;
-        }
-
-        btnConfirmarManual.disabled = true;
-        btnConfirmarManual.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Guardando...';
-
-        fetch("{{ route('actualizar.dolar.manual') }}", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                nuevo_precio: nuevoPrecio
-            })
-        })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(err => {
-                    throw new Error(err.message || `Error HTTP: ${response.status}`);
-                });
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                precioDolarElement.textContent = "S/ " + data.precio;
-                modal.hide();
-                messageElement.textContent = 'Precio actualizado manualmente';
-                messageElement.classList.add('text-success');
-                fuenteElement.textContent = 'Fuente: Manual';
-            } else {
-                throw new Error(data.message || 'Error al guardar');
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert(error.message);
-        })
-        .finally(() => {
-            btnConfirmarManual.disabled = false;
-            btnConfirmarManual.textContent = 'Guardar Cambios';
-        });
-    });
-});
     </script>
 
     <style>

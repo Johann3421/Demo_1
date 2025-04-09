@@ -20,6 +20,7 @@ class ProductoController extends Controller
                 'descripcion',
                 'precio_soles',
                 'imagen_url',
+                'categoria_id',
                 'slug'
             ]);
 
@@ -55,6 +56,7 @@ class ProductoController extends Controller
                 'descripcion',
                 'precio_soles',
                 'imagen_url',
+                'categoria_id',
                 'slug'
             ])
             ->firstOrFail();
@@ -73,6 +75,7 @@ class ProductoController extends Controller
             'descripcion' => $producto->descripcion,
             'precio_soles' => $producto->precio_soles,
             'imagen_url' => $this->getUrlCompleta($producto->imagen_url),
+            'categoria_id' => $producto->categoria_id,
             'slug' => $producto->slug
         ];
     }

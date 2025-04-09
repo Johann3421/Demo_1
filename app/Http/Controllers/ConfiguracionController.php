@@ -129,7 +129,7 @@ public function actualizarDolarGoogle()
 {
     try {
         $request->validate([
-            'banner_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'banner_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:4096',
             'banner_link' => 'nullable|url',
             'banner_alt' => 'nullable|string|max:255'
         ]);

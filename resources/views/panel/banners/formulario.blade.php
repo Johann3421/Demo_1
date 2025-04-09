@@ -26,52 +26,68 @@
                     </div>
                 @endif
 
-                <form action="{{ isset($slider) ? route('panel.banners.actualizar', $slider->id) : route('panel.banners.guardar') }}" 
-                      method="POST" enctype="multipart/form-data" id="bannerForm">
-                    @csrf
-                    @if (isset($slider)) @method('PUT') @endif
+                <form action="{{ isset($slider) ? route('panel.banners.actualizar', $slider->id) : route('panel.banners.guardar') }}"
+                    method="POST"
+                    enctype="multipart/form-data"
+                    id="bannerForm">
+                  @csrf
+                  @if (isset($slider)) @method('PUT') @endif
 
-                    <div class="row g-3">
-                        <!-- Imagen -->
-                        <div class="col-md-6">
-                            <label for="imagen_url" class="form-label fw-bold">Imagen</label>
-                            <div class="drop-zone" id="dropZone">
-                                <span class="drop-zone__prompt">
-                                    Arrastra y suelta la imagen aquí o haz clic para seleccionar
-                                </span>
-                                <input type="file" name="imagen_url" id="imagen_url" class="drop-zone__input" {{ !isset($slider) ? 'required' : '' }}>
-                            </div>
-                            <div id="imagePreview" class="mt-3">
-                                @if (isset($slider) && $slider->imagen_url)
-                                    <img src="{{ asset($slider->imagen_url) }}" 
-                                         alt="Banner {{ $slider->id }}" 
-                                         class="img-thumbnail" 
-                                         style="max-width: 100%; height: auto;">
-                                @endif
-                            </div>
-                        </div>
+                  <div class="row g-3">
+                      <!-- Imagen -->
+                      <div class="col-md-6">
+                          <label for="imagen_url" class="form-label fw-bold">Imagen</label>
+                          <div class="drop-zone" id="dropZone">
+                              <span class="drop-zone__prompt">
+                                  Arrastra y suelta la imagen aquí o haz clic para seleccionar
+                              </span>
+                              <input type="file"
+                                     name="imagen_url"
+                                     id="imagen_url"
+                                     class="drop-zone__input"
+                                     {{ !isset($slider) ? 'required' : '' }}>
+                          </div>
 
-                        <!-- Enlace -->
-                        <div class="col-md-6">
-                            <label for="enlace" class="form-label fw-bold">Enlace</label>
-                            <input type="url" name="enlace" id="enlace" class="form-control" 
-                                   value="{{ old('enlace', $slider->enlace ?? '') }}">
-                        </div>
-                    </div>
+                          <div id="imagePreview" class="mt-3">
+                              @if (isset($slider) && $slider->imagen_url)
+                                  <img src="{{ asset($slider->imagen_url) }}"
+                                       alt="Banner {{ $slider->id }}"
+                                       class="img-thumbnail"
+                                       style="max-width: 100%; height: auto;">
+                              @endif
+                          </div>
+                      </div>
 
-                    <!-- Botón de envío -->
-                    <div class="d-grid mt-4">
-                        <button type="submit" class="btn btn-primary btn-lg">
-                            <i class="fas fa-save me-2"></i>{{ isset($slider) ? 'Actualizar Banner' : 'Crear Banner' }}
-                        </button>
-                    </div>
-                </form>
+                      <!-- Enlace -->
+                      <div class="col-md-6">
+                          <label for="enlace" class="form-label fw-bold">Enlace</label>
+                          <input type="url"
+                                 name="enlace"
+                                 id="enlace"
+                                 class="form-control"
+                                 placeholder="https://tusitio.com"
+                                 value="{{ old('enlace', $slider->enlace ?? '') }}">
+                      </div>
+                  </div>
+
+                  <!-- Botón de envío -->
+                  <div class="d-grid mt-4">
+                      <button type="submit" class="btn btn-primary btn-lg">
+                          <i class="fas fa-save me-2"></i>
+                          {{ isset($slider) ? 'Actualizar Banner' : 'Crear Banner' }}
+                      </button>
+                  </div>
+              </form>
+
             </div>
         </div>
     </div>
 
     <style>
         /* Estilos para la zona de arrastrar y soltar */
+        .col-md-6 {
+            width: 100%; !important
+        }
         .drop-zone {
             border: 2px dashed #ccc;
             border-radius: 10px;

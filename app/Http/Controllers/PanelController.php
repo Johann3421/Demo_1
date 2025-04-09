@@ -48,24 +48,30 @@ class PanelController extends Controller
         ]);
     }
 
-    public function eliminarProducto(Request $request, $id)
-    {
-        try {
-            $producto = Producto::findOrFail($id);
-            $producto->delete();
+    public function eliminarProducto($id)
+{
+    try {
+        $producto = Producto::findOrFail($id);
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Producto eliminado correctamente'
-            ]);
+        // Opcional: Eliminar imágenes asociadas si es necesario
+        // if($producto->imagen_url && Storage::exists($producto->imagen_url)) {
+        //     Storage::delete($producto->imagen_url);
+        // }
 
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Error al eliminar el producto: ' . $e->getMessage()
-            ], 500);
-        }
+        $producto->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Producto eliminado correctamente'
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Error al eliminar el producto: ' . $e->getMessage()
+        ], 500);
     }
+}
 
     // Método para la página de categorías
     public function categorias()
