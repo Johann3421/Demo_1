@@ -36,16 +36,19 @@ class FiltroController extends Controller
     }
 
     public function guardarGrupo(Request $request)
-    {
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-            'categoria_id' => 'required|exists:categorias,id',
-        ]);
+{
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'categoria_id' => 'required|exists:categorias,id',
+    ]);
 
-        Grupo::create($request->all());
+    Grupo::create([
+        'nombre' => $request->nombre,
+        'categoria_id' => $request->categoria_id
+    ]);
 
-        return redirect()->route('panel.filtros')->with('success', 'Grupo creado exitosamente.');
-    }
+    return redirect()->route('panel.filtros')->with('success', 'Grupo creado exitosamente.');
+}
 
     public function editarGrupo($id)
     {
@@ -55,17 +58,20 @@ class FiltroController extends Controller
     }
 
     public function actualizarGrupo(Request $request, $id)
-    {
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-            'categoria_id' => 'required|exists:categorias,id',
-        ]);
+{
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'categoria_id' => 'required|exists:categorias,id',
+    ]);
 
-        $grupo = Grupo::findOrFail($id);
-        $grupo->update($request->all());
+    $grupo = Grupo::findOrFail($id);
+    $grupo->update([
+        'nombre' => $request->nombre,
+        'categoria_id' => $request->categoria_id
+    ]);
 
-        return redirect()->route('panel.filtros')->with('success', 'Grupo actualizado exitosamente.');
-    }
+    return redirect()->route('panel.filtros')->with('success', 'Grupo actualizado exitosamente.');
+}
 
     public function eliminarGrupo($id)
     {
@@ -83,16 +89,19 @@ class FiltroController extends Controller
     }
 
     public function guardarSubgrupo(Request $request)
-    {
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-            'grupo_id' => 'required|exists:grupos,id',
-        ]);
+{
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'grupo_id' => 'required|exists:grupos,id',
+    ]);
 
-        Subgrupo::create($request->all());
+    Subgrupo::create([
+        'nombre' => $request->nombre,
+        'grupo_id' => $request->grupo_id
+    ]);
 
-        return redirect()->route('panel.filtros')->with('success', 'Subgrupo creado exitosamente.');
-    }
+    return redirect()->route('panel.filtros')->with('success', 'Subgrupo creado exitosamente.');
+}
 
     public function editarSubgrupo($id)
     {

@@ -11,12 +11,12 @@
 
         <div class="card shadow-lg">
             <div class="card-body">
-                <form action="{{ isset($producto) ? route('panel.productos.actualizar', $producto->id) : route('panel.productos.guardar') }}"
-                      method="POST" enctype="multipart/form-data">
+                <form action="{{ isset($producto) ? route('panel.productos.actualizar', $producto->id) : route('panel.productos.guardar') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @if (isset($producto)) @method('PUT') @endif
 
                     <div class="row row-cols-md-2 g-4">
+                        <!-- [Tus campos existentes...] -->
                         <!-- Nombre y Slug -->
                         <div class="col">
                             <label for="nombre" class="form-label fw-bold">Nombre del Producto</label>
@@ -127,8 +127,9 @@
                     </div>
 
                     <!-- Botón para añadir especificaciones -->
-                    <div class="d-flex justify-content-end mt-4">
-                        <button type="button" id="btn-especificaciones" class="btn btn-outline-primary me-3">
+                     <!-- Botón para añadir especificaciones -->
+                     <div class="d-flex justify-content-end mt-4">
+                        <button type="button" class="btn btn-outline-primary me-3" data-bs-toggle="modal" data-bs-target="#especificacionesModal">
                             <i class="fas fa-plus me-2"></i>Añadir Especificaciones
                         </button>
                         <button type="submit" class="btn btn-primary btn-lg">
@@ -139,5 +140,106 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal de Especificaciones -->
+    <div class="modal fade" id="especificacionesModal" tabindex="-1" aria-labelledby="especificacionesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="especificacionesModalLabel">Gestión de Especificaciones</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Pestañas -->
+                    <ul class="nav nav-tabs mb-3" id="especificacionesTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="manual-tab" data-bs-toggle="tab" data-bs-target="#manual" type="button" role="tab">Manual</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="excel-tab" data-bs-toggle="tab" data-bs-target="#excel" type="button" role="tab">Importar Excel</button>
+                        </li>
+                    </ul>
+
+                    <!-- Contenido de pestañas -->
+                    <div class="tab-content" id="especificacionesTabContent">
+                        <!-- Pestaña Manual -->
+                        <div class="tab-pane fade show active" id="manual" role="tabpanel" aria-labelledby="manual-tab">
+                            <form action="{{ isset($producto) ? route('panel.especificaciones.store', $producto->id) : '#' }}" method="POST">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="campo" class="form-label">Campo</label>
+                                    <input type="text" name="campo" id="campo" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="descripcion" class="form-label">Descripción</label>
+                                    <textarea name="descripcion" id="descripcion" class="form-control" rows="3" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Guardar Especificación</button>
+                            </form>
+                        </div>
+
+                        <!-- Pestaña Excel -->
+                        <div class="tab-pane fade" id="excel" role="tabpanel" aria-labelledby="excel-tab">
+                            <form action="{{ isset($producto) ? route('panel.especificaciones.importar', $producto->id) : '#' }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="archivo" class="form-label">Archivo Excel</label>
+                                    <input type="file" name="archivo" id="archivo" class="form-control" accept=".xlsx,.xls" required>
+                                    <div class="form-text">Formato requerido: Columna 1 = Campo, Columna 2 = Descripción</div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Importar Especificaciones</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Listado de especificaciones existentes -->
+                    @if(isset($producto))
+                        <div class="mt-4">
+                            <h5>Especificaciones Existentes</h5>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Campo</th>
+                                            <th>Descripción</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($producto->especificaciones as $especificacion)
+                                        <tr>
+                                            <td>{{ $especificacion->campo }}</td>
+                                            <td>{{ $especificacion->descripcion }}</td>
+                                            <td>
+                                                <a href="{{ route('panel.especificaciones.edit', $especificacion->id) }}" class="btn btn-sm btn-outline-warning">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <form action="{{ route('panel.especificaciones.destroy', $especificacion->id) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Eliminar esta especificación?')">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    @else
+                        <div class="alert alert-info mt-4">
+                            <i class="fas fa-info-circle me-2"></i> Debes guardar el producto primero para gestionar sus especificaciones.
+                        </div>
+                    @endif
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="{{ asset('js/admin-productos.js') }}"></script>
 @endsection

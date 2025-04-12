@@ -15,6 +15,13 @@
                 <i class="fas fa-file-import me-2"></i> Importar desde Excel
             </button>
 
+            <!-- Botón para eliminar todas las especificaciones -->
+            @if($especificaciones->count() > 0)
+            <button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#eliminarTodasModal">
+                <i class="fas fa-trash-alt me-2"></i> Eliminar Todas
+            </button>
+            @endif
+
             <!-- Modal para importar desde Excel -->
             <div class="modal fade" id="importarModal" tabindex="-1" aria-labelledby="importarModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -37,6 +44,30 @@
                 </div>
             </div>
 
+            <!-- Modal para confirmar eliminación de todas -->
+            <div class="modal fade" id="eliminarTodasModal" tabindex="-1" aria-labelledby="eliminarTodasModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header bg-danger text-white">
+                            <h5 class="modal-title" id="eliminarTodasModalLabel">Confirmar Eliminación</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>¿Está seguro que desea eliminar TODAS las especificaciones de este producto?</p>
+                            <p class="fw-bold">Esta acción no se puede deshacer.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <form action="{{ route('panel.especificaciones.destroyAll', $producto->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Eliminar Todas</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Lista de especificaciones -->
             <table class="table table-striped">
                 <thead>
@@ -52,19 +83,17 @@
                             <td>{{ $especificacion->campo }}</td>
                             <td>{{ $especificacion->descripcion }}</td>
                             <td>
-                                <!-- resources/views/panel/especificaciones/index.blade.php -->
-<a href="{{ route('panel.especificaciones.edit', $especificacion->id) }}" class="btn btn-sm btn-warning">
-    <i class="fas fa-edit"></i> Editar
-</a>
-                                
-                                <!-- resources/views/panel/especificaciones/index.blade.php -->
-<form action="{{ route('panel.especificaciones.destroy', $especificacion->id) }}" method="POST" class="d-inline">
-    @csrf
-    @method('DELETE')
-    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta especificación?')">
-        <i class="fas fa-trash"></i> Eliminar
-    </button>
-</form>
+                                <a href="{{ route('panel.especificaciones.edit', $especificacion->id) }}" class="btn btn-sm btn-warning">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+
+                                <form action="{{ route('panel.especificaciones.destroy', $especificacion->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta especificación?')">
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

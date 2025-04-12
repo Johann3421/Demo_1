@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Subgrupo extends Model
 {
     use HasFactory;
-
+    public $timestamps = false;
     /**
      * Los atributos que son asignables en masa.
      *

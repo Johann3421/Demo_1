@@ -246,4 +246,22 @@ class ProductController extends Controller
     return response()->json($productos);
 }
 
+public function store(Request $request)
+{
+    // Validación y creación del producto
+    $producto = Producto::create($request->except('especificaciones_temp'));
+
+    // Procesar especificaciones temporales si existen
+    if ($request->especificaciones_temp) {
+        $especificaciones = json_decode($request->especificaciones_temp, true);
+        foreach ($especificaciones as $esp) {
+            $producto->especificaciones()->create([
+                'campo' => $esp['campo'],
+                'descripcion' => $esp['descripcion']
+            ]);
+        }
+    }
+
+    return redirect()->route('panel.productos')->with('success', 'Producto creado con especificaciones');
+}
 }

@@ -1,5 +1,14 @@
 /* public/css/admin.css */
 
+/* Modal más ancho para la tabla */
+.modal-lg {
+    max-width: 900px;
+}
+
+/* Espaciado en las pestañas */
+.nav-tabs .nav-link {
+    padding: 0.5rem 1.25rem;
+}
 /* Estilos para el sidebar */
 aside {
     background-color: #f8f9fa;

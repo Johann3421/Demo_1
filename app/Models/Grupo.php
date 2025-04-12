@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Grupo extends Model
 {
     use HasFactory;
-
+    public $timestamps = false;
     /**
      * Los atributos que son asignables en masa.
      *

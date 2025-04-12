@@ -43,9 +43,7 @@ document.getElementById('slug').addEventListener('input', function() {
 });
 
 // Botón de especificaciones (placeholder para futura implementación)
-document.getElementById('btn-especificaciones').addEventListener('click', function() {
-    alert('Funcionalidad de añadir especificaciones estará disponible pronto.');
-});
+
 
 // Obtener referencias a los elementos del formulario
 const categoriaSelect = document.getElementById('categoria_id');
@@ -164,5 +162,23 @@ document.addEventListener("DOMContentLoaded", function() {
         convertirDolaresASoles();
     } else if (esNumeroValido(precioSoles.value)) {
         convertirSolesADolares();
+    }
+});
+document.addEventListener('DOMContentLoaded', function() {
+    // Solo para productos nuevos
+    const especificacionesTemp = [];
+    const formProducto = document.querySelector('form[action*="productos"]');
+
+    if(formProducto && !formProducto.querySelector('input[name="_method"][value="PUT"]')) {
+        // Es un formulario de creación (no edición)
+        formProducto.addEventListener('submit', function() {
+            if(especificacionesTemp.length > 0) {
+                const inputHidden = document.createElement('input');
+                inputHidden.type = 'hidden';
+                inputHidden.name = 'especificaciones_temp';
+                inputHidden.value = JSON.stringify(especificacionesTemp);
+                this.appendChild(inputHidden);
+            }
+        });
     }
 });

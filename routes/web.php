@@ -149,8 +149,40 @@ Route::prefix('panel/especificaciones')->group(function () {
 });
 
 //////////////////////////////////ESPECIFICACIONES/////////////////////////////////////
+Route::prefix('panel/especificaciones')->group(function () {
+    // Ruta para seleccionar un producto
+    Route::get('/seleccionar-producto', [EspecificacionController::class, 'seleccionarProducto'])->name('panel.especificaciones.seleccionar_producto');
 
+    // Ruta para mostrar las especificaciones de un producto (requiere producto_id)
+    Route::get('/{producto_id}', [EspecificacionController::class, 'index'])->name('panel.especificaciones.index');
 
+    // Ruta para mostrar el formulario de creación de especificaciones (requiere producto_id)
+    Route::get('/create/{producto_id}', [EspecificacionController::class, 'create'])->name('panel.especificaciones.create');
+
+    // Ruta para guardar una nueva especificación (requiere producto_id)
+    Route::post('/store/{producto_id}', [EspecificacionController::class, 'store'])->name('panel.especificaciones.store');
+
+    // Ruta para mostrar el formulario de edición de una especificación (requiere id)
+    Route::get('/edit/{id}', [EspecificacionController::class, 'edit'])->name('panel.especificaciones.edit');
+
+    // Ruta para actualizar una especificación existente (requiere id)
+    Route::put('/update/{id}', [EspecificacionController::class, 'update'])->name('panel.especificaciones.update');
+
+    // Ruta para eliminar una especificación (requiere id)
+    Route::delete('/destroy/{id}', [EspecificacionController::class, 'destroy'])->name('panel.especificaciones.destroy');
+
+    // Ruta para importar especificaciones desde Excel (requiere producto_id)
+    Route::post('/importar/{producto_id}', [EspecificacionController::class, 'importar'])->name('panel.especificaciones.importar');
+    Route::delete('/especificaciones/destroy-all/{producto_id}', [EspecificacionController::class, 'destroyAll'])
+    ->name('panel.especificaciones.destroyAll');
+    // Para especificaciones de productos existentes
+Route::post('/especificaciones/store/{producto_id}', [EspecificacionController::class, 'store'])
+->name('panel.especificaciones.store');
+});
+
+// Para creación de productos (con especificaciones temporales)
+Route::post('/productos/guardar', [ProductoController::class, 'store'])
+     ->name('panel.productos.guardar');
 //////////////////////////////////FOOTER/////////////////////////////////////
 
 Route::get('/metodos-pago', function () {

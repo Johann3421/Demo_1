@@ -31,7 +31,8 @@ class EspecificacionController extends Controller
     }
 
     // Guardar una nueva especificación
-    public function store(Request $request, $producto_id)
+    // Guardar una nueva especificación (Versión Corregida)
+public function store(Request $request, $producto_id)
 {
     $request->validate([
         'campo' => 'required|string|max:255',
@@ -39,12 +40,14 @@ class EspecificacionController extends Controller
     ]);
 
     Especificacion::create([
+        'producto_id' => $producto_id,
         'campo' => $request->campo,
         'descripcion' => $request->descripcion,
-        'producto_id' => $producto_id,
     ]);
 
-    return redirect()->route('panel.especificaciones.index', $producto_id)->with('success', 'Especificación creada exitosamente.');
+    return redirect()
+           ->route('panel.especificaciones.index', $producto_id)
+           ->with('success', 'Especificación creada exitosamente.');
 }
 
     // Mostrar formulario para editar una especificación
@@ -89,4 +92,11 @@ public function update(Request $request, $id)
 
         return redirect()->route('panel.especificaciones.index', $producto_id)->with('success', 'Especificaciones importadas exitosamente.');
     }
+    public function destroyAll($producto_id)
+{
+    Especificacion::where('producto_id', $producto_id)->delete();
+
+    return redirect()->route('panel.especificaciones.index', $producto_id)
+        ->with('success', 'Todas las especificaciones han sido eliminadas');
+}
 }
