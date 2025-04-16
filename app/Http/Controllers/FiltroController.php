@@ -15,17 +15,44 @@ class FiltroController extends Controller
     // Obtener todas las categorías (sin paginación)
     $categorias = Categoria::with(['grupos.subgrupos'])->get();
 
-    // Obtener grupos y subgrupos con paginación
-    $perPage = $request->input('perPage', 10); // Cantidad de elementos por página (por defecto 10)
-    $grupos = Grupo::with('categoria')->paginate($perPage); // Pagina los grupos
-    $subgrupos = Subgrupo::with('grupo')->paginate($perPage); // Pagina los subgrupos
+    // Obtener parámetros
+    $perPage = $request->input('perPage', 10);
+    $activeTab = $request->input('activeTab', 'grupos');
+    $search = $request->input('search');
 
-    // Compartir las variables con todas las vistas
-    View::share('categorias', $categorias);
-    View::share('grupos', $grupos);
-    View::share('subgrupos', $subgrupos);
+    // Paginación de grupos
+    $grupos = Grupo::with('categoria')
+        ->when($activeTab == 'grupos' && $search, function($query) use ($search) {
+            $query->where('nombre', 'like', "%{$search}%")
+                  ->orWhereHas('categoria', function($q) use ($search) {
+                      $q->where('nombre', 'like', "%{$search}%");
+                  });
+        })
+        ->orderBy('nombre')
+        ->paginate($perPage, ['*'], 'grupos_page')
+        ->appends([
+            'perPage' => $perPage,
+            'activeTab' => $activeTab,
+            'search' => $search
+        ]);
 
-    return view('panel.filtros', compact('categorias', 'grupos', 'subgrupos'));
+    // Paginación de subgrupos
+    $subgrupos = Subgrupo::with('grupo')
+        ->when($activeTab == 'subgrupos' && $search, function($query) use ($search) {
+            $query->where('nombre', 'like', "%{$search}%")
+                  ->orWhereHas('grupo', function($q) use ($search) {
+                      $q->where('nombre', 'like', "%{$search}%");
+                  });
+        })
+        ->orderBy('nombre')
+        ->paginate($perPage, ['*'], 'subgrupos_page')
+        ->appends([
+            'perPage' => $perPage,
+            'activeTab' => $activeTab,
+            'search' => $search
+        ]);
+
+    return view('panel.filtros', compact('categorias', 'grupos', 'subgrupos', 'perPage', 'activeTab', 'search'));
 }
 
     // Métodos para Grupos
