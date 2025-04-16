@@ -163,37 +163,41 @@
     <div class="container product-page">
         <div class="product-container">
             <!-- 📷 Galería optimizada -->
-            <div class="product-gallery">
-                <!-- Imagen principal con lazy loading -->
-                <div class="product-main-image">
-                    <img src="{{ asset('images/' . $producto->imagen_url) }}"
-                         alt="{{ $producto->nombre }}"
-                         class="img-fluid main-img"
-                         loading="lazy"
-                         width="600"
-                         height="600"
-                         onload="this.style.opacity=1">
-                </div>
+<div class="product-gallery">
+    <!-- Imagen principal -->
+    <div class="product-main-image">
+        <img src="{{ asset('images/' . $producto->imagen_url) }}"
+             alt="{{ $producto->nombre }}"
+             class="img-fluid main-img"
+             loading="lazy"
+             width="600"
+             height="600"
+             onload="this.style.opacity=1">
+    </div>
 
-                <!-- Miniaturas optimizadas (solo si son necesarias) -->
-                <div class="product-thumbnails">
-                    @foreach(range(1, min(4, $producto->imagenes_count)) as $i)
-                        <img src="{{ $i === 1 ? asset('images/' . $producto->imagen_url) : 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==' }}"
-                             data-src="{{ asset('images/' . $producto->imagen_url) }}"
-                             alt="{{ $producto->nombre }} - Vista {{ $i }}"
-                             class="thumbnail lazy"
-                             width="100"
-                             height="100"
-                             @if($i === 1) loading="eager" @endif>
-                    @endforeach
-                </div>
+    <!-- Miniaturas -->
+    <div class="product-thumbnails">
+        @foreach(range(1, min(4, $producto->imagenes_count)) as $i)
+            <img src="{{ $i === 1 ? asset('images/' . $producto->imagen_url) : 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==' }}"
+                 data-src="{{ asset('images/' . $producto->imagen_url) }}"
+                 alt="{{ $producto->nombre }} - Vista {{ $i }}"
+                 class="thumbnail lazy"
+                 width="100"
+                 height="100"
+                 @if($i === 1) loading="eager" @endif>
+        @endforeach
+    </div>
 
-                <!-- Modal optimizado -->
-                <div class="image-modal" aria-hidden="true" role="dialog">
-                    <button class="close-modal" aria-label="Cerrar vista ampliada">&times;</button>
-                    <img class="modal-content" alt="Vista ampliada">
-                </div>
+    <!-- Modal mejorado -->
+    <div class="image-modal" aria-hidden="true" role="dialog">
+        <div class="modal-container">
+            <button class="close-modal" aria-label="Cerrar vista ampliada">&times;</button>
+            <div class="modal-image-container">
+                <img class="modal-content" alt="Vista ampliada">
             </div>
+        </div>
+    </div>
+</div>
 
             <!-- 📄 Información optimizada -->
             <div class="product-info">

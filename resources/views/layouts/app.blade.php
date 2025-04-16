@@ -180,7 +180,18 @@
             </a>
         </div>
     </div>
-
+    <style>
+        .cmpboxrecall, .cmpstyleroot, .cmprecallwarning {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            position: absolute !important;
+            width: 0 !important;
+            height: 0 !important;
+            overflow: hidden !important;
+        }
+        </style>
 </body>
 
 </html>
