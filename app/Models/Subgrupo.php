@@ -25,4 +25,9 @@ class Subgrupo extends Model
     {
         return $this->belongsTo(Grupo::class);
     }
+    // app/Models/Subgrupo.php
+public function productos()
+{
+    return $this->hasMany(Producto::class, 'subgrupo_id');
+}
 }

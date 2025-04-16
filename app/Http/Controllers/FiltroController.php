@@ -6,6 +6,7 @@ use App\Models\Subgrupo;
 use App\Models\Categoria;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FiltroController extends Controller
 {
@@ -151,10 +152,20 @@ class FiltroController extends Controller
     }
 
     public function eliminarSubgrupo($id)
-    {
+{
+    DB::transaction(function () use ($id) {
         $subgrupo = Subgrupo::findOrFail($id);
-        $subgrupo->delete();
 
-        return redirect()->route('panel.filtros')->with('success', 'Subgrupo eliminado exitosamente.');
-    }
+        // Opción 2.1: Reasignar productos a otro subgrupo
+        // Producto::where('subgrupo_id', $id)->update(['subgrupo_id' => null]);
+
+        // Opción 2.2: Eliminar productos relacionados primero
+        $subgrupo->productos()->delete();
+
+        $subgrupo->delete();
+    });
+
+    return redirect()->route('panel.filtros')
+           ->with('success', 'Subgrupo eliminado exitosamente.');
+}
 }
