@@ -48,8 +48,7 @@ class ProductController extends Controller
 
         // Filtro por precio máximo en dólares (existente)
         if ($request->filled('max_price') && is_numeric($request->max_price)) {
-            $precioEnDolares = $request->max_price / 3.8; // Convertir soles a dólares
-            $query->where('precio_dolares', '<=', $precioEnDolares);
+            $query->where('precio_soles', '<=', $request->max_price); // <- Cambio aquí
         }
 
         // Filtro por stock y ofertas (existente)
@@ -66,10 +65,6 @@ class ProductController extends Controller
         $perPage = $request->get('per_page', 6);
         $productos = $query->paginate($perPage);
 
-        // Calcular el precio en soles para cada producto (existente)
-        foreach ($productos as $producto) {
-            $producto->precio_soles = round($producto->precio_dolares * 3.8, 2);
-        }
 
         // Obtener 3 productos aleatorios para "Top de Ventas" (existente)
         $topVentas = Producto::inRandomOrder()->limit(3)->get();
@@ -87,7 +82,6 @@ class ProductController extends Controller
         $producto = Producto::findOrFail($id);
 
         // Calcular el precio en soles
-        $producto->precio_soles = round($producto->precio_dolares * 3.8, 2);
 
         // Generar URL amigable
         $url = route('producto.detalles', ['id' => $producto->id, 'slug' => $producto->slug]);
@@ -150,9 +144,6 @@ class ProductController extends Controller
         $productos = $query->paginate($perPage);
 
         // Calcular el precio en soles para cada producto
-        foreach ($productos as $producto) {
-            $producto->precio_soles = round($producto->precio_dolares * 3.8, 2);
-        }
 
         // Devolver una respuesta JSON con los productos y la paginación
         return response()->json([

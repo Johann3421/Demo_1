@@ -100,4 +100,10 @@ protected static function booted()
 {
     return $this->hasMany(Especificacion::class);
 }
+public function getPrecioSolesAttribute()
+{
+    $tipoCambio = \App\Models\Configuracion::first()->precio_dolar ?? 3.8;
+    return round($this->precio_dolares * $tipoCambio, 2);
+}
+
 }
