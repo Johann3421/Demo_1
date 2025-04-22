@@ -13,8 +13,8 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $producto = Producto::find(1);
-        $sku = $producto->sku; // Acceder al campo SKU
-        $producto = Producto::where('sku', 'SKU-123456')->first();
+$sku = $producto?->sku; // null-safe
+
 
         // Obtener todas las categorías
         $categorias = Categoria::all();
